@@ -1,0 +1,15 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class PlasmaFire : MonoBehaviour
+{
+    public float plasmaForce = 3000;
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("FirePoint"))
+            GetComponent<Rigidbody2D>().AddForce(transform.right * plasmaForce);
+    }
+
+}
