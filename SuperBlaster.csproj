@@ -13,11 +13,13 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile></CompilerResponseFile>
+    <CompilerResponseFile>
+    </CompilerResponseFile>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows:5</UnityBuildTarget>
     <UnityVersion>5.5.2f1</UnityVersion>
-    <RootNamespace></RootNamespace>
+    <RootNamespace>
+    </RootNamespace>
     <LangVersion Condition=" '$(VisualStudioVersion)' != '10.0' ">4</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -75,15 +77,21 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\BadGuyMovement.cs" />
+    <Compile Include="Assets\Scripts\BaseDestroy.cs" />
     <Compile Include="Assets\Scripts\GoodGuy.cs" />
     <Compile Include="Assets\Scripts\GoodGuyManager.cs" />
+    <Compile Include="Assets\Scripts\NextWaypoint.cs" />
+    <Compile Include="Assets\Scripts\ObjectDestroy.cs" />
+    <Compile Include="Assets\Scripts\ObjectHit.cs" />
     <Compile Include="Assets\Scripts\PlasmaDestroy.cs" />
     <Compile Include="Assets\Scripts\PlasmaFire.cs" />
     <Compile Include="Assets\Scripts\PlasmaSpawn.cs" />
+    <Compile Include="Assets\Scripts\RocketCollision.cs" />
     <Compile Include="Assets\Scripts\RocketDestroy.cs" />
     <Compile Include="Assets\Scripts\RocketFire.cs" />
     <Compile Include="Assets\Scripts\RocketSpawn.cs" />
-    <Compile Include="Assets\TestMouseOver.cs" />
+    <Compile Include="Assets\Scripts\ShieldState.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />

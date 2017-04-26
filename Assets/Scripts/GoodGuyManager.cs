@@ -14,11 +14,6 @@ public class GoodGuyManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetButtonDown("Fire1"))
-        {
-            Debug.Log(string.Format("Mouse: x{0}, y{1}", Input.mousePosition.x, Input.mousePosition.y));
-        }
-
         var h = Input.GetAxisRaw("Horizontal");
         h *= 100;
         h *= Time.deltaTime;
