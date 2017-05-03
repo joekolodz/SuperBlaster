@@ -7,10 +7,18 @@ public class PlasmaDestroy : MonoBehaviour
     public GameObject explosion;
     [Range(0,3)]
     public float explosionScale = 1.0f;
+    public AudioSource audioSource;
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        Destroy(gameObject);
+        if(!audioSource.isPlaying)
+            audioSource.Play();
+
+        //hide the plasma blast sprite so the sound can still play
+        //don't hide the particles coz it looks cool
+        gameObject.GetComponent<SpriteRenderer>().enabled = false;
+
+        Destroy(gameObject, 2.0f);
     }
 
     private void OnDestroy()
