@@ -11,7 +11,7 @@ public class PlasmaDestroy : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(!audioSource.isPlaying)
+        if(audioSource != null && !audioSource.isPlaying)
             audioSource.Play();
 
         //hide the plasma blast sprite so the sound can still play
