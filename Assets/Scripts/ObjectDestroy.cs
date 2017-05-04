@@ -18,13 +18,18 @@ public class ObjectDestroy : MonoBehaviour
 
     public void Explode()
     {
-        if(soundOnDestroy!=null && !isClipPlaying)
+        gameObject.GetComponent<SpriteRenderer>().enabled = false;
+
+        if (soundYeah != null && !soundYeah.isPlaying)
         {
-            isClipPlaying = true;
-            AudioSource.PlayClipAtPoint(soundYeah.clip, new Vector3());
-            AudioSource.PlayClipAtPoint(soundOnDestroy.clip, new Vector3());
+            soundYeah.Play();
         }
 
+        if (soundOnDestroy != null && !soundOnDestroy.isPlaying)
+        {
+            soundOnDestroy.Play();
+        }
+        
         StartCoroutine(MultipleExplosions());
     }
 
@@ -32,7 +37,9 @@ public class ObjectDestroy : MonoBehaviour
     {
         for (var i = 0; i < multiExplosionSize; i++)
         {
-            var instance = Instantiate(explosion, transform.position, Quaternion.identity);
+            var pos = transform.position;
+            pos.x += 3 * explosionSizeMultiplier;
+            var instance = Instantiate(explosion, pos, Quaternion.identity);            
             instance.transform.localScale *= explosionSizeMultiplier;
             var ps = instance.transform.Find("PS Explosion");
             ps.localScale *= explosionSizeMultiplier;
