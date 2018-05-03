@@ -6,6 +6,10 @@ public class PlasmaSpawn : MonoBehaviour
 {
     public GameObject plasma;
     public Transform spawnPoint;
+    [Range(0, 10)]
+    public int roundsPerBurst = 3;
+    [Range(0, 2)]
+    public float delayBetweenRounds = 0.07f;
 
     private System.DateTime fireTime;
 
@@ -18,12 +22,12 @@ public class PlasmaSpawn : MonoBehaviour
     {
         if (plasma == null || spawnPoint == null) return;
 
-        if(System.DateTime.Now > fireTime)
+        if (System.DateTime.Now > fireTime)
         {
             Fire();
-            fireTime = System.DateTime.Now.AddSeconds(Random.Range(2,4));
+            fireTime = System.DateTime.Now.AddSeconds(Random.Range(2, 4));
         }
-        
+
 
         var isFiring = Input.GetButtonDown("Fire2");
 
@@ -40,10 +44,13 @@ public class PlasmaSpawn : MonoBehaviour
 
     private IEnumerator FirePlasmaBurst()
     {
-        Instantiate(plasma, spawnPoint.position, spawnPoint.rotation);
-        yield return new WaitForSeconds(.07f);
-        Instantiate(plasma, spawnPoint.position, spawnPoint.rotation);
-        yield return new WaitForSeconds(.07f);
-        Instantiate(plasma, spawnPoint.position, spawnPoint.rotation);
+        for (var n = 0; n <= roundsPerBurst; n++)
+        {
+            if (plasma != null && spawnPoint != null)
+            {
+                Instantiate(plasma, spawnPoint.position, spawnPoint.rotation);
+                yield return new WaitForSeconds(delayBetweenRounds);
+            }
+        }
     }
 }

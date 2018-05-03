@@ -25,9 +25,10 @@ public class BadGuyMovement : MonoBehaviour
                 closestWaypoint = wp;
             }
         }
+            
         nextWaypoint = closestWaypoint;
         direction = nextWaypoint.position - badGuy.position;
-        Debug.Log("Closest waypoint to " + badGuy.parent.name + " is " + nextWaypoint.name + ". Direction:" + direction);
+        //Debug.Log("Closest waypoint to " + badGuy.parent.name + " is " + nextWaypoint.name + ". Direction:" + direction);
     }
 
     void Update()

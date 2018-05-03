@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2015
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SuperBlaster", "SuperBlaster.csproj", "{19E4959D-F6C5-A335-F2DA-BC66845769C9}"
+# Visual Studio 15
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SuperBlaster", "Assembly-CSharp.csproj", "{8C46E92C-ED66-86A0-5B8D-938A4C2B9167}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -9,10 +9,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{19E4959D-F6C5-A335-F2DA-BC66845769C9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{19E4959D-F6C5-A335-F2DA-BC66845769C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{19E4959D-F6C5-A335-F2DA-BC66845769C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{19E4959D-F6C5-A335-F2DA-BC66845769C9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8C46E92C-ED66-86A0-5B8D-938A4C2B9167}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8C46E92C-ED66-86A0-5B8D-938A4C2B9167}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8C46E92C-ED66-86A0-5B8D-938A4C2B9167}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8C46E92C-ED66-86A0-5B8D-938A4C2B9167}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

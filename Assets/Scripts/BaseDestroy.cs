@@ -10,5 +10,8 @@ public class BaseDestroy : MonoBehaviour
     {
         TheBase.SetActive(false);
         //call UI script to replay
+        var panel = GameObject.Find("Panel (Dead)");
+        panel.SetActive(true);
+
     }
 }
