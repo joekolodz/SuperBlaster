@@ -12,6 +12,7 @@ public class PlasmaFire : MonoBehaviour
         if (collision.gameObject.CompareTag("FirePoint"))
         {
             GetComponent<Rigidbody2D>().AddForce(transform.right * plasmaForce);
+
             if (!audioSource.isPlaying)
                 audioSource.Play();
         }

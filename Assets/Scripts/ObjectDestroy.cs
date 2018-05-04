@@ -12,18 +12,10 @@ public class ObjectDestroy : MonoBehaviour
     public float multiExplosionIntervalDelay = 0.3f;
 
     public AudioSource soundOnDestroy;
-    public AudioSource soundYeah;
-
-    private bool isClipPlaying = false;
 
     public void Explode()
     {
         gameObject.GetComponent<SpriteRenderer>().enabled = false;
-
-        if (soundYeah != null && !soundYeah.isPlaying)
-        {
-            soundYeah.Play();
-        }
 
         if (soundOnDestroy != null && !soundOnDestroy.isPlaying)
         {

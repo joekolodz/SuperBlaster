@@ -16,14 +16,31 @@ public class GoodGuyManager : MonoBehaviour
     void Update()
     {
         var h = Input.GetAxisRaw("Horizontal");
+        var v = Input.GetAxisRaw("Vertical");
 
         var guy = gameObject.GetComponent<GoodGuyManager>();
         if (guy.isSelected)
         {
-            h *= 100;
-            h *= Time.deltaTime;
-            guy.transform.Rotate(0, 0, -h);
+            if (h != 0.0f)
+            {
+                h = ApplyRotation(h, guy);
+            }
+            else
+            {
+                if (v != 0.0f)
+                {
+                    v = ApplyRotation(-v, guy);
+                }
+            }
         }
+    }
+
+    private static float ApplyRotation(float amount, GoodGuyManager guy)
+    {
+        amount *= 100;
+        amount *= Time.deltaTime;
+        guy.transform.Rotate(0, 0, -amount);
+        return amount;
     }
 
     public void Select()

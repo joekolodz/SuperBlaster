@@ -23,6 +23,8 @@ public class ObjectHit : MonoBehaviour
     public GameObject hitTriggerObject;
     public float delayDestroy = 0.8f;
 
+    public AudioSource soundYeah;
+
     private GameObject smokeInstance;
     private bool isSmoking = false;
 
@@ -58,6 +60,12 @@ public class ObjectHit : MonoBehaviour
 
                 var ps = smokeInstance.transform.Find("PS Smoke Trail");
                 ps.localScale *= smokeSizeMultiplier;
+
+                //say Yeah 50% of the time
+                if (soundYeah != null)
+                {
+                    soundYeah.Play();
+                }
 
                 isSmoking = true;
             }

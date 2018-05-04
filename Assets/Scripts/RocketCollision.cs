@@ -8,12 +8,14 @@ public class RocketCollision : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        print("Yup");
+
         Destroy(gameObject);
         
         if (collision.gameObject.name == "Bad Guy")
         {
             Destroy(collision.gameObject);
-            //var explosionInstance2 = Instantiate(explosion, transform.position, Quaternion.identity);
+
         }
 
         var explosionInstance = Instantiate(rocketExplosion, transform.position, Quaternion.identity);

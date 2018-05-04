@@ -9,9 +9,14 @@ public class BaseDestroy : MonoBehaviour
     void OnDestroy()
     {
         TheBase.SetActive(false);
+        
         //call UI script to replay
         var panel = GameObject.Find("Panel (Dead)");
-        panel.SetActive(true);
+
+        if (panel != null)
+        {
+            panel.SetActive(true);
+        }
 
     }
 }

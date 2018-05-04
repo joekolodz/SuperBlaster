@@ -10,6 +10,8 @@ public class RocketSpawn : MonoBehaviour
 
     private void Update()
     {
+        if (GameObject.Find("MenuControl").GetComponent<MenuControl>().isPaused) return;
+
         bool isFiring = Input.GetButtonDown("Fire1");
         
         if (isFiring)
