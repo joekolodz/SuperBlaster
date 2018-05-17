@@ -34,10 +34,12 @@ public class BadGuyMovement : MonoBehaviour
     void Update()
     {
         if (badGuy == null) return;
-        //if (!badGuy.parent.name.Contains("1")) return;
 
-        rotate();
+        //rotate to keep the next waypoint in view
+        badGuy.rotation = GeometricFunctions.RotateToFace(badGuy.position, nextWaypoint.position, -90);
+        direction = (nextWaypoint.position - badGuy.position).normalized;
 
+        //move towards the waypoint
         badGuy.Translate(moveSpeed * direction * Time.deltaTime, Space.World);
         var distance = Vector3.Distance(badGuy.position, nextWaypoint.position);
         if (distance < .1f)
@@ -46,13 +48,5 @@ public class BadGuyMovement : MonoBehaviour
             nextWaypoint = newWaypoint;
             direction = nextWaypoint.position - badGuy.position;
         }
-    }
-
-    private void rotate()
-    {
-        direction = nextWaypoint.position - badGuy.position;
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-        badGuy.rotation = Quaternion.Euler(new Vector3(0, 0, angle - 90));
-        direction = direction.normalized;
     }
 }
