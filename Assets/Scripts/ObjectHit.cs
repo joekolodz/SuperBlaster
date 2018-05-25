@@ -90,6 +90,11 @@ public class ObjectHit : MonoBehaviour
             gameObject.GetComponent<ObjectDestroy>().Explode();
             EnableChildren(true);
             Destroy(gameObject, delayDestroy);
+            
+            //check if object was bad guy
+            //keep track of count of dead bad guys
+            //if 4 then set next scene
+
         }
     }
 

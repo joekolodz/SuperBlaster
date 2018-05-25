@@ -5,18 +5,26 @@ using UnityEngine;
 public class BaseDestroy : MonoBehaviour
 {
     public GameObject TheBase;
+    public GameObject mainMenuPanel;
 
     void OnDestroy()
     {
-        TheBase.SetActive(false);
-        
-        //call UI script to replay
-        var panel = GameObject.Find("Panel (Dead)");
+        //GameObject.Find("MenuControl").GetComponent<MenuControl>().Pause();
 
-        if (panel != null)
+        var fireControl = GameObject.Find("FireControl");
+        if (fireControl)
         {
-            panel.SetActive(true);
+            fireControl.GetComponent<FireControl>().StopAllBadGuyMovement();
         }
 
+        //var f = GameObject.Find("FireControl");
+        //print(f);
+
+        //call UI script to replay
+        if (mainMenuPanel)
+        {
+            mainMenuPanel.SetActive(true);
+        }
+        TheBase.SetActive(false);
     }
 }

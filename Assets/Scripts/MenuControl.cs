@@ -25,16 +25,25 @@ public class MenuControl : MonoBehaviour
             Restart();
         }
 
+        if (Input.GetKey(KeyCode.P))
+        {
+            Pause();
+        }
+
     }
 
     public void Quit()
     {
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
         Application.Quit();
+#endif
     }
 
     public void Restart()
     {
-        SceneManager.LoadScene("Main Scene");
+        SceneManager.LoadScene("Level 2");
     }
 
     public void Pause()

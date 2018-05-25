@@ -8,6 +8,7 @@ public class RocketDestroy : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        //destroy the rocket anytime it hits anything
         Destroy(gameObject);
     }
 
