@@ -3,18 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
+
+
+//do not use. 
+//moved logic to FireControl
+
 public class RocketSpawn : MonoBehaviour
 {
     public GameObject rocket;
-
     public Transform spawnPoint;
 
     private void Update()
     {
         if (GameObject.Find("MenuControl").GetComponent<MenuControl>().isPaused) return;
-
         bool isFiring = false;// Input.GetButtonDown("Fire1");
-
         if (isFiring)
         {
             Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);

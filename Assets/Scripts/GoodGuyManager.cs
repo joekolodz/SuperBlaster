@@ -6,6 +6,7 @@ public class GoodGuyManager : MonoBehaviour
 {
     public Transform guy;
     public bool isSelected = false;
+    public bool isSelectedOnStartup = false;
 
     private void Start()
     {

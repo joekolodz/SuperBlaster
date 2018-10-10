@@ -6,14 +6,13 @@ public class BadGuyMovement : MonoBehaviour
 {
     public Transform badGuy;
     public int moveSpeed = 5;
+    public bool isDestroyed = false;
 
     private Transform nextWaypoint;
     private Vector3 direction;
 
     void Awake()
     {
-        print("badguy movement - looking for waypoints");
-
         var navigation = GameObject.Find("Waypoints").GetComponent<Navigation>();
         var closestWaypointDistance = -1f;
         var closestWaypoint = navigation.waypoints[0];

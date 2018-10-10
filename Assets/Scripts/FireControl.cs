@@ -3,12 +3,95 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
+
+public static class ScoreBucket
+{
+    public static int Score = 0;
+    public static int HighScore = 0;
+
+    public static void AddScore(int score)
+    {
+        Score+=score;
+        UpdateHighScore();
+    }
+
+    public static void BuyRocket(int cost)
+    {
+        Score-=cost;
+        if(Score<0)
+        {
+            Score = 0;
+        }
+        UpdateHighScore();
+    }
+
+    private static void UpdateHighScore()
+    {
+        if (Score > HighScore)
+        {
+            HighScore = Score;
+        }
+    }
+
+    public static void SaveHighScore()
+    {
+        PlayerPrefs.SetInt("highscore",HighScore);
+        PlayerPrefs.Save();
+    }
+
+    public static void LoadHighScore()
+    {
+        HighScore = PlayerPrefs.GetInt("highscore");
+    }
+}
 
 public class FireControl : MonoBehaviour
 {
     public Transform[] _goodGuys;
     public Transform[] _badGuys;
+    public GameObject _getReadyText;
+
+    private int rocketCost = 1;
+
+    private Text scoreText;
+    private Text highScoreText;
+
     private GoodGuyManager _currentlySelectedGuy;
+    private bool isAllDestroyed = false;
+    private bool isWaitingForDelay = false;
+
+    void Start()
+    {
+        isAllDestroyed = true;
+        isWaitingForDelay = false;
+
+        PlaceScoreText();
+        
+        ScoreBucket.LoadHighScore();
+        UpdateScore();
+
+        foreach (var guy in _goodGuys)
+        {
+            var manager = guy.GetComponent<GoodGuyManager>();
+            if (manager.isSelectedOnStartup)
+            {
+                SelectGuy(manager);
+                break;
+            }
+        }
+    }
+
+    public void PlaceScoreText()
+    {
+        var resource = Resources.Load("ScoreText", typeof(Text));
+        scoreText = Instantiate(resource, GameObject.Find("Canvas").transform, false) as Text;
+
+        resource = Resources.Load("HighScoreText", typeof(Text));
+        highScoreText = Instantiate(resource, GameObject.Find("Canvas").transform, false) as Text;
+
+        UpdateScore();
+    }
 
     public void Update()
     {
@@ -30,13 +113,50 @@ public class FireControl : MonoBehaviour
                 FireARocket(_currentlySelectedGuy, mousePos);
             }
         }
+
+        //should be an event from bad guys instead of polling
+        DetectBadGuyDeathState();
+
+    }
+
+    private void DetectBadGuyDeathState()
+    {
+        isAllDestroyed = true;
+        foreach (var t in _badGuys)
+        {
+            if (t.GetComponent<BadGuyMovement>().isDestroyed) continue;
+            isAllDestroyed = false;
+        }
+
+        if (isAllDestroyed && !isWaitingForDelay)
+        {
+            isWaitingForDelay = true;
+            StartCoroutine(StartNextLevel());
+        }
+    }
+
+    IEnumerator StartNextLevel()
+    {
+        //Display GET READY and pause for next level
+        ScoreBucket.SaveHighScore();
+        Instantiate(_getReadyText, GameObject.Find("Canvas").transform, false);
+        yield return new WaitForSeconds(4);
+
+        var sceneIndex = SceneManager.GetActiveScene().buildIndex + 1;
+        if (sceneIndex > 13)
+        {
+            sceneIndex = 0;
+            //increase difficulty?
+        }
+        SceneManager.LoadSceneAsync(sceneIndex);
     }
 
     public void StopAllBadGuyMovement()
     {
-        foreach(var badGuy in _badGuys)
+        foreach (var badGuy in _badGuys)
         {
             badGuy.GetComponent<BadGuyMovement>().moveSpeed = 0;
+            badGuy.GetComponent<PlasmaSpawn>().roundsPerBurst = 0;
         }
     }
 
@@ -74,32 +194,12 @@ public class FireControl : MonoBehaviour
             {
                 guyFiring.transform.rotation = GeometricFunctions.RotateToFace(rocketLauncher.transform.position, mousePos);
             }
-            
+
             var rocketSpawn = guyFiring.GetComponent<RocketSpawn>();
             //then instantiate rocket
             Instantiate(rocketSpawn.rocket, rocketSpawn.spawnPoint.position, rocketSpawn.spawnPoint.rotation);
+            BuyRocket(rocketCost);
         }
-    }
-
-    // Use this for initialization
-    void Start()
-    {
-        //pre-select the good guy at start of game
-        var sceneIndex = SceneManager.GetActiveScene().buildIndex;
-        var goodGuyIndex = 0; //0=top left, 1=top right, 2=bottom left, 3=bottom right
-        switch (sceneIndex)
-        {
-            case 0: //level 1
-                goodGuyIndex = 0;
-                break;
-            case 1: //level 2
-                goodGuyIndex = 0;
-                break;
-            case 2: //etc
-                goodGuyIndex = 2;
-                break;
-        }
-        SelectGuy(_goodGuys[goodGuyIndex].GetComponent<GoodGuyManager>());
     }
 
     public void UnselectAllGuys()
@@ -115,5 +215,23 @@ public class FireControl : MonoBehaviour
         UnselectAllGuys();
         guy.Select();
         _currentlySelectedGuy = guy;
+    }
+
+    public void AddScore(int value)
+    {
+        ScoreBucket.AddScore(value);
+        UpdateScore();
+    }
+
+    public void BuyRocket(int cost)
+    {
+        ScoreBucket.BuyRocket(cost);
+        UpdateScore();
+    }
+
+    public void UpdateScore()
+    {
+        scoreText.text = "SCORE: " + ScoreBucket.Score;
+        highScoreText.text = "HIGH SCORE: " + ScoreBucket.HighScore;
     }
 }

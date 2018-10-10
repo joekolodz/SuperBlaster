@@ -43,7 +43,7 @@ public class MenuControl : MonoBehaviour
 
     public void Restart()
     {
-        SceneManager.LoadScene("Level 2");
+        SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex);
     }
 
     public void Pause()

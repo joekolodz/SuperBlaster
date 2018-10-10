@@ -10,8 +10,23 @@ public class ObjectDestroy : MonoBehaviour
     [Range(1, 10)]
     public int explosionSizeMultiplier = 1;
     public float multiExplosionIntervalDelay = 0.3f;
-
+    public int destructionValue;
     public AudioSource soundOnDestroy;
+
+    private FireControl fireControl;
+
+    private void Start()
+    {
+        var fc = GameObject.Find("FireControl");
+        if (fc)
+        {
+            fireControl = fc.GetComponent<FireControl>();
+        }
+        if (fireControl == null)
+        {
+            Debug.Log("Can't find the fireControl script");
+        }
+    }
 
     public void Explode()
     {
@@ -23,6 +38,13 @@ public class ObjectDestroy : MonoBehaviour
         }
         
         StartCoroutine(MultipleExplosions());
+
+        var badGuy = gameObject.GetComponentInParent<BadGuyMovement>();
+        if(badGuy && !badGuy.isDestroyed)
+        {
+            badGuy.isDestroyed = true;
+            fireControl.AddScore(destructionValue);
+        }
     }
 
     private IEnumerator MultipleExplosions()

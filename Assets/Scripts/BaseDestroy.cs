@@ -9,16 +9,11 @@ public class BaseDestroy : MonoBehaviour
 
     void OnDestroy()
     {
-        //GameObject.Find("MenuControl").GetComponent<MenuControl>().Pause();
-
         var fireControl = GameObject.Find("FireControl");
         if (fireControl)
         {
             fireControl.GetComponent<FireControl>().StopAllBadGuyMovement();
         }
-
-        //var f = GameObject.Find("FireControl");
-        //print(f);
 
         //call UI script to replay
         if (mainMenuPanel)
