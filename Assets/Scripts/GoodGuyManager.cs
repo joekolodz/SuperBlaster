@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Assets.Scripts;
 using UnityEngine;
 
 public class GoodGuyManager : MonoBehaviour
@@ -8,7 +9,7 @@ public class GoodGuyManager : MonoBehaviour
     public bool isSelected = false;
     public bool isSelectedOnStartup = false;
 
-    private void Start()
+    private void Awake()
     {
         isSelected = false;
     }
@@ -55,5 +56,4 @@ public class GoodGuyManager : MonoBehaviour
         isSelected = false;
         guy.GetComponent<SpriteRenderer>().color = Color.white;
     }
-
 }

@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using Assets.Scripts;
 
 public static class ScoreBucket
 {
@@ -143,7 +144,7 @@ public class FireControl : MonoBehaviour
         yield return new WaitForSeconds(4);
 
         var sceneIndex = SceneManager.GetActiveScene().buildIndex + 1;
-        if (sceneIndex > 13)
+        if (sceneIndex > 14)
         {
             sceneIndex = 0;
             //increase difficulty?
@@ -155,6 +156,7 @@ public class FireControl : MonoBehaviour
     {
         foreach (var badGuy in _badGuys)
         {
+            //TODO - check if this is still around before using it.if(badGuy.)
             badGuy.GetComponent<BadGuyMovement>().moveSpeed = 0;
             badGuy.GetComponent<PlasmaSpawn>().roundsPerBurst = 0;
         }

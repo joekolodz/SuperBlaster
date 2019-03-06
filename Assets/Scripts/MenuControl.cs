@@ -10,11 +10,16 @@ public class MenuControl : MonoBehaviour
 
     private void Start()
     {
-        _music = GameObject.Find("Audio Source").GetComponent<AudioSource>();
+        _music = GameObject.Find("Background Music").GetComponent<AudioSource>();
 
     }
     void Update()
     {
+        if (Input.GetKey(KeyCode.S))
+        {
+            StartNewGame();
+        }
+
         if (Input.GetKey(KeyCode.Escape))
         {
             Quit();
@@ -39,6 +44,11 @@ public class MenuControl : MonoBehaviour
 #else
         Application.Quit();
 #endif
+    }
+
+    public void StartNewGame()
+    {
+        SceneManager.LoadSceneAsync(1);
     }
 
     public void Restart()
