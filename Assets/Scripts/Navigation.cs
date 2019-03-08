@@ -13,6 +13,7 @@ public class Navigation : MonoBehaviour
         waypoints = new Transform[list.Length];
         for (var i = 0; i < list.Length; i++)
         {
+            //test
             waypoints[i] = list[i].transform;
         }
     }

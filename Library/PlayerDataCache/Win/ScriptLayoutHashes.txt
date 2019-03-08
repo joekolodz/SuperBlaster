@@ -1,6 +1,6 @@
 Win
 PlayerPath?
-C:/Development/unity/SuperBlaster/builds/SuperBlaster.exe
+D:/Games/Unity Games/SuperBlaster/Publish/SuperBlaster.exe
 SceneListBegin?
 Assets/Scenes/MainMenu.unity
 Assets/Scenes/Level 1.unity
