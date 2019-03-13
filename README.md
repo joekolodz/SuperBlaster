@@ -1,7 +1,9 @@
-SuperBlaster
-===
+# SuperBlaster
 
-BUILDS
+---
+
+## BUILDS
+
 ---
 
 **Android Build**
