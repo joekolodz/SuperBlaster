@@ -1,6 +1,6 @@
 Win
 PlayerPath?
-D:/Games/Unity Games/SuperBlaster/Publish/SuperBlaster.exe
+D:/Games/Unity Games/SuperBlaster/Publish/Super Blaster.exe
 SceneListBegin?
 Assets/Scenes/MainMenu.unity
 Assets/Scenes/Level 1.unity
@@ -33,7 +33,7 @@ e1bbf0ab858085e38fae6b12ebbdcd35 UnityEngine.Timeline.dll:UnityEngine.Timeline.G
 e1bbf0ab858085e38fae6b12ebbdcd35 UnityEngine.Timeline.dll:UnityEngine.Timeline.PlayableTrack
 201e3fde670b00545944bb3db215c80a UnityEngine.Timeline.dll:UnityEngine.Timeline.TimelineAsset
 e7a73f5f78ba6445195ec23b74a1ce2d Unity.TextMeshPro.dll:TMPro.TMP_ScrollbarEventHandler
-a9cec5743ae0885b5f1073d528a7e589 Assembly-CSharp.dll:.MenuControl
+5207b20330eadaa041710ecc94010fb0 Assembly-CSharp.dll:.MenuControl
 cf9f5cf2c3145a37ac07f00e50e460f9 UnityEngine.UI.dll:UnityEngine.UI.AspectRatioFitter
 71bb6a6b6c8f052f948db64c7dd3ca4f UnityEngine.UI.dll:UnityEngine.EventSystems.BaseInput
 5fc094978ce3e3591a7500ed380d854a UnityEngine.UI.dll:UnityEngine.UI.Button
@@ -189,3 +189,4 @@ c6666661329916e218bee7f5e79e60f5 Unity.TextMeshPro.dll:TMPro.TextMeshPro
 8649814970b42d345b89944b862453cc Unity.TextMeshPro.dll:TMPro.TMP_SubMesh
 d8f4bf2bc1a75f1882afcbbe788b3e30 Assembly-CSharp.dll:.RocketDestroy
 b1f45afb15d4225c2ff159a805fcd0ae Assembly-CSharp.dll:.ShieldState
+de070f7810d0f805b2736b6c918a54a8 Assembly-CSharp.dll:.LevelButtonLaunchScene
