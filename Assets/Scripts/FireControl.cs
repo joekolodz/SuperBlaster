@@ -13,14 +13,14 @@ public static class ScoreBucket
 
     public static void AddScore(int score)
     {
-        Score+=score;
+        Score += score;
         UpdateHighScore();
     }
 
     public static void BuyRocket(int cost)
     {
-        Score-=cost;
-        if(Score<0)
+        Score -= cost;
+        if (Score < 0)
         {
             Score = 0;
         }
@@ -37,7 +37,7 @@ public static class ScoreBucket
 
     public static void SaveHighScore()
     {
-        PlayerPrefs.SetInt("highscore",HighScore);
+        PlayerPrefs.SetInt("highscore", HighScore);
         PlayerPrefs.Save();
     }
 
@@ -68,7 +68,7 @@ public class FireControl : MonoBehaviour
         isWaitingForDelay = false;
 
         PlaceScoreText();
-        
+
         ScoreBucket.LoadHighScore();
         UpdateScore();
 
@@ -139,6 +139,8 @@ public class FireControl : MonoBehaviour
     IEnumerator StartNextLevel()
     {
         //Display GET READY and pause for next level
+
+        RocketFire.PowerUp = false;
         ScoreBucket.SaveHighScore();
         Instantiate(_getReadyText, GameObject.Find("Canvas").transform, false);
         yield return new WaitForSeconds(4);
@@ -156,9 +158,11 @@ public class FireControl : MonoBehaviour
     {
         foreach (var badGuy in _badGuys)
         {
-            //TODO - check if this is still around before using it.if(badGuy.)
-            badGuy.GetComponent<BadGuyMovement>().moveSpeed = 0;
-            badGuy.GetComponent<PlasmaSpawn>().roundsPerBurst = 0;
+            if (badGuy)
+            {
+                badGuy.GetComponent<BadGuyMovement>().moveSpeed = 0;
+                badGuy.GetComponent<PlasmaSpawn>().roundsPerBurst = 0;
+            }
         }
     }
 
@@ -182,11 +186,10 @@ public class FireControl : MonoBehaviour
         if (guyFiring.isSelected)
         {
             //need to get the angle from the rocket launcher since it is above center of the guy (which would cause a bad angle if we used guy's position)
-            //var rocketLauncher2 = gameObject.GetComponentsInChildren<SpriteRenderer>().FirstOrDefault(t => t.name == "Rocket Launcher");
             var rocketLauncher = guyFiring.transform.Find("Good Guy/Rocket Launcher");
 
 
-            //first, turn guy to face mouse click point (using rocket position instead of guy position)
+            //first, turn guy to face mouse click point
             if (guyFiring.guy.rotation.eulerAngles.y == 180)
             {
                 //call reverse since the guys on the right are flipped 180
@@ -195,11 +198,26 @@ public class FireControl : MonoBehaviour
             else
             {
                 guyFiring.transform.rotation = GeometricFunctions.RotateToFace(rocketLauncher.transform.position, mousePos);
+                
             }
 
             var rocketSpawn = guyFiring.GetComponent<RocketSpawn>();
+
             //then instantiate rocket
-            Instantiate(rocketSpawn.rocket, rocketSpawn.spawnPoint.position, rocketSpawn.spawnPoint.rotation);
+            var r = Instantiate(rocketSpawn.rocket, rocketSpawn.spawnPoint.position, rocketSpawn.spawnPoint.rotation);
+
+
+            if (RocketFire.PowerUp)
+            {
+                //2nd rocket on top
+                var newPosition = r.transform.TransformPoint(0, 0.8f, 0);
+                Instantiate(rocketSpawn.rocket, newPosition, rocketSpawn.spawnPoint.rotation);
+
+                //3rd rocket under
+                newPosition = r.transform.TransformPoint(0, -0.8f, 0);
+                Instantiate(rocketSpawn.rocket, newPosition, rocketSpawn.spawnPoint.rotation);
+            }
+
             BuyRocket(rocketCost);
         }
     }

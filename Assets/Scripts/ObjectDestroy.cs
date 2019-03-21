@@ -30,20 +30,33 @@ public class ObjectDestroy : MonoBehaviour
 
     public void Explode()
     {
+        IsPowerUpHit();
+
         gameObject.GetComponent<SpriteRenderer>().enabled = false;
 
         if (soundOnDestroy != null && !soundOnDestroy.isPlaying)
         {
             soundOnDestroy.Play();
         }
-        
+
         StartCoroutine(MultipleExplosions());
 
         var badGuy = gameObject.GetComponentInParent<BadGuyMovement>();
-        if(badGuy && !badGuy.isDestroyed)
+        if (badGuy && !badGuy.isDestroyed)
         {
             badGuy.isDestroyed = true;
             fireControl.AddScore(destructionValue);
+        }
+
+    }
+
+    private void IsPowerUpHit()
+    {
+        if (gameObject.CompareTag("PowerUp"))
+        {
+            RocketFire.PowerUp = true;
+            //set a timer/counter to turn off powerup?
+            Debug.Log("POWER UP HIT!");
         }
     }
 
@@ -53,7 +66,8 @@ public class ObjectDestroy : MonoBehaviour
         {
             var pos = transform.position;
             pos.x += 3 * explosionSizeMultiplier;
-            var instance = Instantiate(explosion, pos, Quaternion.identity);            
+            var instance = Instantiate(explosion, pos, Quaternion.identity);
+            if (!instance) yield return null;
             instance.transform.localScale *= explosionSizeMultiplier;
             var ps = instance.transform.Find("PS Explosion");
             ps.localScale *= explosionSizeMultiplier;

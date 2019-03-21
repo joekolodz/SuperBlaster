@@ -14,7 +14,7 @@ public class ObjectHit : MonoBehaviour
     public float smokeSizeMultiplier = 1;
     [Range(0, 10)]
     public float flameSizeMultiplier = 1;
-    [Range(0, 20)]
+    [Range(0, 50)]
     public int health = 3;
     public int healthWhenFlamesStart = 1;
     /// <summary>
@@ -49,6 +49,7 @@ public class ObjectHit : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (!isEnabled) return;
+
 
         if (collision.gameObject.name.Contains(hitTriggerObject.name))
         {
@@ -90,11 +91,6 @@ public class ObjectHit : MonoBehaviour
             gameObject.GetComponent<ObjectDestroy>().Explode();
             EnableChildren(true);
             Destroy(gameObject, delayDestroy);
-            
-            //check if object was bad guy
-            //keep track of count of dead bad guys
-            //if 4 then set next scene
-
         }
     }
 
