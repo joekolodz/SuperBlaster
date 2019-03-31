@@ -13,7 +13,10 @@ public class BadGuyMovement : MonoBehaviour
 
     void Awake()
     {
-        var navigation = GameObject.Find("Waypoints").GetComponent<Navigation>();
+        var waypointList = GameObject.Find("Waypoints");
+        if (waypointList == null) return; //happens on main menu
+
+        var navigation = waypointList.GetComponent<Navigation>();
         var closestWaypointDistance = -1f;
         var closestWaypoint = navigation.waypoints[0];
 
@@ -36,7 +39,7 @@ public class BadGuyMovement : MonoBehaviour
 
     void Update()
     {
-        if (badGuy == null) return;
+        if (badGuy == null || nextWaypoint == null) return;
 
         //rotate to keep the next waypoint in view
         badGuy.rotation = GeometricFunctions.RotateToFace(badGuy.position, nextWaypoint.position, -90);
