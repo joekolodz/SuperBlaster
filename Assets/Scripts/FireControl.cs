@@ -1,10 +1,7 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
-using Assets.Scripts;
 
 public static class ScoreBucket
 {
@@ -146,7 +143,7 @@ public class FireControl : MonoBehaviour
         yield return new WaitForSeconds(4);
 
         var sceneIndex = SceneManager.GetActiveScene().buildIndex + 1;
-        if (sceneIndex > 14)
+        if (sceneIndex >= SceneManager.sceneCountInBuildSettings)
         {
             sceneIndex = 0;
             //increase difficulty?

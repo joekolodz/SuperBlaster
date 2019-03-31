@@ -8,13 +8,6 @@ public class MenuControl : MonoBehaviour
     public GameObject levelButton;
     public bool isPaused = false;
 
-    private AudioSource _music = null;
-
-    private void Start()
-    {
-        _music = GameObject.Find("Background Music").GetComponent<AudioSource>();
-
-    }
     void Update()
     {
         if (Input.GetKey(KeyCode.S))
@@ -57,9 +50,6 @@ public class MenuControl : MonoBehaviour
     {
         if (levelMenuPanel)
         {
-
-            Debug.Log($"scenesInBuild:{SceneManager.sceneCountInBuildSettings}");
-
             var buttonListPanel = levelMenuPanel.transform.Find("Image_Mask/Image_ButtonList");
 
             //build a button for each scene...
@@ -89,12 +79,12 @@ public class MenuControl : MonoBehaviour
         if (isPaused)
         {
             Time.timeScale = 0.0f;
-            _music.Pause();
+            MusicManager.Pause();
         }
         else
         {
             Time.timeScale = 1.0f;
-            _music.UnPause();
+            MusicManager.UnPause();
         }
     }
 }
