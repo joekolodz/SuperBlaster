@@ -3,22 +3,16 @@ using UnityEngine.SceneManagement;
 
 public class MusicManager : MonoBehaviour
 {
-    private static MusicManager instance = null;
-
-    public static MusicManager GetInstance()
-    {
-        return instance;
-    }
+    public static MusicManager Instance { get; private set; }
 
     public System.Collections.Generic.List<AudioSource> PlayList;
 
-    private static AudioSource activeMusic;
-    private static System.Collections.Generic.List<AudioSource> basePlayList;
-    private static bool isMainMenuMusicPlaying = false;
+    private AudioSource activeMusic;
+    private bool isMainMenuMusicPlaying = false;
 
     public void Awake()
     {
-        if(instance != null && instance != this)
+        if(Instance != null && Instance != this)
         {
             //Returning to the main menu will attempt to re-create a new music manager. do not allow that.
             Destroy(this.gameObject);
@@ -26,8 +20,7 @@ public class MusicManager : MonoBehaviour
         }
         else
         {
-            instance = this;
-            basePlayList = PlayList;
+            Instance = this;
             SceneManager.activeSceneChanged += SceneManager_activeSceneChanged;
         }
         DontDestroyOnLoad(this.gameObject);
@@ -40,7 +33,7 @@ public class MusicManager : MonoBehaviour
             if(next.buildIndex == 0)
             {
                 Stop();
-                activeMusic = basePlayList[0];
+                activeMusic = PlayList[0];
                 Play();
                 isMainMenuMusicPlaying = true;
             }
@@ -49,7 +42,7 @@ public class MusicManager : MonoBehaviour
                 if(isMainMenuMusicPlaying)
                 {
                     Stop();
-                    activeMusic = basePlayList[1];//could be random or based on level
+                    activeMusic = PlayList[1];//could be random or based on level
                     Play();
                     isMainMenuMusicPlaying = false;
                 }
@@ -57,27 +50,27 @@ public class MusicManager : MonoBehaviour
         }
     }
 
-    public static void Play()
+    public void Play()
     {
         activeMusic?.Play();
     }
 
-    public static void Play(int sceneIndex)
+    public void Play(int sceneIndex)
     {
         activeMusic?.Play();
     }
 
-    public static void Stop()
+    public void Stop()
     {
         activeMusic?.Stop();
     }
 
-    public static void Pause()
+    public void Pause()
     {
         activeMusic?.Pause();
     }
 
-    public static void UnPause()
+    public void UnPause()
     {
         activeMusic?.UnPause();
     }

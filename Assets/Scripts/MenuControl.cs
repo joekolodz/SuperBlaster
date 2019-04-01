@@ -79,12 +79,12 @@ public class MenuControl : MonoBehaviour
         if (isPaused)
         {
             Time.timeScale = 0.0f;
-            MusicManager.Pause();
+            MusicManager.Instance.Pause();
         }
         else
         {
             Time.timeScale = 1.0f;
-            MusicManager.UnPause();
+            MusicManager.Instance.UnPause();
         }
     }
 }
