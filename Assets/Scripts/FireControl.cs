@@ -82,11 +82,13 @@ public class FireControl : MonoBehaviour
 
     public void PlaceScoreText()
     {
+        var canvas = GameObject.Find("Canvas").transform;
+
         var resource = Resources.Load("ScoreText", typeof(Text));
-        scoreText = Instantiate(resource, GameObject.Find("Canvas").transform, false) as Text;
+        scoreText = Instantiate(resource, new Vector3(31,28,0), new Quaternion(), canvas) as Text;
 
         resource = Resources.Load("HighScoreText", typeof(Text));
-        highScoreText = Instantiate(resource, GameObject.Find("Canvas").transform, false) as Text;
+        highScoreText = Instantiate(resource, new Vector3(-45, 28, 0), new Quaternion(), canvas) as Text;
 
         UpdateScore();
     }
@@ -195,7 +197,7 @@ public class FireControl : MonoBehaviour
             else
             {
                 guyFiring.transform.rotation = GeometricFunctions.RotateToFace(rocketLauncher.transform.position, mousePos);
-                
+
             }
 
             var rocketSpawn = guyFiring.GetComponent<RocketSpawn>();
