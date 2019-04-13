@@ -57,12 +57,13 @@ public class FireControl : MonoBehaviour
 
     private GoodGuyManager _currentlySelectedGuy;
     private bool isAllDestroyed = false;
-    private bool isWaitingForDelay = false;
 
     void Start()
     {
+        Time.timeScale = 1.0f;
+
         isAllDestroyed = true;
-        isWaitingForDelay = false;
+        StateManager.isWaitingForNextLevelToStart = false;
 
         PlaceScoreText();
 
@@ -128,9 +129,8 @@ public class FireControl : MonoBehaviour
             isAllDestroyed = false;
         }
 
-        if (isAllDestroyed && !isWaitingForDelay)
+        if (isAllDestroyed && !StateManager.isWaitingForNextLevelToStart)
         {
-            isWaitingForDelay = true;
             StartCoroutine(StartNextLevel());
         }
     }
@@ -139,6 +139,8 @@ public class FireControl : MonoBehaviour
     {
         //Display GET READY and pause for next level
 
+        StateManager.isWaitingForNextLevelToStart = true;
+        StopAllBadGuyMovement();
         RocketFire.PowerUp = false;
         ScoreBucket.SaveHighScore();
         Instantiate(_getReadyText, GameObject.Find("Canvas").transform, false);
@@ -180,6 +182,8 @@ public class FireControl : MonoBehaviour
 
     void FireARocket(GoodGuyManager guyFiring, Vector3 mousePos)
     {
+        if (StateManager.isWaitingForNextLevelToStart) return;
+
         if (mousePos.y < -24) return; //don't fire when mouse is in menu area
 
         if (guyFiring.isSelected)

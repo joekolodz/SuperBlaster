@@ -12,17 +12,21 @@ public class PlasmaSpawn : MonoBehaviour
     public float delayBetweenRounds = 0.07f;
     [Range(0, 10)]
     public float delayBetweenShots = 4.0f;
+    [Range(0, 1)]
+    public float accuracy = 0.25f;
 
     private System.DateTime fireTime;
     private bool isFiring = false;
 
     void Start()
     {
-        fireTime = System.DateTime.Now.AddSeconds(delayBetweenShots);
+        fireTime = System.DateTime.Now.AddSeconds(delayBetweenShots + Random.Range(0.0f, 1.0f));
     }
 
     private void Update()
     {
+        if (StateManager.isWaitingForNextLevelToStart) return;
+
         if (isFiring) return;
 
         if (GameObject.Find("MenuControl").GetComponent<MenuControl>().isPaused) return;
@@ -31,6 +35,10 @@ public class PlasmaSpawn : MonoBehaviour
 
         if (System.DateTime.Now > fireTime)
         {
+            isFiring = true;
+
+            gameObject.GetComponent<BadGuyMovement>().RotateToFaceRadar(accuracy);
+
             Fire();
             fireTime = System.DateTime.Now.AddSeconds(Random.Range(delayBetweenShots - 0.5f, delayBetweenShots + 0.5f));
         }
@@ -43,18 +51,18 @@ public class PlasmaSpawn : MonoBehaviour
 
     private IEnumerator FirePlasmaBurst()
     {
-        isFiring = true;
 
         for (var n = 1; n <= roundsPerBurst; n++)
         {
             if (plasma != null && spawnPoint != null)
             {
+                if (StateManager.isWaitingForNextLevelToStart)
+                {
+                    continue;
+                }
+
                 Instantiate(plasma, spawnPoint.position, spawnPoint.rotation);
                 yield return new WaitForSeconds(delayBetweenRounds);
-            }
-            else
-            {
-                print(" !!! something went wrong, no plasma or spawnpoint");
             }
         }
 

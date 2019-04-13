@@ -21,6 +21,9 @@ Assets/Scenes/Level 15.unity
 Assets/Scenes/Level 16.unity
 Assets/Scenes/Level 17.unity
 Assets/Scenes/Level 18.unity
+Assets/Scenes/Level 19.unity
+Assets/Scenes/Level 20.unity
+Assets/Scenes/Level 21.unity
 SceneListEnd?
 984dcc0ba3707b7691fbdca8ff508d28 Unity.TextMeshPro.dll:TMPro.TMP_SelectionCaret
 01aa15e337e3a9c62f15153dfac6d589 Unity.TextMeshPro.dll:TMPro.TMP_Dropdown
@@ -181,7 +184,7 @@ ebe5db93575c877589702bff982dd916 Assembly-CSharp.dll:.BadGuyMovement
 fb6a1ea36b4f6ef5948d283d93760765 UnityEngine.GoogleAudioSpatializer.dll:UnityEngine.Experimental.Audio.Google.GvrAudioRoom
 5b0391b7e3d9ea9db6c0a8fbd0ca23f6 UnityEngine.GoogleAudioSpatializer.dll:UnityEngine.Experimental.Audio.Google.GvrAudioSoundfieldExtension
 5b0391b7e3d9ea9db6c0a8fbd0ca23f6 UnityEngine.GoogleAudioSpatializer.dll:UnityEngine.Experimental.Audio.Google.GvrAudioSourceExtension
-07af25176dff7a7c12253483c3cf03a1 Assembly-CSharp.dll:.PlasmaSpawn
+68e3e4cbbe53eeca0ef294fe365a44c7 Assembly-CSharp.dll:.PlasmaSpawn
 bb6bf8ca09348396ce6229c93d6d7d92 Assembly-CSharp.dll:.ObjectDestroy
 a4f0a4f62100f1a4fb5cbe0e00dde83f Unity.TextMeshPro.dll:TMPro.TextMeshProUGUI
 5fc094978ce3e3591a7500ed380d854a Unity.Analytics.DataPrivacy.dll:UnityEngine.Analytics.DataPrivacyButton
@@ -195,3 +198,4 @@ c6666661329916e218bee7f5e79e60f5 Unity.TextMeshPro.dll:TMPro.TextMeshPro
 8649814970b42d345b89944b862453cc Unity.TextMeshPro.dll:TMPro.TMP_SubMesh
 d8f4bf2bc1a75f1882afcbbe788b3e30 Assembly-CSharp.dll:.RocketDestroy
 b1f45afb15d4225c2ff159a805fcd0ae Assembly-CSharp.dll:.ShieldState
+71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:.StateManager

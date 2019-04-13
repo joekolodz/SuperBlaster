@@ -8,11 +8,13 @@ public class BadGuyMovement : MonoBehaviour
     public int moveSpeed = 5;
     public bool isDestroyed = false;
 
+    private Transform radar;
     private Transform nextWaypoint;
-    private Vector3 direction;
 
     void Awake()
     {
+        radar = GameObject.Find("Radar")?.transform;
+
         var waypointList = GameObject.Find("Waypoints");
         if (waypointList == null) return; //happens on main menu
 
@@ -31,28 +33,76 @@ public class BadGuyMovement : MonoBehaviour
                 closestWaypoint = wp;
             }
         }
-            
+
         nextWaypoint = closestWaypoint;
-        direction = nextWaypoint.position - badGuy.position;
-        //Debug.Log("Closest waypoint to " + badGuy.parent.name + " is " + nextWaypoint.name + ". Direction:" + direction);
+    }
+
+    //should be a utility right?
+    private Vector3 GetDirection(Vector3 source, Vector3 target)
+    {
+        var direction = target - source;
+        return direction;
+    }
+
+
+    //testing out a different way. doesn't quite work yet
+    private Quaternion GetRotation(Transform source, Transform target, float turnSpeed)
+    {
+        var targetAngle = Vector3.Angle(source.position, target.position) - 90;
+        //return Quaternion.Slerp(from.rotation, Quaternion.Euler(0, 0, targetAngle), turnSpeed * Time.deltaTime);
+
+        //var targetRotation = Quaternion.LookRotation(GetDirection(source.position, target.position));
+        var strength = Mathf.Min(turnSpeed * Time.deltaTime, 1);
+        return Quaternion.Slerp(source.rotation, Quaternion.Euler(0, 0, targetAngle), strength);
     }
 
     void Update()
     {
-        if (badGuy == null || nextWaypoint == null) return;
+        if (badGuy == null || nextWaypoint == null || radar == null) return;
 
-        //rotate to keep the next waypoint in view
-        badGuy.rotation = GeometricFunctions.RotateToFace(badGuy.position, nextWaypoint.position, -90);
-        direction = (nextWaypoint.position - badGuy.position).normalized;
+        //rotate to face the radar target
+        badGuy.rotation = GeometricFunctions.RotateToFace(badGuy.position, radar.position);
 
         //move towards the waypoint
+        var direction = GetDirection(badGuy.position, nextWaypoint.position).normalized;
+
         badGuy.Translate(moveSpeed * direction * Time.deltaTime, Space.World);
+
         var distance = Vector3.Distance(badGuy.position, nextWaypoint.position);
-        if (distance < .1f)
+        if (distance < 0.2f)
         {
-            var newWaypoint = nextWaypoint.GetComponent<NextWaypoint>().GetNextWaypoint();
-            nextWaypoint = newWaypoint;
-            direction = nextWaypoint.position - badGuy.position;
+            nextWaypoint = nextWaypoint.GetComponent<NextWaypoint>().GetNextWaypoint();
         }
+    }
+
+    public void RotateToFaceRadar(float withAccuracy)
+    {
+        if (badGuy == null || radar == null) return;
+
+        var adjustAngle = new Vector3(0f, 0f, 0f);
+
+        //account for accuracy and nudge the aim off a litte if necessary
+        var isAccurate = Random.Range(0.0f, 1.0f) <= withAccuracy;
+
+        if (isAccurate)
+        {
+            //this accounts for the rifle offset and points closer to the center of the radar
+            adjustAngle.z = -7f;
+        }
+        else
+        {
+            //add cone of inaccuracy and account for accidental accuracy range around -7
+            adjustAngle.z = Random.Range(-20.0f, +20.0f);
+            if (adjustAngle.z < -0.0f && adjustAngle.z > -14.0f)
+            {
+                adjustAngle.z = -25f;
+            }
+        }
+
+        //rotate to face the radar target
+        badGuy.rotation = GeometricFunctions.RotateToFace(badGuy.position, radar.position);
+
+        //account for final accuracy
+        badGuy.Rotate(adjustAngle);
     }
 }

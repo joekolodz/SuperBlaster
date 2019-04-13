@@ -6,7 +6,7 @@ public class ObjectDestroy : MonoBehaviour
 {
     public GameObject explosion;
     [Range(1, 10)]
-    public int multiExplosionSize = 3;
+    public int multiExplosionCount = 3;
     [Range(1, 10)]
     public int explosionSizeMultiplier = 1;
     public float multiExplosionIntervalDelay = 0.3f;
@@ -62,7 +62,7 @@ public class ObjectDestroy : MonoBehaviour
 
     private IEnumerator MultipleExplosions()
     {
-        for (var i = 0; i < multiExplosionSize; i++)
+        for (var i = 0; i < multiExplosionCount; i++)
         {
             var pos = transform.position;
             pos.x += 3 * explosionSizeMultiplier;

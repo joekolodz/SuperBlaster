@@ -18,12 +18,12 @@ public class ShieldState : MonoBehaviour
     void Update()
     {
         return;
-        foreach (var post in ShieldPosts)
-        {
-            if (post != null) return;
-        }
-        //only allow the radar shield (the parent of this component) to be hit when all shield posts are down
-        gameObject.GetComponent<ObjectHit>().isEnabled = true;
+        //foreach (var post in ShieldPosts)
+        //{
+        //    if (post != null) return;
+        //}
+        ////only allow the radar shield (the parent of this component) to be hit when all shield posts are down
+        //gameObject.GetComponent<ObjectHit>().isEnabled = true;
 
     }
 }
