@@ -37,6 +37,25 @@ public class GoodGuyManager : MonoBehaviour
         }
     }
 
+    public RocketSpawn AimAtMouse(Vector3 mousePos)
+    {
+        //need to get the angle from the rocket launcher since it is above center of the guy (which would cause a bad angle if we used guy's position)
+        var rocketLauncher = transform.Find("Good Guy/Rocket Launcher");
+
+        //first, turn guy to face mouse click point
+        if (guy.rotation.eulerAngles.y == 180)
+        {
+            //call reverse since the guys on the right are flipped 180
+            transform.rotation = GeometricFunctions.RotateToFace(mousePos, rocketLauncher.transform.position);
+        }
+        else
+        {
+            transform.rotation = GeometricFunctions.RotateToFace(rocketLauncher.transform.position, mousePos);
+        }
+
+        return GetComponent<RocketSpawn>();
+    }
+
     private static float ApplyRotation(float amount, GoodGuyManager guy)
     {
         amount *= 100;

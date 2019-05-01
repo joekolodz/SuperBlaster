@@ -153,7 +153,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b80cc76c41b5864f893c9137b43d6af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rocketForce: 3000
   audioSource: {fileID: 82465763629966626}
 --- !u!114 &114270695614413376
 MonoBehaviour:
@@ -181,7 +180,7 @@ AudioSource:
   m_audioClip: {fileID: 8300000, guid: 01ff26228cb9488448d3060d964ac2e9, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.213
-  m_Pitch: 0.8
+  m_Pitch: 1.02
   Loop: 0
   Mute: 0
   Spatialize: 0

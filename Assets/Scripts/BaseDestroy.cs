@@ -12,7 +12,7 @@ public class BaseDestroy : MonoBehaviour
         Debug.Log("Base Destroyed");
         StateManager.isWaitingForNextLevelToStart = true;
         Time.timeScale = 0.25f;
-        RocketFire.PowerUp = false;
+        PowerUp.Instance.ResetPowerUp();
 
         var fireControl = GameObject.Find("FireControl");
         if (fireControl)

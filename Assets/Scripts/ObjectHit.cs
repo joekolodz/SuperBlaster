@@ -21,7 +21,7 @@ public class ObjectHit : MonoBehaviour
     /// The thing that destroyed this object
     /// </summary>
     public GameObject hitTriggerObject;
-    public float delayDestroy = 0.8f;
+    public float delayDestroy = 0f;//0.8f;
 
     public AudioSource soundYeah;
 
@@ -54,6 +54,12 @@ public class ObjectHit : MonoBehaviour
         if (collision.gameObject.name.Contains(hitTriggerObject.name))
         {
             health--;
+
+            if(PowerUp.Instance.IsPowerUp)
+            {
+                health -= PowerUp.Instance.GetAdjustedDamage();
+            }
+
             if (!isSmoking)
             {
                 smokeInstance = Instantiate(smoke, transform.position, Quaternion.identity);
@@ -63,7 +69,7 @@ public class ObjectHit : MonoBehaviour
                 ps.localScale *= smokeSizeMultiplier;
 
                 //say Yeah 50% of the time
-                if (soundYeah != null)
+                if (soundYeah != null && !soundYeah.isPlaying && Random.Range(0.0f, 1.0f) > 0.5f)
                 {
                     soundYeah.Play();
                 }
@@ -89,7 +95,7 @@ public class ObjectHit : MonoBehaviour
         if (health <= 0)
         {
             gameObject.GetComponent<ObjectDestroy>().Explode();
-            EnableChildren(true);
+            //EnableChildren(true);
             Destroy(gameObject, delayDestroy);
         }
     }
@@ -99,6 +105,11 @@ public class ObjectHit : MonoBehaviour
         if (smokeInstance != null)
         {
             smokeInstance.transform.position = gameObject.transform.position;
+        }
+
+        if(flamesInstance != null)
+        {
+            flamesInstance.transform.position = gameObject.transform.position;
         }
     }
 

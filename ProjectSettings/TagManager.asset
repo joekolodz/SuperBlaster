@@ -18,6 +18,7 @@ TagManager:
   - ScoreText
   - BackgroundMusic
   - PowerUp
+  - Title
   layers:
   - Default
   - TransparentFX

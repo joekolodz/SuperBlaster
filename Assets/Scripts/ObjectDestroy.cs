@@ -30,7 +30,7 @@ public class ObjectDestroy : MonoBehaviour
 
     public void Explode()
     {
-        IsPowerUpHit();
+        PowerUp.Instance.IsPowerUpHit(gameObject.tag);
 
         gameObject.GetComponent<SpriteRenderer>().enabled = false;
 
@@ -48,16 +48,6 @@ public class ObjectDestroy : MonoBehaviour
             fireControl.AddScore(destructionValue);
         }
 
-    }
-
-    private void IsPowerUpHit()
-    {
-        if (gameObject.CompareTag("PowerUp"))
-        {
-            RocketFire.PowerUp = true;
-            //set a timer/counter to turn off powerup?
-            Debug.Log("POWER UP HIT!");
-        }
     }
 
     private IEnumerator MultipleExplosions()

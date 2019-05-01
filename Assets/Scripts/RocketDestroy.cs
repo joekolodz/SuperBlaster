@@ -9,8 +9,8 @@ public class RocketDestroy : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         //destroy the rocket anytime it hits anything
+        Destroy(gameObject);
         var explosion = Instantiate(this.explosion, transform.position, Quaternion.identity);
         Destroy(explosion, 1.0f);
-        Destroy(gameObject);
     }
 }
