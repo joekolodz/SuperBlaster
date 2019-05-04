@@ -3,7 +3,8 @@ using UnityEngine;
 
 public class TitleSwap : MonoBehaviour
 {
-    public List<GameObject> titles = null;
+    public List<GameObject> titles;
+    private Animator animator;
 
     public enum TitleNames
     {
@@ -14,33 +15,82 @@ public class TitleSwap : MonoBehaviour
         SuperBlaster
     }
 
-    
+    public void Awake()
+    {
+        EventAggregator.PowerUpExpired += EventAggregator_PowerUpExpired;
+        EventAggregator.PowerUpTriggered += EventAggregator_PowerUpTriggered;
+    }
+
+    public void OnDestroy()
+    {
+        EventAggregator.PowerUpExpired -= EventAggregator_PowerUpExpired;
+        EventAggregator.PowerUpTriggered -= EventAggregator_PowerUpTriggered;
+    }
+
+    private void EventAggregator_PowerUpTriggered(object sender, PowerUpTriggeredEventArgs e)
+    {
+        TitleNames titleName = TitleNames.Main;
+        switch (e.PowerUpName)
+        {
+            case PowerUpManager.PowerUpNames.SpeedBlaster:
+                titleName = TitleNames.SpeedBlaster;
+                break;
+            case PowerUpManager.PowerUpNames.TripleBlaster:
+                titleName = TitleNames.TripleBlaster;
+                break;
+            case PowerUpManager.PowerUpNames.MultiBlaster:
+                titleName = TitleNames.MultiBlaster;
+                break;
+            case PowerUpManager.PowerUpNames.SuperBlaster:
+                titleName = TitleNames.SuperBlaster;
+                break;
+        }
+        SetTitle(titleName);
+    }
+
+    private void EventAggregator_PowerUpExpired(object sender, System.EventArgs e)
+    {
+        ResetMainTitle();
+    }
+
     public void ResetMainTitle()
     {
-        titles[0].SetActive(true);
+        if (titles[0].activeSelf) return;
+
+        ClearTitle();
+        SetTitle(TitleNames.Main);
     }
 
     public void SetTitle(TitleNames title)
-    {
-        ClearTitle();
+    {        
         switch (title)
         {
             case TitleNames.Main:
                 titles[0].SetActive(true);
+                animator = titles[0].GetComponent<Animator>();
+                animator.SetTrigger("Spin");
                 break;
             case TitleNames.SpeedBlaster:
-                titles[1].SetActive(true);
+                AnimatePowerUpTitle(titles[1]);
                 break;
             case TitleNames.TripleBlaster:
-                titles[2].SetActive(true);
+                AnimatePowerUpTitle(titles[2]);
                 break;
             case TitleNames.MultiBlaster:
-                titles[3].SetActive(true);
+                AnimatePowerUpTitle(titles[3]);
                 break;
             case TitleNames.SuperBlaster:
-                titles[4].SetActive(true);
+                AnimatePowerUpTitle(titles[4]);
                 break;
         }
+    }
+
+    private void AnimatePowerUpTitle(GameObject title)
+    {
+        ClearTitle();
+        title.SetActive(true);
+        animator = title.GetComponent<Animator>();
+        animator.SetTrigger("Bloat");
     }
 
     private void ClearTitle()

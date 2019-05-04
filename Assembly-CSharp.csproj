@@ -64,6 +64,7 @@
     <Compile Include="Assets\Scripts\BackgroundMusicKeepAlive.cs" />
     <Compile Include="Assets\Scripts\BadGuyMovement.cs" />
     <Compile Include="Assets\Scripts\BaseDestroy.cs" />
+    <Compile Include="Assets\Scripts\EventAggregator.cs" />
     <Compile Include="Assets\Scripts\FireControl.cs" />
     <Compile Include="Assets\Scripts\GeometricFunctions.cs" />
     <Compile Include="Assets\Scripts\GoodGuy.cs" />

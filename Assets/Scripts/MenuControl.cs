@@ -30,6 +30,17 @@ public class MenuControl : MonoBehaviour
             Pause();
         }
 
+        if (isPaused) return;
+
+        if (Input.GetKey(KeyCode.Space))
+        {
+            Time.timeScale = 0.20f;
+        }
+        else
+        {
+            Time.timeScale = 1f;
+        }
+
     }
 
     public void Quit()

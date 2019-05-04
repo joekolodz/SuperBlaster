@@ -11,7 +11,6 @@ public class PlasmaDestroy : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        //SoundEffectsManager.Instance.PlayPlasmaHit();
         if (audioSource.isPlaying) return;
         audioSource.Play();
 

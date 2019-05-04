@@ -26,7 +26,7 @@ Transform:
   m_GameObject: {fileID: 2653260998239849494}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 359, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalScale: {x: 0.49998286, y: 0.49998286, z: 0.49998286}
   m_Children:
   - {fileID: 4187496047776771810}
   - {fileID: 3395515567351656168}
@@ -65,6 +65,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Title (Multi Blaster)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2791130989218656097, guid: 6243ab45e78a350468ab84025c1ef4bb,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2791130989218656096, guid: 6243ab45e78a350468ab84025c1ef4bb,
         type: 3}
@@ -170,6 +175,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2791130989218656127, guid: 6243ab45e78a350468ab84025c1ef4bb,
+        type: 3}
+      propertyPath: m_havePropertiesChanged
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2791130989218656127, guid: 6243ab45e78a350468ab84025c1ef4bb,
+        type: 3}
+      propertyPath: m_isInputParsingRequired
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4514955772129752200, guid: 6243ab45e78a350468ab84025c1ef4bb,
+        type: 3}
+      propertyPath: ShapeModule.m_Scale.x
+      value: 125
+      objectReference: {fileID: 0}
+    - target: {fileID: 4514955772129752200, guid: 6243ab45e78a350468ab84025c1ef4bb,
+        type: 3}
+      propertyPath: EmissionModule.rateOverTime.scalar
+      value: 100
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6243ab45e78a350468ab84025c1ef4bb, type: 3}
@@ -302,6 +327,31 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 2372572378751617194, guid: 6487a7636dc666643b703be9370601eb,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3704983844400564637, guid: 6487a7636dc666643b703be9370601eb,
+        type: 3}
+      propertyPath: m_havePropertiesChanged
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3704983844400564637, guid: 6487a7636dc666643b703be9370601eb,
+        type: 3}
+      propertyPath: m_isInputParsingRequired
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7751596525017924832, guid: 6487a7636dc666643b703be9370601eb,
+        type: 3}
+      propertyPath: ShapeModule.m_Scale.x
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 7751596525017924832, guid: 6487a7636dc666643b703be9370601eb,
+        type: 3}
+      propertyPath: EmissionModule.rateOverTime.scalar
+      value: 100
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6487a7636dc666643b703be9370601eb, type: 3}
 --- !u!1 &3395515567351656171 stripped
@@ -433,6 +483,51 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 6016722828870856237, guid: 1232c9d94210f1a48a5401c05f0d568f,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3072873168246389626, guid: 1232c9d94210f1a48a5401c05f0d568f,
+        type: 3}
+      propertyPath: InitialModule.startLifetime.scalar
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3072873168246389626, guid: 1232c9d94210f1a48a5401c05f0d568f,
+        type: 3}
+      propertyPath: InitialModule.startSpeed.scalar
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 3072873168246389626, guid: 1232c9d94210f1a48a5401c05f0d568f,
+        type: 3}
+      propertyPath: ShapeModule.m_Scale.x
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 3072873168246389626, guid: 1232c9d94210f1a48a5401c05f0d568f,
+        type: 3}
+      propertyPath: EmissionModule.rateOverTime.scalar
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 1729822553912435303, guid: 1232c9d94210f1a48a5401c05f0d568f,
+        type: 3}
+      propertyPath: ShapeModule.m_Scale.x
+      value: 125
+      objectReference: {fileID: 0}
+    - target: {fileID: 1729822553912435303, guid: 1232c9d94210f1a48a5401c05f0d568f,
+        type: 3}
+      propertyPath: EmissionModule.rateOverTime.scalar
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 7860738489160357427, guid: 1232c9d94210f1a48a5401c05f0d568f,
+        type: 3}
+      propertyPath: ShapeModule.m_Scale.x
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 7860738489160357427, guid: 1232c9d94210f1a48a5401c05f0d568f,
+        type: 3}
+      propertyPath: EmissionModule.rateOverTime.scalar
+      value: 80
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1232c9d94210f1a48a5401c05f0d568f, type: 3}
 --- !u!1 &191093701331947146 stripped
@@ -563,6 +658,46 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 850350993897598579, guid: d5147e655f3da364ca3be9790c9825cd,
+        type: 3}
+      propertyPath: m_havePropertiesChanged
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 850350993897598579, guid: d5147e655f3da364ca3be9790c9825cd,
+        type: 3}
+      propertyPath: m_isInputParsingRequired
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3455521477749351903, guid: d5147e655f3da364ca3be9790c9825cd,
+        type: 3}
+      propertyPath: InitialModule.startLifetime.scalar
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3455521477749351903, guid: d5147e655f3da364ca3be9790c9825cd,
+        type: 3}
+      propertyPath: InitialModule.startSpeed.scalar
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 3455521477749351903, guid: d5147e655f3da364ca3be9790c9825cd,
+        type: 3}
+      propertyPath: ShapeModule.m_Scale.x
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 3455521477749351903, guid: d5147e655f3da364ca3be9790c9825cd,
+        type: 3}
+      propertyPath: EmissionModule.rateOverTime.scalar
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 1202152913609278625, guid: d5147e655f3da364ca3be9790c9825cd,
+        type: 3}
+      propertyPath: ShapeModule.m_Scale.x
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 1202152913609278625, guid: d5147e655f3da364ca3be9790c9825cd,
+        type: 3}
+      propertyPath: EmissionModule.rateOverTime.scalar
+      value: 80
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d5147e655f3da364ca3be9790c9825cd, type: 3}

@@ -5,7 +5,6 @@ public class LaunchRocket : MonoBehaviour
     public static readonly LaunchRocket Instance = (new GameObject("LaunchRocketSingletonContainer")).AddComponent<LaunchRocket>();
 
     private const float DEFAULT_ROCKET_FORCE = 3000.0f;
-    private readonly float rocketForce = DEFAULT_ROCKET_FORCE;
 
     // Explicit static constructor to tell C# compiler
     // not to mark type as beforefieldinit

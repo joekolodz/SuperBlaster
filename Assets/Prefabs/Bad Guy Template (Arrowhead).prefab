@@ -339,7 +339,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   explosion: {fileID: 1789635080568608, guid: 5930a2c789041154d93b7ee0d5184311, type: 3}
-  multiExplosionSize: 3
+  multiExplosionCount: 3
   explosionSizeMultiplier: 1
   multiExplosionIntervalDelay: 0.3
   destructionValue: 50
@@ -386,7 +386,7 @@ AudioSource:
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 128
+  Priority: 0
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500
@@ -482,7 +482,7 @@ AudioSource:
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 128
+  Priority: 0
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500

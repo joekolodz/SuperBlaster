@@ -1,10 +1,22 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using System.Threading.Tasks;
+using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public class PowerUp
+public class PowerUpManager : MonoBehaviour
 {
-    public static readonly PowerUp Instance = new PowerUp();
+    public static readonly PowerUpManager Instance = (new GameObject("PowerUpSingletonContainer")).AddComponent<PowerUpManager>();
+
+    public enum PowerUpNames
+    {
+        SpeedBlaster,
+        TripleBlaster,
+        MultiBlaster,
+        SuperBlaster
+    }
 
     private const float DEFAULT_ROCKET_FORCE_MULTIPLIER = 1.0f;
+    private const float POWERUP_TIME_IN_SECONDS = 6.0f;
 
     public bool IsPowerUp { get; private set; }
 
@@ -19,132 +31,92 @@ public class PowerUp
 
     // Explicit static constructor to tell C# compiler
     // not to mark type as beforefieldinit
-    static PowerUp()
+    static PowerUpManager()
     {
     }
 
-    private PowerUp()
+    private PowerUpManager()
     {
     }
 
-    public void IsPowerUpHit(string tag)
+    private void Awake()
     {
-        if (IsPowerUp)
-            return;
+        DontDestroyOnLoad(gameObject);
+        ResetPowerUp();
+        SceneManager.sceneLoaded += SceneManager_sceneLoaded;
+    }
 
-        if (tag == "PowerUp")
+    private void SceneManager_sceneLoaded(Scene arg0, LoadSceneMode arg1)
+    {
+        ResetPowerUp();
+    }
+
+    private void ActivatePowerUp()
+    {
+        var r = Random.Range(0.0f, 100.0f);
+        switch (r)
         {
-            //TODO set a timer/counter to turn off powerup?
-            var r = Random.Range(0.0f, 100.0f);
-            Debug.Log($"Random Number: {r}");
-            switch (r)
-            {
-                case var i when i < 40.0f:
-                    EnableSpeedBlaster();
-                    break;
-                case var i when i >= 40.0f && i < 70.0f:
-                    EnableTripleBlaster();
-                    break;
-                case var i when i >= 70.0f && i < 90.0f:
-                    EnableMultiBlaster();
-                    break;
-                case var i when i >= 90.0f:
-                    EnableSuperBlaster();
-                    break;
-            }
+            case var i when i < 40.0f:
+                EnableSpeedBlaster();
+                break;
+            case var i when i >= 40.0f && i < 70.0f:
+                EnableTripleBlaster();
+                break;
+            case var i when i >= 70.0f && i < 90.0f:
+                EnableMultiBlaster();
+                break;
+            case var i when i >= 90.0f:
+                EnableSuperBlaster();
+                break;
         }
+
+        StartCoroutine(ExpirePowerUp());
     }
 
-    public void ResetPowerUp()
-    {
-        IsPowerUp = false;
-        damageIncrease = 0;
-        rocketForceMultiplier = DEFAULT_ROCKET_FORCE_MULTIPLIER;
-        isSuperBlaster = false;
-        isSpeedBlaster = false;
-        isTripleBlaster = false;
-
-        //change title graphic back to normal Super Blaster
-    }
-
-    public void HandlePowerUp(RocketSpawn rocketSpawn)
-    {
-        if (isSuperBlaster)
-        {
-            HandleSuperBlaster();
-        }
-        else
-        {
-            if (isTripleBlaster)
-            {
-                HandleTripleBlaster(rocketSpawn);
-            }
-            else
-            {
-                if (isMultiBlaster)
-                {
-                    HandleMultiBlaster();
-                }
-                else
-                {
-                    if (isSpeedBlaster)
-                    {
-                        HandleSpeedBlaster(rocketSpawn);
-                    }
-                }
-            }
-        }
-    }
-
-    public void EnableSpeedBlaster()
+    private void EnableSpeedBlaster()
     {
         if (!IsPowerUp)
         {
             IsPowerUp = true;
-            GameObject.FindObjectOfType<TitleSwap>().SetTitle(TitleSwap.TitleNames.SpeedBlaster);
+            EventAggregator.PublishPowerUpTriggered(new PowerUpTriggeredEventArgs(PowerUpNames.SpeedBlaster));
         }
         damageIncrease = 2;
-        rocketForceMultiplier = 2.33f;
+        rocketForceMultiplier = 3.0f;
         isSpeedBlaster = true;
     }
 
-    public void EnableTripleBlaster()
+    private void EnableTripleBlaster()
     {
         if (!IsPowerUp)
         {
             IsPowerUp = true;
-            GameObject.FindObjectOfType<TitleSwap>().SetTitle(TitleSwap.TitleNames.TripleBlaster);
+            EventAggregator.PublishPowerUpTriggered(new PowerUpTriggeredEventArgs(PowerUpNames.TripleBlaster));
         }
         damageIncrease = 3;
         isTripleBlaster = true;
     }
 
-    public void EnableMultiBlaster()
+    private void EnableMultiBlaster()
     {
         if (!IsPowerUp)
         {
             IsPowerUp = true;
-            GameObject.FindObjectOfType<TitleSwap>().SetTitle(TitleSwap.TitleNames.MultiBlaster);
+            EventAggregator.PublishPowerUpTriggered(new PowerUpTriggeredEventArgs(PowerUpNames.MultiBlaster));
         }
         isMultiBlaster = true;
     }
 
-    public void EnableSuperBlaster()
+    private void EnableSuperBlaster()
     {
         if (!IsPowerUp)
         {
             IsPowerUp = true;
-            GameObject.FindObjectOfType<TitleSwap>().SetTitle(TitleSwap.TitleNames.SuperBlaster);
+            EventAggregator.PublishPowerUpTriggered(new PowerUpTriggeredEventArgs(PowerUpNames.SuperBlaster));
         }
         isSuperBlaster = true;
         EnableSpeedBlaster();
         EnableTripleBlaster();
         EnableMultiBlaster();
-    }
-
-    public int GetAdjustedDamage()
-    {
-        return damageIncrease;
     }
 
     private void HandleSpeedBlaster(RocketSpawn rocketSpawn)
@@ -188,5 +160,69 @@ public class PowerUp
     private void HandleSuperBlaster()
     {
         HandleMultiBlaster();
+    }
+
+    private IEnumerator ExpirePowerUp()
+    {
+        yield return new WaitForSeconds(POWERUP_TIME_IN_SECONDS);
+        ResetPowerUp();
+    }
+
+    public void IsPowerUpHit(string tag)
+    {
+
+        if (IsPowerUp)
+            return;
+
+        if (tag == "PowerUp")
+        {
+            ActivatePowerUp();
+        }
+    }
+
+    public void ResetPowerUp()
+    {
+        IsPowerUp = false;
+        damageIncrease = 0;
+        rocketForceMultiplier = DEFAULT_ROCKET_FORCE_MULTIPLIER;
+        isSuperBlaster = false;
+        isMultiBlaster = false;
+        isSpeedBlaster = false;
+        isTripleBlaster = false;
+        EventAggregator.PublishPowerUpExpired();
+    }
+
+    public int GetAdjustedDamage()
+    {
+        return damageIncrease;
+    }
+
+    public void HandlePowerUp(RocketSpawn rocketSpawn)
+    {
+        if (isSuperBlaster)
+        {
+            HandleSuperBlaster();
+        }
+        else
+        {
+            if (isTripleBlaster)
+            {
+                HandleTripleBlaster(rocketSpawn);
+            }
+            else
+            {
+                if (isMultiBlaster)
+                {
+                    HandleMultiBlaster();
+                }
+                else
+                {
+                    if (isSpeedBlaster)
+                    {
+                        HandleSpeedBlaster(rocketSpawn);
+                    }
+                }
+            }
+        }
     }
 }

@@ -55,9 +55,9 @@ public class ObjectHit : MonoBehaviour
         {
             health--;
 
-            if(PowerUp.Instance.IsPowerUp)
+            if(PowerUpManager.Instance.IsPowerUp)
             {
-                health -= PowerUp.Instance.GetAdjustedDamage();
+                health -= PowerUpManager.Instance.GetAdjustedDamage();
             }
 
             if (!isSmoking)
@@ -68,8 +68,8 @@ public class ObjectHit : MonoBehaviour
                 var ps = smokeInstance.transform.Find("PS Smoke Trail");
                 ps.localScale *= smokeSizeMultiplier;
 
-                //say Yeah 50% of the time
-                if (soundYeah != null && !soundYeah.isPlaying && Random.Range(0.0f, 1.0f) > 0.5f)
+                //say Yeah 30% of the time
+                if (soundYeah != null && !soundYeah.isPlaying && Random.Range(0.0f, 1.0f) <= 0.3f)
                 {
                     soundYeah.Play();
                 }
@@ -95,7 +95,6 @@ public class ObjectHit : MonoBehaviour
         if (health <= 0)
         {
             gameObject.GetComponent<ObjectDestroy>().Explode();
-            //EnableChildren(true);
             Destroy(gameObject, delayDestroy);
         }
     }

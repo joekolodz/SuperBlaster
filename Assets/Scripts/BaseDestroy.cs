@@ -9,10 +9,8 @@ public class BaseDestroy : MonoBehaviour
 
     void OnDestroy()
     {
-        Debug.Log("Base Destroyed");
         StateManager.isWaitingForNextLevelToStart = true;
         Time.timeScale = 0.25f;
-        PowerUp.Instance.ResetPowerUp();
 
         var fireControl = GameObject.Find("FireControl");
         if (fireControl)

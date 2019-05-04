@@ -8,9 +8,8 @@ public class RocketFire : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("FirePoint"))
         {
-            SoundEffectsManager.Instance.PlayRocketLaunched();
-            //if (audioSource.isPlaying) return;
-            //audioSource.Play();
+            if (audioSource.isPlaying) return;
+            audioSource.Play();
         }
     }
 }

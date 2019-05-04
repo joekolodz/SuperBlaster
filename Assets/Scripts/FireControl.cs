@@ -57,16 +57,6 @@ public class FireControl : MonoBehaviour
     {
         if (GameObject.Find("MenuControl").GetComponent<MenuControl>().isPaused) return;
 
-        if(Input.GetKey(KeyCode.Space))
-        {
-            Time.timeScale = 0.20f;
-        }
-        else
-        {
-            Time.timeScale = 1f;
-        }
-
-
         bool isFiring = Input.GetButtonDown("Fire1");
 
         if (isFiring)
@@ -110,7 +100,7 @@ public class FireControl : MonoBehaviour
 
         StateManager.isWaitingForNextLevelToStart = true;
         StopAllBadGuyMovement();
-        PowerUp.Instance.ResetPowerUp();
+        PowerUpManager.Instance.ResetPowerUp();
         ScoreBucket.SaveHighScore();
         Instantiate(_getReadyText, GameObject.Find("Canvas").transform, false);
         yield return new WaitForSeconds(4);
@@ -159,9 +149,9 @@ public class FireControl : MonoBehaviour
         {
             var rocketSpawn = guyFiring.AimAtMouse(mousePos);
 
-            if (PowerUp.Instance.IsPowerUp)
+            if (PowerUpManager.Instance.IsPowerUp)
             {
-                PowerUp.Instance.HandlePowerUp(rocketSpawn);
+                PowerUpManager.Instance.HandlePowerUp(rocketSpawn);
             }
             else
             {
