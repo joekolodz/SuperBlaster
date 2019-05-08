@@ -8,7 +8,13 @@ public class MenuControl : MonoBehaviour
     public GameObject levelButton;
     public bool isPaused = false;
 
-    void Update()
+    private void Awake()
+    {
+        ObjectPooler.Instance.PopulatePools();
+        Explosions.Instance.Initialize();
+    }
+
+    private void Update()
     {
         if (Input.GetKey(KeyCode.S))
         {

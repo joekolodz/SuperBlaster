@@ -153,10 +153,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 4836648102480918, guid: 5864c371a5953e44c9328af4e5be2545, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 36.56
-      objectReference: {fileID: 0}
     - target: {fileID: 4461297046864722, guid: 5864c371a5953e44c9328af4e5be2545, type: 3}
       propertyPath: m_LocalPosition.y
       value: 1.84
@@ -244,6 +240,10 @@ PrefabInstance:
     - target: {fileID: 4652037154213192, guid: 5864c371a5953e44c9328af4e5be2545, type: 3}
       propertyPath: m_LocalPosition.y
       value: 32.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4836648102480918, guid: 5864c371a5953e44c9328af4e5be2545, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 36.56
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5864c371a5953e44c9328af4e5be2545, type: 3}
@@ -581,9 +581,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77738e1357ceaac46af5a0c148d047fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isEnabled: 1
-  children:
-  - {fileID: 622447438}
   smoke: {fileID: 1777618879577564, guid: eb93f9f9ab4d94f468df1454ad17fdb6, type: 3}
   flames: {fileID: 1089653079747642, guid: 67aca50139b80d5438768b2c2232ee4b, type: 3}
   smokeSizeMultiplier: 1
@@ -1008,6 +1005,11 @@ PrefabInstance:
       propertyPath: moveSpeed
       value: 9
       objectReference: {fileID: 0}
+    - target: {fileID: 114372620764633362, guid: b8d7983c410c4f743aabed352970d9eb,
+        type: 3}
+      propertyPath: health
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 114278201544554384, guid: b8d7983c410c4f743aabed352970d9eb,
         type: 3}
       propertyPath: roundsPerBurst
@@ -1032,11 +1034,6 @@ PrefabInstance:
         type: 3}
       propertyPath: multiExplosionSize
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114372620764633362, guid: b8d7983c410c4f743aabed352970d9eb,
-        type: 3}
-      propertyPath: health
-      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b8d7983c410c4f743aabed352970d9eb, type: 3}
@@ -2372,6 +2369,11 @@ PrefabInstance:
       propertyPath: moveSpeed
       value: 9
       objectReference: {fileID: 0}
+    - target: {fileID: 114372620764633362, guid: b8d7983c410c4f743aabed352970d9eb,
+        type: 3}
+      propertyPath: health
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 114278201544554384, guid: b8d7983c410c4f743aabed352970d9eb,
         type: 3}
       propertyPath: roundsPerBurst
@@ -2396,11 +2398,6 @@ PrefabInstance:
         type: 3}
       propertyPath: multiExplosionSize
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114372620764633362, guid: b8d7983c410c4f743aabed352970d9eb,
-        type: 3}
-      propertyPath: health
-      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b8d7983c410c4f743aabed352970d9eb, type: 3}
@@ -2588,13 +2585,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77738e1357ceaac46af5a0c148d047fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isEnabled: 1
-  children: []
   smoke: {fileID: 1777618879577564, guid: eb93f9f9ab4d94f468df1454ad17fdb6, type: 3}
   flames: {fileID: 1089653079747642, guid: 67aca50139b80d5438768b2c2232ee4b, type: 3}
   smokeSizeMultiplier: 4
   flameSizeMultiplier: 4
-  health: 6
+  health: 15
   healthWhenFlamesStart: 2
   hitTriggerObject: {fileID: 1313798887493962, guid: c5dedb66d13f11248a5f8479942376ed,
     type: 3}
@@ -2786,6 +2781,11 @@ PrefabInstance:
       propertyPath: moveSpeed
       value: 9
       objectReference: {fileID: 0}
+    - target: {fileID: 114372620764633362, guid: b8d7983c410c4f743aabed352970d9eb,
+        type: 3}
+      propertyPath: health
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 114278201544554384, guid: b8d7983c410c4f743aabed352970d9eb,
         type: 3}
       propertyPath: roundsPerBurst
@@ -2810,11 +2810,6 @@ PrefabInstance:
         type: 3}
       propertyPath: multiExplosionSize
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114372620764633362, guid: b8d7983c410c4f743aabed352970d9eb,
-        type: 3}
-      propertyPath: health
-      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b8d7983c410c4f743aabed352970d9eb, type: 3}
@@ -3489,6 +3484,11 @@ PrefabInstance:
       propertyPath: moveSpeed
       value: 9
       objectReference: {fileID: 0}
+    - target: {fileID: 114372620764633362, guid: b8d7983c410c4f743aabed352970d9eb,
+        type: 3}
+      propertyPath: health
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 114278201544554384, guid: b8d7983c410c4f743aabed352970d9eb,
         type: 3}
       propertyPath: roundsPerBurst
@@ -3513,11 +3513,6 @@ PrefabInstance:
         type: 3}
       propertyPath: multiExplosionSize
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114372620764633362, guid: b8d7983c410c4f743aabed352970d9eb,
-        type: 3}
-      propertyPath: health
-      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b8d7983c410c4f743aabed352970d9eb, type: 3}
@@ -4538,6 +4533,11 @@ PrefabInstance:
       propertyPath: moveSpeed
       value: 9
       objectReference: {fileID: 0}
+    - target: {fileID: 114372620764633362, guid: b8d7983c410c4f743aabed352970d9eb,
+        type: 3}
+      propertyPath: health
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 114278201544554384, guid: b8d7983c410c4f743aabed352970d9eb,
         type: 3}
       propertyPath: roundsPerBurst
@@ -4562,11 +4562,6 @@ PrefabInstance:
         type: 3}
       propertyPath: multiExplosionSize
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114372620764633362, guid: b8d7983c410c4f743aabed352970d9eb,
-        type: 3}
-      propertyPath: health
-      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b8d7983c410c4f743aabed352970d9eb, type: 3}
@@ -5285,6 +5280,11 @@ PrefabInstance:
       propertyPath: moveSpeed
       value: 9
       objectReference: {fileID: 0}
+    - target: {fileID: 114372620764633362, guid: b8d7983c410c4f743aabed352970d9eb,
+        type: 3}
+      propertyPath: health
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 114278201544554384, guid: b8d7983c410c4f743aabed352970d9eb,
         type: 3}
       propertyPath: roundsPerBurst
@@ -5309,11 +5309,6 @@ PrefabInstance:
         type: 3}
       propertyPath: multiExplosionSize
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114372620764633362, guid: b8d7983c410c4f743aabed352970d9eb,
-        type: 3}
-      propertyPath: health
-      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b8d7983c410c4f743aabed352970d9eb, type: 3}
@@ -5575,6 +5570,11 @@ PrefabInstance:
       propertyPath: moveSpeed
       value: 9
       objectReference: {fileID: 0}
+    - target: {fileID: 114372620764633362, guid: b8d7983c410c4f743aabed352970d9eb,
+        type: 3}
+      propertyPath: health
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 114278201544554384, guid: b8d7983c410c4f743aabed352970d9eb,
         type: 3}
       propertyPath: roundsPerBurst
@@ -5599,11 +5599,6 @@ PrefabInstance:
         type: 3}
       propertyPath: multiExplosionSize
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114372620764633362, guid: b8d7983c410c4f743aabed352970d9eb,
-        type: 3}
-      propertyPath: health
-      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b8d7983c410c4f743aabed352970d9eb, type: 3}
@@ -6006,14 +6001,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Waypoints - PowerUp
       objectReference: {fileID: 0}
-    - target: {fileID: 4836648102480918, guid: 5864c371a5953e44c9328af4e5be2545, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -21.9
-      objectReference: {fileID: 0}
-    - target: {fileID: 4836648102480918, guid: 5864c371a5953e44c9328af4e5be2545, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 54.3
-      objectReference: {fileID: 0}
     - target: {fileID: 4461297046864722, guid: 5864c371a5953e44c9328af4e5be2545, type: 3}
       propertyPath: m_LocalPosition.y
       value: 41.6
@@ -6101,6 +6088,14 @@ PrefabInstance:
     - target: {fileID: 4652037154213192, guid: 5864c371a5953e44c9328af4e5be2545, type: 3}
       propertyPath: m_LocalPosition.y
       value: 47.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4836648102480918, guid: 5864c371a5953e44c9328af4e5be2545, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -21.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4836648102480918, guid: 5864c371a5953e44c9328af4e5be2545, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 54.3
       objectReference: {fileID: 0}
     - target: {fileID: 1282924945554118, guid: 5864c371a5953e44c9328af4e5be2545, type: 3}
       propertyPath: m_IsActive
@@ -7012,6 +7007,11 @@ PrefabInstance:
       propertyPath: moveSpeed
       value: 9
       objectReference: {fileID: 0}
+    - target: {fileID: 114372620764633362, guid: b8d7983c410c4f743aabed352970d9eb,
+        type: 3}
+      propertyPath: health
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 114278201544554384, guid: b8d7983c410c4f743aabed352970d9eb,
         type: 3}
       propertyPath: roundsPerBurst
@@ -7036,11 +7036,6 @@ PrefabInstance:
         type: 3}
       propertyPath: multiExplosionSize
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114372620764633362, guid: b8d7983c410c4f743aabed352970d9eb,
-        type: 3}
-      propertyPath: health
-      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b8d7983c410c4f743aabed352970d9eb, type: 3}

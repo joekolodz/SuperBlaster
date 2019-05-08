@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class PlasmaSpawn : MonoBehaviour
 {
-    public GameObject plasma;
     public Transform spawnPoint;
     [Range(0, 10)]
     public int roundsPerBurst = 3;
@@ -31,7 +30,7 @@ public class PlasmaSpawn : MonoBehaviour
 
         if (GameObject.Find("MenuControl").GetComponent<MenuControl>().isPaused) return;
 
-        if (plasma == null || spawnPoint == null) return;
+        if (spawnPoint == null) return;
 
         if (System.DateTime.Now > fireTime)
         {
@@ -54,15 +53,21 @@ public class PlasmaSpawn : MonoBehaviour
 
         for (var n = 1; n <= roundsPerBurst; n++)
         {
-            if (plasma != null && spawnPoint != null)
+            if (spawnPoint != null)
             {
                 if (StateManager.isWaitingForNextLevelToStart)
                 {
                     continue;
                 }
 
-                Instantiate(plasma, spawnPoint.position, spawnPoint.rotation);
-                yield return new WaitForSeconds(delayBetweenRounds);
+                var p = ObjectPooler.Instance.GetPlasma();
+                if (p)
+                {
+                    p.transform.position = spawnPoint.position;
+                    p.transform.rotation = spawnPoint.rotation;
+                    p.SetActive(true);
+                    yield return new WaitForSeconds(delayBetweenRounds);
+                }
             }
         }
 

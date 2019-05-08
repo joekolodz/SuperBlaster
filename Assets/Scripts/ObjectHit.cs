@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class ObjectHit : MonoBehaviour
 {
-
-    public bool isEnabled = true;
-    public List<GameObject> children;
     public GameObject smoke;
     public GameObject flames;
 
@@ -31,26 +28,8 @@ public class ObjectHit : MonoBehaviour
     private GameObject flamesInstance;
     private bool isOnFire = false;
 
-
-    public void Start()
-    {
-        EnableChildren(false);
-    }
-
-    private void EnableChildren(bool isEnabled)
-    {
-        foreach (var child in children)
-        {
-            var script = child.GetComponent<ObjectHit>();
-            script.isEnabled = isEnabled;
-        }
-    }
-
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (!isEnabled) return;
-
-
         if (collision.gameObject.name.Contains(hitTriggerObject.name))
         {
             health--;

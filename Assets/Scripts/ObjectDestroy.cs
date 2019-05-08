@@ -32,13 +32,11 @@ public class ObjectDestroy : MonoBehaviour
         {
             s.enabled = false;
         }
-        //gameObject.GetComponent<SpriteRenderer>().enabled = false;
 
         var collider = gameObject.GetComponent<CircleCollider2D>();
         if (collider != null) collider.enabled = false;
 
         
-
         PowerUpManager.Instance.IsPowerUpHit(gameObject.tag);
 
         if (soundOnDestroy != null && !soundOnDestroy.isPlaying && Random.Range(0.0f, 1.0f) <= 0.5f)

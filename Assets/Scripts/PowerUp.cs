@@ -117,6 +117,7 @@ public class PowerUpManager : MonoBehaviour
         EnableSpeedBlaster();
         EnableTripleBlaster();
         EnableMultiBlaster();
+        damageIncrease = 2;//balance power back out
     }
 
     private void HandleSpeedBlaster(RocketSpawn rocketSpawn)
@@ -128,6 +129,8 @@ public class PowerUpManager : MonoBehaviour
     {
         //1st rocket is in normal position
         var rocketInstance1 = LaunchRocket.Instance.Launch(rocketSpawn, rocketForceMultiplier);
+
+        if (!rocketInstance1) return;
 
         ////2nd rocket on top
         var newPosition = rocketInstance1.transform.TransformPoint(0, 0.8f, 0);

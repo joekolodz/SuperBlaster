@@ -36,9 +36,17 @@ public class LaunchRocket : MonoBehaviour
 
     public GameObject Launch(RocketSpawn rocketSpawn, Vector3 newPosition, float forceMultiplier)
     {
-        var r = Instantiate(rocketSpawn.rocket, newPosition, rocketSpawn.spawnPoint.rotation);
-        var force = DEFAULT_ROCKET_FORCE * forceMultiplier;
-        r.GetComponent<Rigidbody2D>().AddForce(r.transform.right * force);        
+        var r = ObjectPooler.Instance.GetRocket();
+        if (r)
+        {
+            r.transform.position = newPosition;
+            r.transform.rotation = rocketSpawn.spawnPoint.rotation;
+            r.SetActive(true);
+
+            var force = DEFAULT_ROCKET_FORCE * forceMultiplier;
+            r.GetComponent<Rigidbody2D>().AddForce(r.transform.right * force);
+        }
+
         return r;
     }
 }

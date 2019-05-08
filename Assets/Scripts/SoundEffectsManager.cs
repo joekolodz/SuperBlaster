@@ -30,6 +30,7 @@ public class SoundEffectsManager : MonoBehaviour
     {
         DontDestroyOnLoad(gameObject);
     }
+
     private AudioSource LoadSoundEffect(string audioCliepResourceName)
     {
         var obj = Instance.gameObject;

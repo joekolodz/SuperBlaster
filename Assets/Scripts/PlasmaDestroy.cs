@@ -4,27 +4,30 @@ using UnityEngine;
 
 public class PlasmaDestroy : MonoBehaviour
 {
-    public GameObject explosion;
-    [Range(0,3)]
+    [Range(0, 3)]
     public float explosionScale = 1.0f;
     public AudioSource audioSource;
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (audioSource.isPlaying) return;
-        audioSource.Play();
+        if (!audioSource.isPlaying && audioSource.enabled)
+        {
+            audioSource.Play();
+        }
+
+        EventAggregator.PublishObjectDestroyed(new ObjectDestroyedEventArgs(gameObject.transform, explosionScale));
 
         //hide the plasma blast sprite so the sound can still play
         //don't hide the particles coz it looks cool
         gameObject.GetComponent<SpriteRenderer>().enabled = false;
 
-        Destroy(gameObject, 2.0f);
-    }
+        var trail = gameObject.GetComponentInChildren<TrailRenderer>();
+        if (trail != null)
+        {
+            trail.Clear();
+        }
 
-    private void OnDestroy()
-    {
-        var explosion = Instantiate(this.explosion, transform.position, Quaternion.identity);
-        explosion.GetComponentInChildren<ParticleSystem>().transform.localScale *= explosionScale;
-        Destroy(explosion, 1.0f);
+        //StartCoroutine(WaitForTime.Wait(2.0f, () => { ObjectPooler.Instance.ReturnPlasma(gameObject); }));
+        ObjectPooler.Instance.ReturnPlasma(gameObject);
     }
 }
