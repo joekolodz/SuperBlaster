@@ -15,7 +15,7 @@ public class PlasmaSpawn : MonoBehaviour
     public float accuracy = 0.25f;
 
     private System.DateTime fireTime;
-    private bool isFiring = false;
+    public bool isFiring = false;
 
     void Start()
     {
@@ -24,6 +24,7 @@ public class PlasmaSpawn : MonoBehaviour
 
     private void Update()
     {
+        
         if (StateManager.isWaitingForNextLevelToStart) return;
 
         if (isFiring) return;

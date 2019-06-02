@@ -839,7 +839,7 @@ PrefabInstance:
     - target: {fileID: 114989509754865532, guid: 9cfa3a8df703a6b41acb67239c982f63,
         type: 3}
       propertyPath: delayBetweenShots
-      value: 4.64
+      value: 3.72
       objectReference: {fileID: 0}
     - target: {fileID: 114989509754865532, guid: 9cfa3a8df703a6b41acb67239c982f63,
         type: 3}
@@ -988,7 +988,7 @@ PrefabInstance:
     - target: {fileID: 114261079136514148, guid: f6667adf6d3748043bebfdeead9fe193,
         type: 3}
       propertyPath: health
-      value: 40
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 114261079136514148, guid: f6667adf6d3748043bebfdeead9fe193,
         type: 3}
@@ -1205,7 +1205,7 @@ PrefabInstance:
     - target: {fileID: 114989509754865532, guid: 9cfa3a8df703a6b41acb67239c982f63,
         type: 3}
       propertyPath: delayBetweenShots
-      value: 5.28
+      value: 4.77
       objectReference: {fileID: 0}
     - target: {fileID: 114989509754865532, guid: 9cfa3a8df703a6b41acb67239c982f63,
         type: 3}
@@ -2053,9 +2053,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77738e1357ceaac46af5a0c148d047fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isEnabled: 1
-  children:
-  - {fileID: 745218108}
   smoke: {fileID: 1777618879577564, guid: eb93f9f9ab4d94f468df1454ad17fdb6, type: 3}
   flames: {fileID: 1089653079747642, guid: 67aca50139b80d5438768b2c2232ee4b, type: 3}
   smokeSizeMultiplier: 1
@@ -2886,8 +2883,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77738e1357ceaac46af5a0c148d047fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isEnabled: 1
-  children: []
   smoke: {fileID: 1777618879577564, guid: eb93f9f9ab4d94f468df1454ad17fdb6, type: 3}
   flames: {fileID: 1089653079747642, guid: 67aca50139b80d5438768b2c2232ee4b, type: 3}
   smokeSizeMultiplier: 4
@@ -3246,7 +3241,7 @@ PrefabInstance:
     - target: {fileID: 114261079136514148, guid: f6667adf6d3748043bebfdeead9fe193,
         type: 3}
       propertyPath: health
-      value: 40
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 114261079136514148, guid: f6667adf6d3748043bebfdeead9fe193,
         type: 3}
@@ -3426,7 +3421,7 @@ PrefabInstance:
     - target: {fileID: 114989509754865532, guid: 9cfa3a8df703a6b41acb67239c982f63,
         type: 3}
       propertyPath: delayBetweenShots
-      value: 6.41
+      value: 5.58
       objectReference: {fileID: 0}
     - target: {fileID: 114989509754865532, guid: 9cfa3a8df703a6b41acb67239c982f63,
         type: 3}
@@ -3639,7 +3634,7 @@ PrefabInstance:
     - target: {fileID: 114261079136514148, guid: f6667adf6d3748043bebfdeead9fe193,
         type: 3}
       propertyPath: health
-      value: 40
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 114261079136514148, guid: f6667adf6d3748043bebfdeead9fe193,
         type: 3}
@@ -3808,7 +3803,7 @@ PrefabInstance:
     - target: {fileID: 114989509754865532, guid: 9cfa3a8df703a6b41acb67239c982f63,
         type: 3}
       propertyPath: delayBetweenShots
-      value: 5.91
+      value: 5.36
       objectReference: {fileID: 0}
     - target: {fileID: 114989509754865532, guid: 9cfa3a8df703a6b41acb67239c982f63,
         type: 3}
@@ -4216,7 +4211,7 @@ PrefabInstance:
     - target: {fileID: 114989509754865532, guid: 9cfa3a8df703a6b41acb67239c982f63,
         type: 3}
       propertyPath: delayBetweenShots
-      value: 7.59
+      value: 6.85
       objectReference: {fileID: 0}
     - target: {fileID: 114989509754865532, guid: 9cfa3a8df703a6b41acb67239c982f63,
         type: 3}
@@ -4357,7 +4352,7 @@ PrefabInstance:
     - target: {fileID: 114989509754865532, guid: 9cfa3a8df703a6b41acb67239c982f63,
         type: 3}
       propertyPath: delayBetweenShots
-      value: 4.87
+      value: 4.5
       objectReference: {fileID: 0}
     - target: {fileID: 114989509754865532, guid: 9cfa3a8df703a6b41acb67239c982f63,
         type: 3}
@@ -4787,7 +4782,7 @@ PrefabInstance:
     - target: {fileID: 114989509754865532, guid: 9cfa3a8df703a6b41acb67239c982f63,
         type: 3}
       propertyPath: delayBetweenShots
-      value: 6.23
+      value: 5.77
       objectReference: {fileID: 0}
     - target: {fileID: 114989509754865532, guid: 9cfa3a8df703a6b41acb67239c982f63,
         type: 3}
@@ -6665,7 +6660,7 @@ PrefabInstance:
     - target: {fileID: 114989509754865532, guid: 9cfa3a8df703a6b41acb67239c982f63,
         type: 3}
       propertyPath: delayBetweenShots
-      value: 6.23
+      value: 4.9
       objectReference: {fileID: 0}
     - target: {fileID: 114989509754865532, guid: 9cfa3a8df703a6b41acb67239c982f63,
         type: 3}
@@ -6862,7 +6857,7 @@ PrefabInstance:
     - target: {fileID: 114989509754865532, guid: 9cfa3a8df703a6b41acb67239c982f63,
         type: 3}
       propertyPath: delayBetweenShots
-      value: 5.37
+      value: 4.96
       objectReference: {fileID: 0}
     - target: {fileID: 114989509754865532, guid: 9cfa3a8df703a6b41acb67239c982f63,
         type: 3}
@@ -7360,7 +7355,7 @@ PrefabInstance:
     - target: {fileID: 114261079136514148, guid: f6667adf6d3748043bebfdeead9fe193,
         type: 3}
       propertyPath: health
-      value: 40
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 114261079136514148, guid: f6667adf6d3748043bebfdeead9fe193,
         type: 3}

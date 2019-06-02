@@ -38,6 +38,12 @@ public class FireControl : MonoBehaviour
                 break;
             }
         }
+        EventAggregator.BadGuyDied += EventAggregator_BadGuyDied;
+    }
+
+    private void EventAggregator_BadGuyDied(object sender, BadGuyDiedEventArgs e)
+    {
+        AddScore(e.DestructionValue);
     }
 
     public void PlaceScoreText()
@@ -53,8 +59,29 @@ public class FireControl : MonoBehaviour
         UpdateScore();
     }
 
+
+    private GameObject myrocket;
     public void Update()
     {
+        //var mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        //bool isFiring = Input.GetButtonDown("Fire1");
+        //if (isFiring)
+        //{
+        //    var rocketSpawn = _currentlySelectedGuy.AimAtMouse(mousePos);
+        //    myrocket = LaunchRocket.Instance.Launch(rocketSpawn);
+        //}
+
+        //if (Input.GetKey("x"))
+        //{
+        //    myrocket.GetComponent<RocketFire>().StopRocket();
+        //    var rb = myrocket.GetComponent<Rigidbody2D>();
+        //    rb.velocity = Vector2.zero;
+        //    rb.angularVelocity = 0f;
+
+        //}
+
+
+
         if (GameObject.Find("MenuControl").GetComponent<MenuControl>().isPaused) return;
 
         bool isFiring = Input.GetButtonDown("Fire1");
@@ -81,14 +108,17 @@ public class FireControl : MonoBehaviour
 
     private void DetectBadGuyDeathState()
     {
-        isAllDestroyed = true;
         foreach (var t in _badGuys)
         {
-            if (t.GetComponent<BadGuyMovement>().isDestroyed) continue;
-            isAllDestroyed = false;
+            if (t == null) return;
+
+            var bgm = t.GetComponent<BadGuyMovement>();
+            var od = bgm.badGuy.GetComponentInChildren<ObjectDestroy>();
+            if (od.IsPooledObject) return;
+            if (!bgm.isDestroyed) return;
         }
 
-        if (isAllDestroyed && !StateManager.isWaitingForNextLevelToStart)
+        if (!StateManager.isWaitingForNextLevelToStart)
         {
             StartCoroutine(StartNextLevel());
         }
@@ -193,5 +223,10 @@ public class FireControl : MonoBehaviour
     {
         scoreText.text = "SCORE: " + ScoreBucket.Score;
         highScoreText.text = "HIGH SCORE: " + ScoreBucket.HighScore;
+    }
+
+    private void OnDestroy()
+    {
+        EventAggregator.BadGuyDied -= EventAggregator_BadGuyDied;
     }
 }

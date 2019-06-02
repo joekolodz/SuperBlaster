@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class ObjectDestroy : MonoBehaviour
 {
@@ -13,22 +11,16 @@ public class ObjectDestroy : MonoBehaviour
     public float multiExplosionIntervalDelay = 0.3f;
     public int destructionValue;
     public AudioSource soundOnDestroy;
+    public bool IsPooledObject = false;
 
-    private FireControl fireControl;
-
-    private void Start()
+    public void Explode(float delayDestroy)
     {
-        var fc = GameObject.Find("FireControl");
-        if (fc)
-        {
-            fireControl = fc.GetComponent<FireControl>();
-        }
-    }
+        var parent = gameObject.transform.parent.gameObject;
+        var bgm = parent.GetComponent<BadGuyMovement>();
+        if (bgm && bgm.isDestroyed) return;
 
-    public void Explode()
-    {
         var sprites = gameObject.GetComponentsInChildren<SpriteRenderer>();
-        foreach(var s in sprites)
+        foreach (var s in sprites)
         {
             s.enabled = false;
         }
@@ -36,45 +28,28 @@ public class ObjectDestroy : MonoBehaviour
         var collider = gameObject.GetComponent<CircleCollider2D>();
         if (collider != null) collider.enabled = false;
 
-        
         PowerUpManager.Instance.IsPowerUpHit(gameObject.tag);
 
-        if (soundOnDestroy != null && !soundOnDestroy.isPlaying && Random.Range(0.0f, 1.0f) <= 0.5f)
+        if (soundOnDestroy != null && !soundOnDestroy.isPlaying && Random.Range(0.0f, 1.0f) <= 0.3f)
         {
             AudioSource.PlayClipAtPoint(soundOnDestroy.clip, new Vector3(0, 0, 0));
         }
 
-        StartCoroutine(MultipleExplosions());
+        EventAggregator.PublishObjectDestroyed(new ObjectDestroyedEventArgs(gameObject.transform, explosionSizeMultiplier, false));
 
-        var badGuy = gameObject.GetComponentInParent<BadGuyMovement>();
-        if (badGuy && !badGuy.isDestroyed)
+        if (bgm)
         {
-            badGuy.isDestroyed = true;
-            fireControl?.AddScore(destructionValue);
+            EventAggregator.PublishBadGuyDied(new BadGuyDiedEventArgs(bgm.gameObject, destructionValue));
         }
-    }
 
-    private IEnumerator MultipleExplosions()
-    {
-        //force this down to 1 due to performance madness
-        multiExplosionCount = 1;
-
-        for (var i = 0; i < multiExplosionCount; i++)
+        if (bgm && !bgm.isDestroyed)
         {
-            var pos = transform.position;
-            //pos.x += 3 * explosionSizeMultiplier;
-            var instance = Instantiate(explosion, pos, Quaternion.identity);
-            if (!instance) yield return null;
-            instance.transform.localScale *= explosionSizeMultiplier;
-
-            for (var n = 0; n < instance.transform.childCount; n++)
-            {
-                var childPS = instance.transform.GetChild(n);
-                childPS.localScale *= explosionSizeMultiplier;
-            }
-
-            Destroy(instance, 1.5f);
-            yield return new WaitForSeconds(multiExplosionIntervalDelay);
+            //if this object is pooled it shouldn't really be marked destroyed. all bad guys dead are detected a different way
+            bgm.isDestroyed = true;
         }
+
+        if (IsPooledObject) return;
+
+        Destroy(gameObject, delayDestroy);
     }
 }

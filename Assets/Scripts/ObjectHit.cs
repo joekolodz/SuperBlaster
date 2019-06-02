@@ -32,11 +32,13 @@ public class ObjectHit : MonoBehaviour
     {
         if (collision.gameObject.name.Contains(hitTriggerObject.name))
         {
-            health--;
-
-            if(PowerUpManager.Instance.IsPowerUp)
+            if (PowerUpManager.Instance.IsPowerUp)
             {
                 health -= PowerUpManager.Instance.GetAdjustedDamage();
+            }
+            else
+            {
+                health--;
             }
 
             if (!isSmoking)
@@ -64,8 +66,8 @@ public class ObjectHit : MonoBehaviour
                 flamesInstance = Instantiate(flames, transform.position, Quaternion.identity);
                 flamesInstance.transform.localScale *= flameSizeMultiplier;
 
-                //var ps = flamesInstance.transform.Find("PS Flame Sparks");
-                //ps.localScale *= flameSizeMultiplier;
+                var ps = flamesInstance.transform.Find("PS Flame Sparks");
+                ps.localScale *= flameSizeMultiplier;
 
                 isOnFire = true;
             }
@@ -73,10 +75,18 @@ public class ObjectHit : MonoBehaviour
 
         if (health <= 0)
         {
-            gameObject.GetComponent<ObjectDestroy>().Explode();
-            Destroy(gameObject, delayDestroy);
+            var bx = gameObject.transform.parent.gameObject;
+            var b = bx.GetComponent<BadGuyMovement>();
+            if (b != null)
+            {
+                Returned++;
+            }
+
+            gameObject.GetComponent<ObjectDestroy>().Explode(delayDestroy);
+
         }
     }
+    private int Returned = 0;
 
     public void Update()
     {
@@ -85,7 +95,7 @@ public class ObjectHit : MonoBehaviour
             smokeInstance.transform.position = gameObject.transform.position;
         }
 
-        if(flamesInstance != null)
+        if (flamesInstance != null)
         {
             flamesInstance.transform.position = gameObject.transform.position;
         }
@@ -98,5 +108,10 @@ public class ObjectHit : MonoBehaviour
 
         if (flamesInstance != null)
             Destroy(flamesInstance);
+    }
+
+    protected void OnDisable()
+    {
+        OnDestroy();
     }
 }

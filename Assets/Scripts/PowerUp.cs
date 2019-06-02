@@ -9,6 +9,7 @@ public class PowerUpManager : MonoBehaviour
 
     public enum PowerUpNames
     {
+        None,
         SpeedBlaster,
         TripleBlaster,
         MultiBlaster,
@@ -16,7 +17,7 @@ public class PowerUpManager : MonoBehaviour
     }
 
     private const float DEFAULT_ROCKET_FORCE_MULTIPLIER = 1.0f;
-    private const float POWERUP_TIME_IN_SECONDS = 6.0f;
+    private const float POWERUP_TIME_IN_SECONDS = 10.0f;
 
     public bool IsPowerUp { get; private set; }
 
@@ -181,6 +182,26 @@ public class PowerUpManager : MonoBehaviour
         {
             ActivatePowerUp();
         }
+    }
+
+    public void PowerUpSpeedBlasterForEntireLevel()
+    {
+        EnableSpeedBlaster();
+    }
+
+    public void PowerUpMultiBlasterForEntireLevel()
+    {
+        EnableMultiBlaster();
+    }
+
+    public void PowerUpTripleBlasterForEntireLevel()
+    {
+        EnableTripleBlaster();
+    }
+
+    public void PowerUpSuperBlasterForEntireLevel()
+    {
+        EnableSuperBlaster();
     }
 
     public void ResetPowerUp()

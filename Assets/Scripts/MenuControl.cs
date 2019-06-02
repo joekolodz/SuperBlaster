@@ -12,6 +12,7 @@ public class MenuControl : MonoBehaviour
     {
         ObjectPooler.Instance.PopulatePools();
         Explosions.Instance.Initialize();
+        SoundEffectsManager.Initialize();
     }
 
     private void Update()
@@ -47,6 +48,10 @@ public class MenuControl : MonoBehaviour
             Time.timeScale = 1f;
         }
 
+        if(Input.GetKeyDown(KeyCode.D))
+        {
+            GameObjectEx.IsDebug = !GameObjectEx.IsDebug;
+        }
     }
 
     public void Quit()
@@ -86,6 +91,7 @@ public class MenuControl : MonoBehaviour
 
     public void Restart()
     {
+        ObjectPooler.Instance.Reset();
         SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex);
     }
 

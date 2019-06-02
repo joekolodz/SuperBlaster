@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PlasmaDestroy : MonoBehaviour
 {
@@ -10,11 +8,12 @@ public class PlasmaDestroy : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (!audioSource.isPlaying && audioSource.enabled)
-        {
-            audioSource.Play();
-        }
-
+        //if (!audioSource.isPlaying && audioSource.enabled)
+        //{
+        //    //audioSource.Play();
+        //    AudioSource.PlayClipAtPoint(audioSource.clip, new Vector3(0, 0, 0), audioSource.volume);
+        //}
+        EventAggregator.PublishPlasmaBlastHit();
         EventAggregator.PublishObjectDestroyed(new ObjectDestroyedEventArgs(gameObject.transform, explosionScale));
 
         //hide the plasma blast sprite so the sound can still play
@@ -27,7 +26,16 @@ public class PlasmaDestroy : MonoBehaviour
             trail.Clear();
         }
 
-        //StartCoroutine(WaitForTime.Wait(2.0f, () => { ObjectPooler.Instance.ReturnPlasma(gameObject); }));
-        ObjectPooler.Instance.ReturnPlasma(gameObject);
+        ReturnPlasma();
+    }
+
+    private void OnBecameInvisible()
+    {
+        ReturnPlasma();
+    }
+
+    private void ReturnPlasma()
+    {
+        ObjectPooler.Instance.ReturnPlasma(gameObject);      
     }
 }

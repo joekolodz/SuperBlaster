@@ -67,11 +67,14 @@
     <Compile Include="Assets\Scripts\EventAggregator.cs" />
     <Compile Include="Assets\Scripts\Explosions.cs" />
     <Compile Include="Assets\Scripts\FireControl.cs" />
+    <Compile Include="Assets\Scripts\GameObjectExt.cs" />
     <Compile Include="Assets\Scripts\GeometricFunctions.cs" />
     <Compile Include="Assets\Scripts\GoodGuy.cs" />
     <Compile Include="Assets\Scripts\GoodGuyManager.cs" />
     <Compile Include="Assets\Scripts\LaunchRocket.cs" />
+    <Compile Include="Assets\Scripts\LevelBehavior23.cs" />
     <Compile Include="Assets\Scripts\LevelButtonLaunchScene.cs" />
+    <Compile Include="Assets\Scripts\LevelConfiguration.cs" />
     <Compile Include="Assets\Scripts\MenuControl.cs" />
     <Compile Include="Assets\Scripts\MusicManager.cs" />
     <Compile Include="Assets\Scripts\Navigation.cs" />

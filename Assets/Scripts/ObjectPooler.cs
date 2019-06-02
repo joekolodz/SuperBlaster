@@ -7,9 +7,10 @@ public class ObjectPooler : MonoBehaviour
     public static readonly ObjectPooler Instance = (new GameObject("ObjectPoolerSingletonContainer")).AddComponent<ObjectPooler>();
 
     private bool IsPoolPopulated = false;
+    private bool IsBadGuyArrowheadPoolPopulated = false;
 
     private GameObject ExplosionLargePool;
-    private int ExplosionLargePoolSize = 5;
+    private int ExplosionLargePoolSize = 10;
     private GameObject ExplosionLargePrefab;
     private List<GameObject> _explosionLargePool;
 
@@ -27,6 +28,12 @@ public class ObjectPooler : MonoBehaviour
     private int PlasmaPoolSize = 30;
     private GameObject PlasmaPrefab;
     private List<GameObject> _plasmaPool;
+
+    private GameObject BadGuyArrowheadPool;
+    //private int BadGuyArrowheadPoolSize = 20;
+    private GameObject BadGuyArrowheadPrefab;
+    private List<GameObject> _badGuyArrowheadPool;
+    private List<GameObject> _badGuyAllinstances;
 
 
     // Explicit static constructor to tell C# compiler
@@ -54,16 +61,21 @@ public class ObjectPooler : MonoBehaviour
         ExplosionSmallPrefab = (GameObject)Resources.Load("prefabs/Explosion Small");
         ExplosionSmallPool = new GameObject("Explosion-Small Pool");
 
+        BadGuyArrowheadPrefab = (GameObject)Resources.Load("prefabs/Bad Guy Template (Arrowhead)");
+        BadGuyArrowheadPool = new GameObject("Bad Guy - Arrowhead Pool");
+
         _rocketPool = new List<GameObject>();
         _plasmaPool = new List<GameObject>();
         _explosionLargePool = new List<GameObject>();
         _explosionSmallPool = new List<GameObject>();
+        _badGuyArrowheadPool = new List<GameObject>();
+        _badGuyAllinstances = new List<GameObject>();
 
         RocketPool.transform.SetParent(gameObject.transform, true);
         PlasmaPool.transform.SetParent(gameObject.transform, true);
         ExplosionLargePool.transform.SetParent(gameObject.transform, true);
         ExplosionSmallPool.transform.SetParent(gameObject.transform, true);
-
+        BadGuyArrowheadPool.transform.SetParent(gameObject.transform, true);
 
         PopulatePools();
         DontDestroyOnLoad(gameObject);
@@ -108,6 +120,47 @@ public class ObjectPooler : MonoBehaviour
         IsPoolPopulated = true;
     }
 
+    public void PopulateBadGuyArrowheadPool(int poolSize)
+    {
+        if (IsBadGuyArrowheadPoolPopulated) return;
+
+        for (var i = 0; i < poolSize; i++)
+        {
+            var r = Instantiate(BadGuyArrowheadPrefab);
+            r.transform.position = new Vector3(60, -5, 0);
+            r.name += $"[{i}]";
+            r.transform.Find("Bad Guy").GetComponent<ObjectDestroy>().IsPooledObject = true; ;
+            r.SetActive(false);
+            r.transform.SetParent(BadGuyArrowheadPool.transform, true);
+            r.GetComponent<BadGuyMovement>().Id = i + 1;
+            _badGuyArrowheadPool.Add(r);
+            _badGuyAllinstances.Add(r);
+        }
+        IsBadGuyArrowheadPoolPopulated = true;
+    }
+
+    public void Reset()
+    {
+        foreach(var o in _badGuyAllinstances)
+        {
+            ReturnBadGuyArrowhead(o);
+            var bgm = o.GetComponent<BadGuyMovement>();
+            bgm.Reset();
+        }
+
+        var allRockets = FindObjectsOfType<RocketFire>();
+        foreach (var rocket in allRockets)
+        {
+            ReturnRocket(rocket.gameObject);
+        }
+
+        var allPlasmaBlasts = FindObjectsOfType<PlasmaFire>();
+        foreach (var blast in allPlasmaBlasts)
+        {
+            ReturnPlasma(blast.gameObject);
+        }
+    }
+
     public GameObject GetRocket()
     {
         if (_rocketPool.Count == 0) return null;
@@ -120,8 +173,16 @@ public class ObjectPooler : MonoBehaviour
 
     public void ReturnRocket(GameObject rocket)
     {
+        rocket.GetComponent<RocketFire>().StopRocket();
+
+        var rb = rocket.GetComponent<Rigidbody2D>();
+        rb.velocity = Vector2.zero;
+        rb.angularVelocity = 0f;
+
         rocket.SetActive(false);
+
         rocket.transform.position = Vector3.zero;
+
         _rocketPool.Add(rocket);
     }
 
@@ -173,5 +234,47 @@ public class ObjectPooler : MonoBehaviour
         explosion.SetActive(false);
         explosion.transform.position = Vector3.zero;
         _explosionSmallPool.Add(explosion);
+    }
+
+    public GameObject GetBadGuyArrowhead()
+    {
+        if (_badGuyArrowheadPool.Count == 0) return null;
+
+        var index = _badGuyArrowheadPool.Count - 1;
+        var r = _badGuyArrowheadPool[index];
+        _badGuyArrowheadPool.RemoveAt(index);
+
+        var bgm = r.GetComponent<BadGuyMovement>();
+        bgm.RemovedFromPoolCount++;
+        bgm.isDestroyed = false;
+
+        return r;
+    }
+
+
+    public void ReturnBadGuyArrowhead(GameObject o)
+    {
+        var bgm = o.GetComponent<BadGuyMovement>();
+
+        bgm.ReturnedToPoolCount++;
+
+        var badGuy = bgm.badGuy;
+        badGuy.transform.position = new Vector3(100, 100, 0);
+        
+        var sprites = badGuy.GetComponentsInChildren<SpriteRenderer>();
+        foreach (var s in sprites)
+        {
+            s.enabled = true;
+        }
+
+        var collider = badGuy.GetComponentInChildren<CircleCollider2D>();
+        if (collider != null) collider.enabled = true;
+
+        var rb = badGuy.GetComponent<Rigidbody2D>();
+        rb.velocity = Vector2.zero;
+        rb.angularVelocity = 0f;
+
+        o.SetActive(false);
+        _badGuyArrowheadPool.Add(o);
     }
 }

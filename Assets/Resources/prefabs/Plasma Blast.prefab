@@ -170,7 +170,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: feb6c0d3097db3a4e8ec676403fc7162, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  explosion: {fileID: 1490029790037706, guid: 149a9bd077499744aa993727c7c69ee2, type: 3}
   explosionScale: 0.25
   audioSource: {fileID: 82790071530302134}
 --- !u!82 &82165886497272238
@@ -185,7 +184,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 46d86c6350440fa4e9f0574f7beb4421, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.2
+  m_Volume: 0.4
   m_Pitch: 1.06
   Loop: 0
   Mute: 0
@@ -281,7 +280,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 2b87ebf043bd24145924e161c2fe2f30, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.2
+  m_Volume: 0.1
   m_Pitch: 1
   Loop: 0
   Mute: 0

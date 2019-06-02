@@ -5,6 +5,7 @@ using UnityEngine;
 public class Navigation : MonoBehaviour
 {
     public Transform[] waypoints;
+    private int _waypointCount;
 
     // Use this for initialization
     void Awake()
@@ -16,5 +17,17 @@ public class Navigation : MonoBehaviour
             //test
             waypoints[i] = list[i].transform;
         }
+        _waypointCount = waypoints.Length;
+    }
+
+    public Transform GetRandomWaypoint(Transform currentWaypoint)
+    {
+        var newWaypoint = currentWaypoint;
+        while(newWaypoint == currentWaypoint)
+        {
+            newWaypoint = waypoints[Random.Range(0, _waypointCount)];
+        }
+
+        return newWaypoint;
     }
 }

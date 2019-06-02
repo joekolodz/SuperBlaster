@@ -5,63 +5,65 @@ using UnityEngine;
 
 public class SoundEffectsManager : MonoBehaviour
 {
-    public static readonly SoundEffectsManager Instance = (new GameObject("SoundEffectsManagerSingletonContainer")).AddComponent<SoundEffectsManager>();
+    private const int MaxPlasmaHitSounds = 1;
+    public static new GameObject gameObject;
+    private static AudioSource SmallExplosion;
+    private static AudioSource LargeExplosion;
+    private static AudioSource RocketLaunched; //RocketFire.cs
+    private static List<AudioSource> RocketLaunchedList;
+    private static List<AudioSource> PlasmaBlast; //PlasmaBlast.cs
+    private static AudioSource PlasmaBlastPrefab;
 
-    private AudioSource SmallExplosion;
-    private AudioSource LargeExplosion;
-    private AudioSource RocketLaunched; //RocketFire.cs
-    private List<AudioSource> RocketLaunchedList = new List<AudioSource>();
-    private List<AudioSource> PlasmaBlast = new List<AudioSource>(); //PlasmaBlast.cs
-    private AudioSource PlasmaHit; //PlasmaBlast.cs
-    private AudioSource ObjectHit; //ObjectHit.cs
-    private AudioSource ObjectDestroy; //ObjectDestroy.cs
+    private static List<AudioSource> PlasmaHit; //PlasmaBlast.cs
+    private static AudioSource PlasmaHitPrefab;
+    private static GameObject PlasmaHitPool;
 
-    // Explicit static constructor to tell C# compiler
-    // not to mark type as beforefieldinit
-    static SoundEffectsManager()
+    private static AudioSource ObjectHit; //ObjectHit.cs
+    private static AudioSource ObjectDestroy; //ObjectDestroy.cs
+
+    public static void Initialize()
     {
+        RocketLaunchedList = new List<AudioSource>();
+        PlasmaBlast = new List<AudioSource>();
+        PlasmaHit = new List<AudioSource>();
+        CreateLocalGameObject();
+        LoadPrefabs();
+        AddHandlers();
     }
 
-    private SoundEffectsManager()
+    private static void AddHandlers()
     {
+        EventAggregator.PlasmaBlastHit += EventAggregator_PlasmaBlastHit;
     }
 
-    public void Awake()
+    private static void CreateLocalGameObject()
     {
-        DontDestroyOnLoad(gameObject);
+        gameObject = new GameObject("SoundEffectsManager");
+        gameObject.transform.position = new Vector3(0, 0, 0);
+
+        PlasmaHitPool = new GameObject("Plasma Hit Pool");
+        PlasmaHitPool.transform.SetParent(gameObject.transform, true);
     }
 
-    private AudioSource LoadSoundEffect(string audioCliepResourceName)
+    private static void LoadPrefabs()
     {
-        var obj = Instance.gameObject;
-        var audio = obj.AddComponent<AudioSource>();
-        var resourceRequest = Resources.LoadAsync<AudioClip>(audioCliepResourceName);
-        audio.clip = resourceRequest.asset as AudioClip;
-        return audio;
+        PlasmaHitPrefab = LoadSoundEffect("audio/SoundEffect - PlasmaHit");
+        PlasmaBlastPrefab = LoadSoundEffect("audio/SoundEffect - PlasmaBlast");
     }
 
-    private void PlayAudio(ref AudioSource source, string audioCliepResourceName)
+    private static AudioSource LoadSoundEffect(string resourceName)
     {
-        if (source == null)
-        {
-            source = LoadSoundEffect(audioCliepResourceName);
-        }
-
-        if (source.isPlaying) return;
-
-        source.Play();
+        var resourceRequest = Resources.LoadAsync<AudioSource>(resourceName);
+        var prefabAsset = resourceRequest.asset as AudioSource;
+        return prefabAsset;
     }
 
-    public void PlayObjectDestroy()
+    private static void EventAggregator_PlasmaBlastHit(object sender, System.EventArgs e)
     {
-        //PlayAudio(ref ObjectDestroy, "audio/we beat one up");
+        PlayPlasmaHit();
     }
-
-    public void PlayObjectHit()
-    {
-        //PlayAudio(ref ObjectHit, "audio/yeah");
-    }
-
+    
+ 
     public void PlayRocketLaunched()
     {
         //PlayAudio(ref RocketLaunched, "audio/rocket launched");
@@ -83,47 +85,35 @@ public class SoundEffectsManager : MonoBehaviour
             available.priority = 98;
             available.volume = 0.213f;
             RocketLaunchedList.Add(available);
-            Debug.Log($"pitch: {available.pitch}");
         }
 
         available.Play();
 
     }
 
-    public void PlayPlasmaHit()
+    public static void PlayPlasmaHit()
     {
-        PlayAudio(ref PlasmaHit, "audio/plasma hit");
+        AudioSource available = null;
+
+        foreach (var source in PlasmaHit)
+        {
+            if (!source.isPlaying)
+            {
+                available = source;
+
+                break;
+            }
+        }
+
+        if (available == null || available.isPlaying)
+        {
+            if (PlasmaHit.Count > MaxPlasmaHitSounds) return;
+
+            available = Instantiate(PlasmaHitPrefab);
+            available.transform.SetParent(PlasmaHitPool.transform, true);
+            PlasmaHit.Add(available);
+        }
+
+        available.Play();
     }
-
-    public void PlayPlasmaBlast()
-    {
-        PlayAudio(ref PlasmaHit, "audio/plasma blast");
-    }
-
-    // play multiple similar sounds at the same time
-    //
-    //public void PlayPlasmaBlast()
-    //{
-    //    AudioSource available = null;
-
-    //    foreach (var source in PlasmaBlast)
-    //    {
-    //        if (!source.isPlaying)
-    //        {
-    //            available = source;
-    //            break;
-    //        }
-    //    }
-
-    //    if (available == null || available.isPlaying)
-    //    {
-    //        Debug.Log($"no clips available creating a new one");
-    //        available = LoadSoundEffect("audio/plasma blast");
-    //        PlasmaBlast.Add(available);
-    //        Debug.Log($"clip count: {PlasmaBlast.Count}");
-    //    }
-
-    //    available.Play();
-    //}
-
 }

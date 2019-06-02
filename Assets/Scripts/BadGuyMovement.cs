@@ -1,39 +1,76 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class BadGuyMovement : MonoBehaviour
 {
     public Transform badGuy;
     public int moveSpeed = 5;
     public bool isDestroyed = false;
+    public bool IsNextWaypointRandom = false;
+
+    public int ReturnedToPoolCount = 0;
+    public int RemovedFromPoolCount = 0;
+    public int Id = 0;
+
 
     private Transform radar;
     private Transform nextWaypoint;
+    private Navigation navigation;
+    private Transform[] waypoints;
 
-    void Awake()
+    private bool isInitialized = false;
+
+
+    public void Reset()
+    {
+        isInitialized = false;
+    }
+
+    private void Awake()
+    {
+        Initialize();
+    }
+
+    private void Initialize()
     {
         radar = GameObject.Find("Radar")?.transform;
+        var p = gameObject.GetComponent<PlasmaSpawn>();
+        p.isFiring = false;
 
         var waypointList = GameObject.Find("Waypoints");
         if (waypointList == null) return; //happens on main menu
 
-        var navigation = waypointList.GetComponent<Navigation>();
+        navigation = waypointList.GetComponent<Navigation>();
+        isInitialized = true;
+    }
+
+    private void OnEnable()
+    {
+        if (!isInitialized) Initialize();
+
+        FindNearestWaypoint();
+    }
+
+    private void FindNearestWaypoint()
+    {
+        if (navigation == null) return;
+
+        waypoints = navigation.waypoints;
+
         var closestWaypointDistance = -1f;
         var closestWaypoint = navigation.waypoints[0];
 
-        var waypoints = navigation.waypoints;
-
         foreach (var wp in waypoints)
         {
+            wp.gameObject.DrawCircle();
+
             var distance = Vector3.Distance(badGuy.position, wp.position);
+
             if (distance < closestWaypointDistance || closestWaypointDistance == -1)
             {
                 closestWaypointDistance = distance;
                 closestWaypoint = wp;
             }
         }
-
         nextWaypoint = closestWaypoint;
     }
 
@@ -58,6 +95,9 @@ public class BadGuyMovement : MonoBehaviour
 
     void Update()
     {
+        gameObject.DrawCircle(new Color(1, 1, 0));
+        badGuy.gameObject.DrawCircle(new Color(0, 1, 1));
+
         if (badGuy == null || nextWaypoint == null || radar == null) return;
 
         //rotate to face the radar target
@@ -69,10 +109,19 @@ public class BadGuyMovement : MonoBehaviour
         badGuy.Translate(moveSpeed * direction * Time.deltaTime, Space.World);
 
         var distance = Vector3.Distance(badGuy.position, nextWaypoint.position);
-        if (distance < 0.2f)
+        if (distance < 2f)
         {
-            nextWaypoint = nextWaypoint.GetComponent<NextWaypoint>().GetNextWaypoint();
+            nextWaypoint.gameObject.DrawCircle(new Color(1, 0, 0));
+            if (IsNextWaypointRandom)
+            {
+                nextWaypoint = navigation.GetRandomWaypoint(nextWaypoint);
+            }
+            else
+            {
+                nextWaypoint = nextWaypoint.GetComponent<NextWaypoint>().GetNextWaypoint();
+            }
         }
+        nextWaypoint.gameObject.DrawCircle(new Color(0, 1, 0));
     }
 
     public void RotateToFaceRadar(float withAccuracy)
