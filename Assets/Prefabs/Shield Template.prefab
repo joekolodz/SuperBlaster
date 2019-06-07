@@ -122,11 +122,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   explosion: {fileID: 1789635080568608, guid: 5930a2c789041154d93b7ee0d5184311, type: 3}
-  multiExplosionSize: 1
+  multiExplosionCount: 3
   explosionSizeMultiplier: 1
   multiExplosionIntervalDelay: 0.3
   destructionValue: -50
   soundOnDestroy: {fileID: 82328230357214620}
+  IsPooledObject: 0
 --- !u!114 &114790999214845360
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -139,8 +140,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77738e1357ceaac46af5a0c148d047fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isEnabled: 0
-  children: []
   smoke: {fileID: 1777618879577564, guid: eb93f9f9ab4d94f468df1454ad17fdb6, type: 3}
   flames: {fileID: 1089653079747642, guid: 67aca50139b80d5438768b2c2232ee4b, type: 3}
   smokeSizeMultiplier: 0.5
@@ -261,6 +260,7 @@ GameObject:
   - component: {fileID: 114661326262525906}
   - component: {fileID: 114261079136514148}
   - component: {fileID: 82005046308235158}
+  - component: {fileID: 1866773510501359844}
   m_Layer: 0
   m_Name: Shield
   m_TagString: Untagged
@@ -384,11 +384,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   explosion: {fileID: 1789635080568608, guid: 5930a2c789041154d93b7ee0d5184311, type: 3}
-  multiExplosionSize: 2
+  multiExplosionCount: 3
   explosionSizeMultiplier: 1
   multiExplosionIntervalDelay: 0.3
   destructionValue: -100
   soundOnDestroy: {fileID: 82005046308235158}
+  IsPooledObject: 0
 --- !u!114 &114261079136514148
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -401,9 +402,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77738e1357ceaac46af5a0c148d047fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isEnabled: 1
-  children:
-  - {fileID: 1055810870252156}
   smoke: {fileID: 1777618879577564, guid: eb93f9f9ab4d94f468df1454ad17fdb6, type: 3}
   flames: {fileID: 1089653079747642, guid: 67aca50139b80d5438768b2c2232ee4b, type: 3}
   smokeSizeMultiplier: 1
@@ -510,6 +508,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!114 &1866773510501359844
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1069172660915382}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff3052ffdd9dbd44988825e7fe72a311, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1907875091272582
 GameObject:
   m_ObjectHideFlags: 0

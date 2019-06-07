@@ -9,20 +9,6 @@ public class BaseDestroy : MonoBehaviour
 
     void OnDestroy()
     {
-        StateManager.isWaitingForNextLevelToStart = true;
-        Time.timeScale = 0.25f;
-
-        var fireControl = GameObject.Find("FireControl");
-        if (fireControl)
-        {
-            fireControl.GetComponent<FireControl>().StopAllBadGuyMovement();
-        }
-
-        //call UI script to replay
-        if (mainMenuPanel)
-        {
-            mainMenuPanel.SetActive(true);
-        }
-        TheBase.SetActive(false);
+        EventAggregator.PublishBaseDestroyed();
     }
 }

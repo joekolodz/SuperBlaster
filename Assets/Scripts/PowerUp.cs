@@ -172,16 +172,11 @@ public class PowerUpManager : MonoBehaviour
         ResetPowerUp();
     }
 
-    public void IsPowerUpHit(string tag)
+    public void PowerUpHit()
     {
-
         if (IsPowerUp)
             return;
-
-        if (tag == "PowerUp")
-        {
-            ActivatePowerUp();
-        }
+        ActivatePowerUp();
     }
 
     public void PowerUpSpeedBlasterForEntireLevel()

@@ -245,7 +245,6 @@ public class ObjectPooler : MonoBehaviour
         _badGuyArrowheadPool.RemoveAt(index);
 
         var bgm = r.GetComponent<BadGuyMovement>();
-        bgm.RemovedFromPoolCount++;
         bgm.isDestroyed = false;
 
         return r;
@@ -255,8 +254,6 @@ public class ObjectPooler : MonoBehaviour
     public void ReturnBadGuyArrowhead(GameObject o)
     {
         var bgm = o.GetComponent<BadGuyMovement>();
-
-        bgm.ReturnedToPoolCount++;
 
         var badGuy = bgm.badGuy;
         badGuy.transform.position = new Vector3(100, 100, 0);

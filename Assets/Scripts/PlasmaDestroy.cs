@@ -16,10 +16,6 @@ public class PlasmaDestroy : MonoBehaviour
         EventAggregator.PublishPlasmaBlastHit();
         EventAggregator.PublishObjectDestroyed(new ObjectDestroyedEventArgs(gameObject.transform, explosionScale));
 
-        //hide the plasma blast sprite so the sound can still play
-        //don't hide the particles coz it looks cool
-        gameObject.GetComponent<SpriteRenderer>().enabled = false;
-
         var trail = gameObject.GetComponentInChildren<TrailRenderer>();
         if (trail != null)
         {

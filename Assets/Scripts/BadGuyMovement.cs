@@ -6,17 +6,13 @@ public class BadGuyMovement : MonoBehaviour
     public int moveSpeed = 5;
     public bool isDestroyed = false;
     public bool IsNextWaypointRandom = false;
-
-    public int ReturnedToPoolCount = 0;
-    public int RemovedFromPoolCount = 0;
     public int Id = 0;
-
 
     private Transform radar;
     private Transform nextWaypoint;
     private Navigation navigation;
     private Transform[] waypoints;
-
+    private float AccuracyAdjustmentAngle = -11.0f;
     private bool isInitialized = false;
 
 
@@ -34,7 +30,7 @@ public class BadGuyMovement : MonoBehaviour
     {
         radar = GameObject.Find("Radar")?.transform;
         var p = gameObject.GetComponent<PlasmaSpawn>();
-        p.isFiring = false;
+        if(p) p.isFiring = false;
 
         var waypointList = GameObject.Find("Waypoints");
         if (waypointList == null) return; //happens on main menu
@@ -46,7 +42,6 @@ public class BadGuyMovement : MonoBehaviour
     private void OnEnable()
     {
         if (!isInitialized) Initialize();
-
         FindNearestWaypoint();
     }
 
@@ -96,12 +91,14 @@ public class BadGuyMovement : MonoBehaviour
     void Update()
     {
         gameObject.DrawCircle(new Color(1, 1, 0));
-        badGuy.gameObject.DrawCircle(new Color(0, 1, 1));
 
         if (badGuy == null || nextWaypoint == null || radar == null) return;
 
+        badGuy.gameObject.DrawCircle(new Color(0, 1, 1));
+
         //rotate to face the radar target
         badGuy.rotation = GeometricFunctions.RotateToFace(badGuy.position, radar.position);
+        badGuy.Rotate(new Vector3(0f, 0f, AccuracyAdjustmentAngle));
 
         //move towards the waypoint
         var direction = GetDirection(badGuy.position, nextWaypoint.position).normalized;
@@ -136,7 +133,7 @@ public class BadGuyMovement : MonoBehaviour
         if (isAccurate)
         {
             //this accounts for the rifle offset and points closer to the center of the radar
-            adjustAngle.z = -7f;
+            adjustAngle.z = AccuracyAdjustmentAngle;
         }
         else
         {

@@ -18,9 +18,11 @@ public class LevelBehavior23 : MonoBehaviour
 
     private float _waveDelayTime;
     private float _nextSpawnTime;
-    private int _currentWave = 0;
+    private int _currentWave = 1;
     private Transform[] _badGuyList;
     private int badGuyIndex;
+    private WallCloseTrigger _wallCloseTrigger;
+    private bool _isDoorTriggerSet = false;
 
     void Start()
     {
@@ -29,36 +31,68 @@ public class LevelBehavior23 : MonoBehaviour
 
         var fc = FindObjectOfType<FireControl>();
         _badGuyList = fc._badGuys = new Transform[BadGuysPerWave];
+        _wallCloseTrigger = GameObject.Find("WallCloseTrigger").GetComponent<WallCloseTrigger>();
 
         StartCoroutine(WaitForTime.Wait(DoorDelayOpenTime, StartWallAnimation));
 
         ObjectPooler.Instance.PopulateBadGuyArrowheadPool(BadGuysPerWave);
         EventAggregator.BadGuyDied += EventAggregator_BadGuyDied;
-        EventAggregator.AllBadGuysKilled += EventAggregator_AllBadGuysKilled;
     }
 
-    private void EventAggregator_AllBadGuysKilled(object sender, System.EventArgs e)
-    {
-        //inc next wave counter
-        //start next wave if there is one
-    }
-
+    private int _deadBadGuyCount = 0;
     private void EventAggregator_BadGuyDied(object sender, BadGuyDiedEventArgs e)
     {
         ObjectPooler.Instance.ReturnBadGuyArrowhead(e.BadGuy);
+        _deadBadGuyCount++;
+
+        if (_deadBadGuyCount >= BadGuysPerWave)
+        {
+            SetupNextWave();
+        }
+    }
+
+    private void SetupNextWave()
+    {
+        _deadBadGuyCount = 0;
+        _isDoorTriggerSet = false;
+        _wallCloseTrigger.CloseActionTriggerCollider = null;
+        Debug.Log($"WAVE {_currentWave} COMPLETED!");//TODO event to show big flashy message?
+        if (_currentWave < HowManyWaves)
+        {
+            Debug.Log("Next Wave!!");//TODO event to show big flashy message?
+            _currentWave++;
+            badGuyIndex = 0;
+            _waveDelayTime = Time.time + 1.0f; //buffer delay regardless of wave delay variable setting
+            _nextSpawnTime = Time.time + SpawnInterval;
+            StartCoroutine(WaitForTime.Wait(DoorDelayOpenTime, StartWallAnimation));
+        }
+        else
+        {
+            EventAggregator.PublishLevelCompleted();
+        }
     }
 
     private void StartWallAnimation()
     {
-        var animation = WallAnimation.GetComponent<Animator>();
-        animation.SetTrigger("Open");
+        var animator = WallAnimation.GetComponent<Animator>();
+        animator.SetTrigger("Open");
     }
 
+    public void StartWallCloseAnimation()
+    {
+        var animator = WallAnimation.GetComponent<Animator>();
+        animator.Play("Wall Close");
+        animator.SetTrigger("Close");
+    }
 
     protected void Update()
     {
         WaveSpawnPoint.DrawCircle();
+        SpawnSequence();
+    }
 
+    private void SpawnSequence()
+    {
         //initial delay before spawn
         if (Time.time > _waveDelayTime + WaveDelay)
         {
@@ -71,8 +105,12 @@ public class LevelBehavior23 : MonoBehaviour
                 _badGuyList[badGuyIndex++] = bg;
             }
 
-            //after all bad guys are dead
-            //_waveDelayTime = Time.time;
+            if (badGuyIndex >= BadGuysPerWave && !_isDoorTriggerSet)
+            {
+                var lastGuyOut = _badGuyList[badGuyIndex - 1];
+                _wallCloseTrigger.CloseActionTriggerCollider = lastGuyOut.gameObject.GetComponent<BadGuyMovement>().badGuy.GetComponent<CircleCollider2D>();
+                _isDoorTriggerSet = true;
+            }
         }
     }
 
@@ -108,6 +146,5 @@ public class LevelBehavior23 : MonoBehaviour
     private void OnDestroy()
     {
         EventAggregator.BadGuyDied -= EventAggregator_BadGuyDied;
-        EventAggregator.AllBadGuysKilled -= EventAggregator_AllBadGuysKilled;
     }
 }

@@ -39,6 +39,18 @@ public class FireControl : MonoBehaviour
             }
         }
         EventAggregator.BadGuyDied += EventAggregator_BadGuyDied;
+        EventAggregator.LevelCompleted += EventAggregator_LevelCompleted;
+        EventAggregator.PowerUpTriggered += EventAggregator_PowerUpTriggered;
+    }
+
+    private void EventAggregator_PowerUpTriggered(object sender, PowerUpTriggeredEventArgs e)
+    {
+        AddScore(500);
+    }
+
+    private void EventAggregator_LevelCompleted(object sender, System.EventArgs e)
+    {
+        StartCoroutine(StartNextLevel());
     }
 
     private void EventAggregator_BadGuyDied(object sender, BadGuyDiedEventArgs e)
@@ -113,9 +125,14 @@ public class FireControl : MonoBehaviour
             if (t == null) return;
 
             var bgm = t.GetComponent<BadGuyMovement>();
-            var od = bgm.badGuy.GetComponentInChildren<ObjectDestroy>();
-            if (od.IsPooledObject) return;
             if (!bgm.isDestroyed) return;
+
+            var badGuy = bgm.badGuy;
+            if (badGuy != null)
+            {
+                var od = badGuy.GetComponentInChildren<ObjectDestroy>();
+                if (od.IsPooledObject) return;
+            }
         }
 
         if (!StateManager.isWaitingForNextLevelToStart)
@@ -228,5 +245,6 @@ public class FireControl : MonoBehaviour
     private void OnDestroy()
     {
         EventAggregator.BadGuyDied -= EventAggregator_BadGuyDied;
+        EventAggregator.LevelCompleted -= EventAggregator_LevelCompleted;
     }
 }

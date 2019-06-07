@@ -8,11 +8,41 @@ public class MenuControl : MonoBehaviour
     public GameObject levelButton;
     public bool isPaused = false;
 
+    private GameObject mainMenuPanel;
+
+
     private void Awake()
     {
         ObjectPooler.Instance.PopulatePools();
         Explosions.Instance.Initialize();
         SoundEffectsManager.Initialize();
+        EventAggregator.BaseDestroyed += EventAggregator_BaseDestroyed;
+        mainMenuPanel = Resources.FindObjectsOfTypeAll<VerticalLayoutGroup>()[0].gameObject;
+        var camera = GameObject.FindGameObjectWithTag("MainCamera");
+        camera.AddComponent<CameraShake>();
+    }
+
+    private void EventAggregator_BaseDestroyed(object sender, System.EventArgs e)
+    {
+        StateManager.isWaitingForNextLevelToStart = true;
+        StartCoroutine(WaitForTime.Wait(1.0f, ShowGameOverMenue));
+    }
+
+    private void ShowGameOverMenue()
+    {
+        Time.timeScale = 0.08f;
+
+        var fireControl = GameObject.Find("FireControl");
+        if (fireControl)
+        {
+            fireControl.GetComponent<FireControl>().StopAllBadGuyMovement();
+        }
+
+        //call UI script to replay
+        if (mainMenuPanel)
+        {
+            mainMenuPanel.SetActive(true);
+        }
     }
 
     private void Update()
@@ -48,7 +78,7 @@ public class MenuControl : MonoBehaviour
             Time.timeScale = 1f;
         }
 
-        if(Input.GetKeyDown(KeyCode.D))
+        if (Input.GetKeyDown(KeyCode.D))
         {
             GameObjectEx.IsDebug = !GameObjectEx.IsDebug;
         }

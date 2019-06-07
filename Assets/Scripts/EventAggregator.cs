@@ -54,10 +54,11 @@ public class EventAggregator
     public static event EventHandler<PowerUpTriggeredEventArgs> PowerUpTriggered;
     public static event EventHandler<ObjectDestroyedEventArgs> ObjectDestroyed;
     public static event EventHandler<BadGuyDiedEventArgs> BadGuyDied;
-    public static event EventHandler AllBadGuysKilled;
+    public static event EventHandler LevelCompleted;
     public static event EventHandler PlasmaBlastHit;
     public static event EventHandler PlasmaBlastFired;
-    public static event Action<EventArgs> whatever;
+    public static event EventHandler ShieldDestroyed;
+    public static event EventHandler BaseDestroyed;
 
     protected static void OnPowerUpExpired(EventArgs e)
     {
@@ -106,15 +107,15 @@ public class EventAggregator
         OnBadGuyDied(e);
     }
 
-    protected static void OnAllBadGuysKilled(EventArgs e)
+    protected static void OnLevelCompleted(EventArgs e)
     {
-        var handler = AllBadGuysKilled;
+        var handler = LevelCompleted;
         handler?.Invoke(null, e);
     }
 
-    public static void PublishAllBadGuysKilled()
+    public static void PublishLevelCompleted()
     {
-        OnAllBadGuysKilled(new EventArgs());
+        OnLevelCompleted(new EventArgs());
     }
 
     protected static void OnPlasmaBlastHit(EventArgs e)
@@ -137,6 +138,28 @@ public class EventAggregator
     public static void PublishPlasmaBlastFired()
     {
         OnPlasmaBlastFired(new EventArgs());
+    }
+
+    protected static void OnShieldDestroyed(EventArgs e)
+    {
+        var handler = ShieldDestroyed;
+        handler?.Invoke(null, e);
+    }
+
+    public static void PublishShieldDestroyed()
+    {
+        OnShieldDestroyed(new EventArgs());
+    }
+
+    protected static void OnBaseDestroyed(EventArgs e)
+    {
+        var handler = BaseDestroyed;
+        handler?.Invoke(null, e);
+    }
+
+    public static void PublishBaseDestroyed()
+    {
+        OnBaseDestroyed(new EventArgs());
     }
 
 }

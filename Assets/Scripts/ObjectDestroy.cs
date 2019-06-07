@@ -28,7 +28,8 @@ public class ObjectDestroy : MonoBehaviour
         var collider = gameObject.GetComponent<CircleCollider2D>();
         if (collider != null) collider.enabled = false;
 
-        PowerUpManager.Instance.IsPowerUpHit(gameObject.tag);
+        //todo remove me
+        //PowerUpManager.Instance.IsPowerUpHit(gameObject.tag);
 
         if (soundOnDestroy != null && !soundOnDestroy.isPlaying && Random.Range(0.0f, 1.0f) <= 0.3f)
         {
@@ -50,6 +51,7 @@ public class ObjectDestroy : MonoBehaviour
 
         if (IsPooledObject) return;
 
+        delayDestroy = 0;//i dont think this is needed anymore and anyway it causes a delay with ShieldState/CameraShake
         Destroy(gameObject, delayDestroy);
     }
 }

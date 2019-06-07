@@ -589,12 +589,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0a3aac80912a76f4c918cbbe3e184f20, type: 3}
---- !u!1 &100675687 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1055810870252156, guid: f6667adf6d3748043bebfdeead9fe193,
-    type: 3}
-  m_PrefabInstance: {fileID: 304773469}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &104570837
 GameObject:
   m_ObjectHideFlags: 0
@@ -2147,12 +2141,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1525588558}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &656123083 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1055810870252156, guid: f6667adf6d3748043bebfdeead9fe193,
-    type: 3}
-  m_PrefabInstance: {fileID: 408750116}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &662212118
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2368,8 +2356,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77738e1357ceaac46af5a0c148d047fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isEnabled: 1
-  children: []
   smoke: {fileID: 1777618879577564, guid: eb93f9f9ab4d94f468df1454ad17fdb6, type: 3}
   flames: {fileID: 1089653079747642, guid: 67aca50139b80d5438768b2c2232ee4b, type: 3}
   smokeSizeMultiplier: 4
@@ -2398,6 +2384,7 @@ MonoBehaviour:
   multiExplosionIntervalDelay: 0.3
   destructionValue: 0
   soundOnDestroy: {fileID: 725692845}
+  IsPooledObject: 0
 --- !u!58 &725692842
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -2992,12 +2979,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0a3aac80912a76f4c918cbbe3e184f20, type: 3}
---- !u!1 &1084099898 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1055810870252156, guid: f6667adf6d3748043bebfdeead9fe193,
-    type: 3}
-  m_PrefabInstance: {fileID: 1571804169}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1084597966
 GameObject:
   m_ObjectHideFlags: 0
@@ -3245,12 +3226,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0a3aac80912a76f4c918cbbe3e184f20, type: 3}
---- !u!1 &1208353071 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1055810870252156, guid: f6667adf6d3748043bebfdeead9fe193,
-    type: 3}
-  m_PrefabInstance: {fileID: 1672647385}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1257769615
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3413,11 +3388,6 @@ PrefabInstance:
       propertyPath: moveSpeed
       value: 6
       objectReference: {fileID: 0}
-    - target: {fileID: 114372620764633362, guid: b8d7983c410c4f743aabed352970d9eb,
-        type: 3}
-      propertyPath: health
-      value: 6
-      objectReference: {fileID: 0}
     - target: {fileID: 114278201544554384, guid: b8d7983c410c4f743aabed352970d9eb,
         type: 3}
       propertyPath: roundsPerBurst
@@ -3431,6 +3401,11 @@ PrefabInstance:
     - target: {fileID: 114278201544554384, guid: b8d7983c410c4f743aabed352970d9eb,
         type: 3}
       propertyPath: delayBetweenShots
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 114372620764633362, guid: b8d7983c410c4f743aabed352970d9eb,
+        type: 3}
+      propertyPath: health
       value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -3832,9 +3807,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77738e1357ceaac46af5a0c148d047fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isEnabled: 1
-  children:
-  - {fileID: 725692837}
   smoke: {fileID: 1777618879577564, guid: eb93f9f9ab4d94f468df1454ad17fdb6, type: 3}
   flames: {fileID: 1089653079747642, guid: 67aca50139b80d5438768b2c2232ee4b, type: 3}
   smokeSizeMultiplier: 2
@@ -3863,6 +3835,7 @@ MonoBehaviour:
   multiExplosionIntervalDelay: 0.3
   destructionValue: 0
   soundOnDestroy: {fileID: 1451260118}
+  IsPooledObject: 0
 --- !u!60 &1451260115
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -3999,11 +3972,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff3052ffdd9dbd44988825e7fe72a311, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShieldPosts:
-  - {fileID: 1208353071}
-  - {fileID: 656123083}
-  - {fileID: 100675687}
-  - {fileID: 1084099898}
 --- !u!95 &1451260117
 Animator:
   serializedVersion: 3
@@ -5012,15 +4980,15 @@ PrefabInstance:
       propertyPath: moveSpeed
       value: 6
       objectReference: {fileID: 0}
-    - target: {fileID: 114498797744060664, guid: ab013ac1d4e009f42b44b00022914408,
-        type: 3}
-      propertyPath: health
-      value: 6
-      objectReference: {fileID: 0}
     - target: {fileID: 114334773626943742, guid: ab013ac1d4e009f42b44b00022914408,
         type: 3}
       propertyPath: roundsPerBurst
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114498797744060664, guid: ab013ac1d4e009f42b44b00022914408,
+        type: 3}
+      propertyPath: health
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ab013ac1d4e009f42b44b00022914408, type: 3}
@@ -6063,6 +6031,21 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 3.4
       objectReference: {fileID: 0}
+    - target: {fileID: 114159020297788080, guid: 34cfbe39ea79beb418eaaaf5c71d9cb4,
+        type: 3}
+      propertyPath: roundsPerBurst
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114159020297788080, guid: 34cfbe39ea79beb418eaaaf5c71d9cb4,
+        type: 3}
+      propertyPath: delayBetweenRounds
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114159020297788080, guid: 34cfbe39ea79beb418eaaaf5c71d9cb4,
+        type: 3}
+      propertyPath: delayBetweenShots
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 114240111180210108, guid: 34cfbe39ea79beb418eaaaf5c71d9cb4,
         type: 3}
       propertyPath: waypoints.Array.data[0]
@@ -6111,21 +6094,6 @@ PrefabInstance:
     - target: {fileID: 114051034862483666, guid: 34cfbe39ea79beb418eaaaf5c71d9cb4,
         type: 3}
       propertyPath: health
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 114159020297788080, guid: 34cfbe39ea79beb418eaaaf5c71d9cb4,
-        type: 3}
-      propertyPath: roundsPerBurst
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 114159020297788080, guid: 34cfbe39ea79beb418eaaaf5c71d9cb4,
-        type: 3}
-      propertyPath: delayBetweenRounds
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 114159020297788080, guid: 34cfbe39ea79beb418eaaaf5c71d9cb4,
-        type: 3}
-      propertyPath: delayBetweenShots
       value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []

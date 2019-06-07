@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Navigation : MonoBehaviour
 {
@@ -10,20 +8,18 @@ public class Navigation : MonoBehaviour
     // Use this for initialization
     void Awake()
     {
-        var list = GameObject.FindGameObjectsWithTag("Waypoint");
-        waypoints = new Transform[list.Length];
-        for (var i = 0; i < list.Length; i++)
+        _waypointCount = gameObject.transform.childCount;
+        waypoints = new Transform[_waypointCount];
+        for (var i = 0; i < _waypointCount; i++)
         {
-            //test
-            waypoints[i] = list[i].transform;
+            waypoints[i] = gameObject.transform.GetChild(i);
         }
-        _waypointCount = waypoints.Length;
     }
 
     public Transform GetRandomWaypoint(Transform currentWaypoint)
     {
         var newWaypoint = currentWaypoint;
-        while(newWaypoint == currentWaypoint)
+        while (newWaypoint == currentWaypoint)
         {
             newWaypoint = waypoints[Random.Range(0, _waypointCount)];
         }

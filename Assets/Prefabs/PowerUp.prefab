@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4474523599125908584}
-  - component: {fileID: 4474523599125908585}
   - component: {fileID: 430066159577638260}
   m_Layer: 0
   m_Name: PowerUp
@@ -33,19 +32,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4474523599125908585
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4474523599125908590}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 351abfd724ee4c24581f31c2b90a386e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  waypoints: []
 --- !u!114 &430066159577638260
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -61,6 +47,8 @@ MonoBehaviour:
   badGuy: {fileID: 4474523600598679523}
   moveSpeed: 50
   isDestroyed: 0
+  IsNextWaypointRandom: 0
+  Id: 0
 --- !u!1 &4474523600598679520
 GameObject:
   m_ObjectHideFlags: 0
@@ -72,9 +60,8 @@ GameObject:
   - component: {fileID: 4474523600598679523}
   - component: {fileID: 4474523600598679548}
   - component: {fileID: 4474523600598679522}
-  - component: {fileID: 4474523600598679545}
-  - component: {fileID: 4474523600598679550}
   - component: {fileID: 4474523600598679551}
+  - component: {fileID: 5637866150072493724}
   m_Layer: 0
   m_Name: PowerUp
   m_TagString: PowerUp
@@ -160,49 +147,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.37
---- !u!114 &4474523600598679545
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4474523600598679520}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f552e7bba41601b46953f29d906d0b2b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  explosion: {fileID: 2023863978673575173, guid: 0dcc338c8a37e3a4087c71b24953c227,
-    type: 3}
-  multiExplosionCount: 1
-  explosionSizeMultiplier: 2.5
-  multiExplosionIntervalDelay: 0
-  destructionValue: 500
-  soundOnDestroy: {fileID: 4474523600598679551}
---- !u!114 &4474523600598679550
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4474523600598679520}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 77738e1357ceaac46af5a0c148d047fb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isEnabled: 1
-  children: []
-  smoke: {fileID: 1777618879577564, guid: eb93f9f9ab4d94f468df1454ad17fdb6, type: 3}
-  flames: {fileID: 0}
-  smokeSizeMultiplier: 1
-  flameSizeMultiplier: 1
-  health: 1
-  healthWhenFlamesStart: 1
-  hitTriggerObject: {fileID: 1301070703825744, guid: fdb8c7e04a28c0041929e7a274a73d04,
-    type: 3}
-  delayDestroy: 0
-  soundYeah: {fileID: 4474523600598679551}
 --- !u!82 &4474523600598679551
 AudioSource:
   m_ObjectHideFlags: 0
@@ -299,3 +243,21 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!114 &5637866150072493724
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4474523600598679520}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b620b138e402d04facf049e6a9d4dbe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  explosion: {fileID: 2023863978673575173, guid: 0dcc338c8a37e3a4087c71b24953c227,
+    type: 3}
+  hitTriggerObject: {fileID: 1301070703825744, guid: fdb8c7e04a28c0041929e7a274a73d04,
+    type: 3}
+  delayDestroy: 0
+  soundOnDestroy: {fileID: 4474523600598679551}
