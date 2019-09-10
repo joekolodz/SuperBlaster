@@ -8,27 +8,33 @@ public class MenuControl : MonoBehaviour
     public GameObject levelButton;
     public bool isPaused = false;
 
+    [SerializeField]
     private GameObject mainMenuPanel;
-
 
     private void Awake()
     {
         ObjectPooler.Instance.PopulatePools();
         Explosions.Instance.Initialize();
-        SoundEffectsManager.Initialize();
+        SoundEffectsManager.Instance.Initialize();
         EventAggregator.BaseDestroyed += EventAggregator_BaseDestroyed;
         mainMenuPanel = Resources.FindObjectsOfTypeAll<VerticalLayoutGroup>()[0].gameObject;
         var camera = GameObject.FindGameObjectWithTag("MainCamera");
         camera.AddComponent<CameraShake>();
     }
 
+    public void OnDestroy()
+    {
+        EventAggregator.BaseDestroyed -= EventAggregator_BaseDestroyed;
+    }
+
     private void EventAggregator_BaseDestroyed(object sender, System.EventArgs e)
     {
         StateManager.isWaitingForNextLevelToStart = true;
-        StartCoroutine(WaitForTime.Wait(1.0f, ShowGameOverMenue));
+        ShowGameOverMenu();
+        //StartCoroutine(WaitForTime.Wait(1.0f, ShowGameOverMenu));
     }
 
-    private void ShowGameOverMenue()
+    private void ShowGameOverMenu()
     {
         Time.timeScale = 0.08f;
 

@@ -37,6 +37,12 @@ public class LevelBehavior23 : MonoBehaviour
 
         ObjectPooler.Instance.PopulateBadGuyArrowheadPool(BadGuysPerWave);
         EventAggregator.BadGuyDied += EventAggregator_BadGuyDied;
+        EventAggregator.WallCloseTriggered += EventAggregator_WallCloseTriggered;
+    }
+
+    private void EventAggregator_WallCloseTriggered(object sender, WallCloseTriggeredEventArgs e)
+    {
+        StartWallCloseAnimation();
     }
 
     private int _deadBadGuyCount = 0;
@@ -78,7 +84,7 @@ public class LevelBehavior23 : MonoBehaviour
         animator.SetTrigger("Open");
     }
 
-    public void StartWallCloseAnimation()
+    private void StartWallCloseAnimation()
     {
         var animator = WallAnimation.GetComponent<Animator>();
         animator.Play("Wall Close");

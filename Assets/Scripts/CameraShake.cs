@@ -15,19 +15,11 @@ public class CameraShake : MonoBehaviour
         EventAggregator.PowerUpTriggered += HeavyShake;
     }
 
-    private void HeavyShake(object sender, System.EventArgs e)
+    public void OnDestroy()
     {
-        _shakeMagnitude = 1.0f;
-        _dampingSpeed = 1.0f;
-        _shakeDuration = 1.0f;
-    }
-
-
-    private void EventAggregator_ShieldDestroyed(object sender, System.EventArgs e)
-    {
-        _shakeMagnitude = 0.28f;
-        _dampingSpeed = 1.6f;
-        _shakeDuration = 0.4f;
+        EventAggregator.ShieldDestroyed -= EventAggregator_ShieldDestroyed;
+        EventAggregator.BaseDestroyed -= HeavyShake;
+        EventAggregator.PowerUpTriggered -= HeavyShake;
     }
 
     private void Awake()
@@ -56,5 +48,20 @@ public class CameraShake : MonoBehaviour
             _shakeDuration = 0f;
             _transform.localPosition = _initialPosition;
         }
+    }
+
+    private void HeavyShake(object sender, System.EventArgs e)
+    {
+        _shakeMagnitude = 1.0f;
+        _dampingSpeed = 1.0f;
+        _shakeDuration = 1.0f;
+    }
+
+
+    private void EventAggregator_ShieldDestroyed(object sender, System.EventArgs e)
+    {
+        _shakeMagnitude = 0.28f;
+        _dampingSpeed = 1.6f;
+        _shakeDuration = 0.4f;
     }
 }

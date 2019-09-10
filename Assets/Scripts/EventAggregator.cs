@@ -48,6 +48,16 @@ public class ObjectDestroyedEventArgs : EventArgs
     }
 }
 
+public class WallCloseTriggeredEventArgs : EventArgs
+{
+    public int WallId;
+
+    public WallCloseTriggeredEventArgs(int wallId)
+    {
+        WallId = wallId;
+    }
+}
+
 public class EventAggregator
 {
     public static event EventHandler PowerUpExpired;
@@ -59,107 +69,56 @@ public class EventAggregator
     public static event EventHandler PlasmaBlastFired;
     public static event EventHandler ShieldDestroyed;
     public static event EventHandler BaseDestroyed;
-
-    protected static void OnPowerUpExpired(EventArgs e)
-    {
-        var handler = PowerUpExpired;
-        handler?.Invoke(null, e);
-    }
+    public static event EventHandler<WallCloseTriggeredEventArgs> WallCloseTriggered;
 
     public static void PublishPowerUpExpired()
     {
-        OnPowerUpExpired(new EventArgs());
-    }
-
-
-    protected static void OnPowerUpTriggered(PowerUpTriggeredEventArgs e)
-    {
-        var handler = PowerUpTriggered;
-        handler?.Invoke(null, e);
+        PowerUpExpired?.Invoke(null, new EventArgs());
     }
 
     public static void PublishPowerUpTriggered(PowerUpTriggeredEventArgs e)
     {
-        OnPowerUpTriggered(e);
-    }
-
-
-    protected static void OnObjectDestroyed(ObjectDestroyedEventArgs e)
-    {
-        var handler = ObjectDestroyed;
-        handler?.Invoke(null, e);
+        PowerUpTriggered?.Invoke(null, e);
     }
 
     public static void PublishObjectDestroyed(ObjectDestroyedEventArgs e)
     {
-        OnObjectDestroyed(e);
+        ObjectDestroyed?.Invoke(null, e);
     }
-
-    protected static void OnBadGuyDied(BadGuyDiedEventArgs e)
-    {
-        var handler = BadGuyDied;
-        handler?.Invoke(null, e);
-    }
-
 
     public static void PublishBadGuyDied(BadGuyDiedEventArgs e)
     {
-        OnBadGuyDied(e);
-    }
-
-    protected static void OnLevelCompleted(EventArgs e)
-    {
-        var handler = LevelCompleted;
-        handler?.Invoke(null, e);
+        BadGuyDied?.Invoke(null, e);
     }
 
     public static void PublishLevelCompleted()
     {
-        OnLevelCompleted(new EventArgs());
-    }
-
-    protected static void OnPlasmaBlastHit(EventArgs e)
-    {
-        var handler = PlasmaBlastHit;
-        handler?.Invoke(null, e);
+        LevelCompleted?.Invoke(null, new EventArgs());
     }
 
     public static void PublishPlasmaBlastHit()
     {
-        OnPlasmaBlastHit(new EventArgs());
-    }
-
-    protected static void OnPlasmaBlastFired(EventArgs e)
-    {
-        var handler = PlasmaBlastFired;
-        handler?.Invoke(null, e);
+        PlasmaBlastHit?.Invoke(null, new EventArgs());
     }
 
     public static void PublishPlasmaBlastFired()
     {
-        OnPlasmaBlastFired(new EventArgs());
-    }
-
-    protected static void OnShieldDestroyed(EventArgs e)
-    {
-        var handler = ShieldDestroyed;
-        handler?.Invoke(null, e);
+        PlasmaBlastFired?.Invoke(null, new EventArgs());
     }
 
     public static void PublishShieldDestroyed()
     {
-        OnShieldDestroyed(new EventArgs());
-    }
-
-    protected static void OnBaseDestroyed(EventArgs e)
-    {
-        var handler = BaseDestroyed;
-        handler?.Invoke(null, e);
+        ShieldDestroyed?.Invoke(null, new EventArgs());
     }
 
     public static void PublishBaseDestroyed()
     {
-        OnBaseDestroyed(new EventArgs());
+        BaseDestroyed?.Invoke(null, new EventArgs());
+    }
+
+    public static void PublishWallCloseTriggered(WallCloseTriggeredEventArgs e)
+    {
+        WallCloseTriggered?.Invoke(null, e);
     }
 
 }

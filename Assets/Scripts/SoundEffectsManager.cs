@@ -5,66 +5,103 @@ using UnityEngine;
 
 public class SoundEffectsManager : MonoBehaviour
 {
+    public static readonly SoundEffectsManager Instance = (new GameObject("SoundEffectsManagerContainer")).AddComponent<SoundEffectsManager>();
+
+    private bool _isInitialized = false;
     private const int MaxPlasmaHitSounds = 1;
-    public static new GameObject gameObject;
-    private static AudioSource SmallExplosion;
-    private static AudioSource LargeExplosion;
-    private static AudioSource RocketLaunched; //RocketFire.cs
-    private static List<AudioSource> RocketLaunchedList;
-    private static List<AudioSource> PlasmaBlast; //PlasmaBlast.cs
-    private static AudioSource PlasmaBlastPrefab;
+    private AudioSource SmallExplosion;
+    private AudioSource LargeExplosion;
+    private AudioSource RocketLaunched; //RocketFire.cs
+    private List<AudioSource> RocketLaunchedList;
+    private List<AudioSource> PlasmaBlast; //PlasmaBlast.cs
+    private AudioSource PlasmaBlastPrefab;
 
-    private static List<AudioSource> PlasmaHit; //PlasmaBlast.cs
-    private static AudioSource PlasmaHitPrefab;
-    private static GameObject PlasmaHitPool;
+    private List<AudioSource> PlasmaHit; //PlasmaBlast.cs
+    private AudioSource PlasmaHitPrefab;
+    private GameObject PlasmaHitPool;
 
-    private static AudioSource ObjectHit; //ObjectHit.cs
-    private static AudioSource ObjectDestroy; //ObjectDestroy.cs
+    private AudioSource ObjectHit; //ObjectHit.cs
+    private AudioSource ObjectDestroy; //ObjectDestroy.cs
 
-    public static void Initialize()
+    // Explicit static constructor to tell C# compiler
+    // not to mark type as beforefieldinit
+    static SoundEffectsManager()
     {
+
+    }
+    private SoundEffectsManager()
+    {
+
+    }
+
+    public void Awake()
+    {
+        DontDestroyOnLoad(gameObject);
+    }
+
+    public void Initialize()
+    {
+        if (_isInitialized) return;
         RocketLaunchedList = new List<AudioSource>();
         PlasmaBlast = new List<AudioSource>();
         PlasmaHit = new List<AudioSource>();
         CreateLocalGameObject();
         LoadPrefabs();
         AddHandlers();
+        _isInitialized = true;
     }
 
-    private static void AddHandlers()
+    private void AddHandlers()
     {
         EventAggregator.PlasmaBlastHit += EventAggregator_PlasmaBlastHit;
     }
 
-    private static void CreateLocalGameObject()
+    public void OnDestroy()
     {
-        gameObject = new GameObject("SoundEffectsManager");
+        SmallExplosion = null;
+        LargeExplosion = null;
+        RocketLaunched = null;
+        RocketLaunchedList = null;
+        PlasmaBlast = null;
+        PlasmaBlastPrefab = null;
+        PlasmaHit = null;
+        PlasmaHitPrefab = null;
+        PlasmaHitPool = null;
+        ObjectHit = null;
+        ObjectDestroy = null;
+        EventAggregator.PlasmaBlastHit -= EventAggregator_PlasmaBlastHit;
+        _isInitialized = false;
+    }
+
+    private void CreateLocalGameObject()
+    {
         gameObject.transform.position = new Vector3(0, 0, 0);
 
         PlasmaHitPool = new GameObject("Plasma Hit Pool");
         PlasmaHitPool.transform.SetParent(gameObject.transform, true);
     }
 
-    private static void LoadPrefabs()
+    private void LoadPrefabs()
     {
         PlasmaHitPrefab = LoadSoundEffect("audio/SoundEffect - PlasmaHit");
         PlasmaBlastPrefab = LoadSoundEffect("audio/SoundEffect - PlasmaBlast");
     }
 
-    private static AudioSource LoadSoundEffect(string resourceName)
+    private AudioSource LoadSoundEffect(string resourceName)
     {
         var resourceRequest = Resources.LoadAsync<AudioSource>(resourceName);
         var prefabAsset = resourceRequest.asset as AudioSource;
         return prefabAsset;
     }
 
-    private static void EventAggregator_PlasmaBlastHit(object sender, System.EventArgs e)
+    private void EventAggregator_PlasmaBlastHit(object sender, System.EventArgs e)
     {
         PlayPlasmaHit();
     }
+
     
- 
-    public void PlayRocketLaunched()
+    //unused - remove?
+    private void PlayRocketLaunched()
     {
         //PlayAudio(ref RocketLaunched, "audio/rocket launched");
 
@@ -91,7 +128,7 @@ public class SoundEffectsManager : MonoBehaviour
 
     }
 
-    public static void PlayPlasmaHit()
+    private void PlayPlasmaHit()
     {
         AudioSource available = null;
 

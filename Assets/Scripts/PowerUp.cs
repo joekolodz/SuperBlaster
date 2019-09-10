@@ -17,7 +17,7 @@ public class PowerUpManager : MonoBehaviour
     }
 
     private const float DEFAULT_ROCKET_FORCE_MULTIPLIER = 1.0f;
-    private const float POWERUP_TIME_IN_SECONDS = 10.0f;
+    private const float POWERUP_TIME_IN_SECONDS = 15.0f;
 
     public bool IsPowerUp { get; private set; }
 
@@ -29,6 +29,8 @@ public class PowerUpManager : MonoBehaviour
     private bool isMultiBlaster = false;
     private bool isTripleBlaster = false;
     private bool isSpeedBlaster = false;
+
+    private float timePowerUpExpires = 0.0f;
 
     // Explicit static constructor to tell C# compiler
     // not to mark type as beforefieldinit
@@ -71,7 +73,7 @@ public class PowerUpManager : MonoBehaviour
                 break;
         }
 
-        StartCoroutine(ExpirePowerUp());
+        timePowerUpExpires = POWERUP_TIME_IN_SECONDS;
     }
 
     private void EnableSpeedBlaster()
@@ -81,7 +83,7 @@ public class PowerUpManager : MonoBehaviour
             IsPowerUp = true;
             EventAggregator.PublishPowerUpTriggered(new PowerUpTriggeredEventArgs(PowerUpNames.SpeedBlaster));
         }
-        damageIncrease = 2;
+        damageIncrease = 4;
         rocketForceMultiplier = 3.0f;
         isSpeedBlaster = true;
     }
@@ -104,6 +106,7 @@ public class PowerUpManager : MonoBehaviour
             IsPowerUp = true;
             EventAggregator.PublishPowerUpTriggered(new PowerUpTriggeredEventArgs(PowerUpNames.MultiBlaster));
         }
+        damageIncrease = 3;
         isMultiBlaster = true;
     }
 
@@ -166,10 +169,18 @@ public class PowerUpManager : MonoBehaviour
         HandleMultiBlaster();
     }
 
-    private IEnumerator ExpirePowerUp()
+    public void Update()
     {
-        yield return new WaitForSeconds(POWERUP_TIME_IN_SECONDS);
-        ResetPowerUp();
+        if (!IsPowerUp) return;
+
+        if (timePowerUpExpires > 0)
+        {
+            timePowerUpExpires -= Time.deltaTime;
+            if (timePowerUpExpires <= 0)
+            {
+                ResetPowerUp();
+            }
+        }
     }
 
     public void PowerUpHit()

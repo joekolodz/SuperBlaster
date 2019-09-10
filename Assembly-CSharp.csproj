@@ -74,6 +74,7 @@
     <Compile Include="Assets\Scripts\GoodGuyManager.cs" />
     <Compile Include="Assets\Scripts\LaunchRocket.cs" />
     <Compile Include="Assets\Scripts\LevelBehavior23.cs" />
+    <Compile Include="Assets\Scripts\LevelBehavior24.cs" />
     <Compile Include="Assets\Scripts\LevelButtonLaunchScene.cs" />
     <Compile Include="Assets\Scripts\LevelConfiguration.cs" />
     <Compile Include="Assets\Scripts\MenuControl.cs" />

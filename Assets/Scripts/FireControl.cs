@@ -17,7 +17,7 @@ public class FireControl : MonoBehaviour
     private GoodGuyManager _currentlySelectedGuy;
     private bool isAllDestroyed = false;
 
-    void Start()
+    void Awake()
     {
         Time.timeScale = 1.0f;
 
@@ -43,6 +43,13 @@ public class FireControl : MonoBehaviour
         EventAggregator.PowerUpTriggered += EventAggregator_PowerUpTriggered;
     }
 
+    private void OnDestroy()
+    {
+        EventAggregator.BadGuyDied -= EventAggregator_BadGuyDied;
+        EventAggregator.LevelCompleted -= EventAggregator_LevelCompleted;
+        EventAggregator.PowerUpTriggered -= EventAggregator_PowerUpTriggered;
+    }
+
     private void EventAggregator_PowerUpTriggered(object sender, PowerUpTriggeredEventArgs e)
     {
         AddScore(500);
@@ -63,7 +70,7 @@ public class FireControl : MonoBehaviour
         var canvas = GameObject.Find("Canvas").transform;
 
         var resource = Resources.Load("ScoreText", typeof(Text));
-        scoreText = Instantiate(resource, new Vector3(31,28,0), new Quaternion(), canvas) as Text;
+        scoreText = Instantiate(resource, new Vector3(31, 28, 0), new Quaternion(), canvas) as Text;
 
         resource = Resources.Load("HighScoreText", typeof(Text));
         highScoreText = Instantiate(resource, new Vector3(-45, 28, 0), new Quaternion(), canvas) as Text;
@@ -240,11 +247,5 @@ public class FireControl : MonoBehaviour
     {
         scoreText.text = "SCORE: " + ScoreBucket.Score;
         highScoreText.text = "HIGH SCORE: " + ScoreBucket.HighScore;
-    }
-
-    private void OnDestroy()
-    {
-        EventAggregator.BadGuyDied -= EventAggregator_BadGuyDied;
-        EventAggregator.LevelCompleted -= EventAggregator_LevelCompleted;
     }
 }

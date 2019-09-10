@@ -1,18 +1,15 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class WallCloseTrigger : MonoBehaviour
 {
     public Collider2D CloseActionTriggerCollider;
+    public int WallId;
 
     private void OnTriggerExit2D(Collider2D collision)
     {
         if(CloseActionTriggerCollider == collision)
         {
-            Debug.Log($"OnTriggerExit2D: MATCH!");
-            GameObject.Find("LevelBehavior23").GetComponent<LevelBehavior23>().StartWallCloseAnimation();
-            Debug.Log($"BOOM!?");
+            EventAggregator.PublishWallCloseTriggered(new WallCloseTriggeredEventArgs(WallId));
         }
     }
 }
