@@ -19,6 +19,7 @@ TagManager:
   - BackgroundMusic
   - PowerUp
   - Title
+  - WallCloseTrigger
   layers:
   - Default
   - TransparentFX

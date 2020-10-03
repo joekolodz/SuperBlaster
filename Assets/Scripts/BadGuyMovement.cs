@@ -28,14 +28,19 @@ public class BadGuyMovement : MonoBehaviour
 
     private void Initialize()
     {
+        isDestroyed = false;
+
         radar = GameObject.Find("Radar")?.transform;
         var p = gameObject.GetComponent<PlasmaSpawn>();
-        if(p) p.isFiring = false;
+        if (p) p.isFiring = false;
 
         var waypointList = GameObject.Find("Waypoints");
         if (waypointList == null) return; //happens on main menu
 
         navigation = waypointList.GetComponent<Navigation>();
+        if (navigation == null)
+            Debug.Break();
+
         isInitialized = true;
     }
 

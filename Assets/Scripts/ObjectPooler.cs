@@ -122,7 +122,16 @@ public class ObjectPooler : MonoBehaviour
 
     public void PopulateBadGuyArrowheadPool(int poolSize)
     {
-        if (IsBadGuyArrowheadPoolPopulated) return;
+        if (IsBadGuyArrowheadPoolPopulated)
+        {
+            foreach (var o in _badGuyArrowheadPool)
+            {
+                ReturnBadGuyArrowhead(o);
+                var bgm = o.GetComponent<BadGuyMovement>();
+                bgm.Reset();
+            }
+            return;
+        }
 
         for (var i = 0; i < poolSize; i++)
         {
@@ -141,7 +150,7 @@ public class ObjectPooler : MonoBehaviour
 
     public void Reset()
     {
-        foreach(var o in _badGuyAllinstances)
+        foreach (var o in _badGuyAllinstances)
         {
             ReturnBadGuyArrowhead(o);
             var bgm = o.GetComponent<BadGuyMovement>();
@@ -245,7 +254,7 @@ public class ObjectPooler : MonoBehaviour
         _badGuyArrowheadPool.RemoveAt(index);
 
         var bgm = r.GetComponent<BadGuyMovement>();
-        bgm.isDestroyed = false;
+        bgm.Reset();
 
         return r;
     }
@@ -257,7 +266,7 @@ public class ObjectPooler : MonoBehaviour
 
         var badGuy = bgm.badGuy;
         badGuy.transform.position = new Vector3(100, 100, 0);
-        
+
         var sprites = badGuy.GetComponentsInChildren<SpriteRenderer>();
         foreach (var s in sprites)
         {

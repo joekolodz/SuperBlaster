@@ -45,7 +45,7 @@ public class LaunchRocket : MonoBehaviour
 
             var force = DEFAULT_ROCKET_FORCE * forceMultiplier;
             r.GetComponent<RocketFire>().FireRocket(force);
-
+            
             //r.GetComponent<Rigidbody2D>().AddForce(r.transform.right * force);
         }
 

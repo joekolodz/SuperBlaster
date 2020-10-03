@@ -19,6 +19,9 @@ public class LevelConfiguration : MonoBehaviour
             case PowerUpManager.PowerUpNames.TripleBlaster:
                 PowerUpManager.Instance.PowerUpTripleBlasterForEntireLevel();
                 break;
+            case PowerUpManager.PowerUpNames.LaserBlaster:
+                PowerUpManager.Instance.PowerUpLaserBlasterForEntireLevel();
+                break;
             case PowerUpManager.PowerUpNames.SuperBlaster:
                 PowerUpManager.Instance.PowerUpSuperBlasterForEntireLevel();
                 break;

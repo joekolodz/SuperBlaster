@@ -13,6 +13,7 @@ public class PowerUpManager : MonoBehaviour
         SpeedBlaster,
         TripleBlaster,
         MultiBlaster,
+        LaserBlaster,
         SuperBlaster
     }
 
@@ -28,9 +29,12 @@ public class PowerUpManager : MonoBehaviour
     private bool isSuperBlaster = false;
     private bool isMultiBlaster = false;
     private bool isTripleBlaster = false;
+    private bool isLaserBlaster = false;
     private bool isSpeedBlaster = false;
 
     private float timePowerUpExpires = 0.0f;
+
+    private GameObject LaserBlastPrefab = null;
 
     // Explicit static constructor to tell C# compiler
     // not to mark type as beforefieldinit
@@ -47,6 +51,7 @@ public class PowerUpManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
         ResetPowerUp();
         SceneManager.sceneLoaded += SceneManager_sceneLoaded;
+        LaserBlastPrefab = (GameObject)Resources.Load("prefabs/Laser Blast");
     }
 
     private void SceneManager_sceneLoaded(Scene arg0, LoadSceneMode arg1)
@@ -59,14 +64,17 @@ public class PowerUpManager : MonoBehaviour
         var r = Random.Range(0.0f, 100.0f);
         switch (r)
         {
-            case var i when i < 40.0f:
+            case var i when i < 30.0f:
                 EnableSpeedBlaster();
                 break;
-            case var i when i >= 40.0f && i < 70.0f:
+            case var i when i >= 30.0f && i < 60.0f:
                 EnableTripleBlaster();
                 break;
-            case var i when i >= 70.0f && i < 90.0f:
+            case var i when i >= 60.0f && i < 80.0f:
                 EnableMultiBlaster();
+                break;
+            case var i when i >= 80.0f && i < 90.0f:
+                EnableLaserBlaster();
                 break;
             case var i when i >= 90.0f:
                 EnableSuperBlaster();
@@ -110,6 +118,17 @@ public class PowerUpManager : MonoBehaviour
         isMultiBlaster = true;
     }
 
+    private void EnableLaserBlaster()
+    {
+        if (!IsPowerUp)
+        {
+            IsPowerUp = true;
+            EventAggregator.PublishPowerUpTriggered(new PowerUpTriggeredEventArgs(PowerUpNames.LaserBlaster));
+        }
+        damageIncrease = 10;
+        isLaserBlaster = true;
+    }
+
     private void EnableSuperBlaster()
     {
         if (!IsPowerUp)
@@ -121,6 +140,7 @@ public class PowerUpManager : MonoBehaviour
         EnableSpeedBlaster();
         EnableTripleBlaster();
         EnableMultiBlaster();
+        EnableLaserBlaster();
         damageIncrease = 2;//balance power back out
     }
 
@@ -164,6 +184,23 @@ public class PowerUpManager : MonoBehaviour
         }
     }
 
+    private void HandleLaserBlaster(RocketSpawn rocketSpawn)
+    {
+        var position = rocketSpawn.spawnPoint.localPosition + new Vector3(0f, 1.0f);
+        var l = gameObject.Instantiate(LaserBlastPrefab, rocketSpawn.transform, position, rocketSpawn.transform.rotation, true);
+        l.SetActive(true);
+
+        position = rocketSpawn.spawnPoint.localPosition + new Vector3(0f, 1.0f);
+        var rotation = rocketSpawn.transform.rotation * Quaternion.Euler(0, 0, 3);
+        l = gameObject.Instantiate(LaserBlastPrefab, rocketSpawn.transform, position, rotation, true);
+        l.SetActive(true);
+
+        position = rocketSpawn.spawnPoint.localPosition + new Vector3(0.0f, 1.0f);
+        rotation = rocketSpawn.transform.rotation * Quaternion.Euler(0, 0, -3);
+        l = gameObject.Instantiate(LaserBlastPrefab, rocketSpawn.transform, position, rotation, true);
+        l.SetActive(true);
+    }
+
     private void HandleSuperBlaster()
     {
         HandleMultiBlaster();
@@ -205,6 +242,11 @@ public class PowerUpManager : MonoBehaviour
         EnableTripleBlaster();
     }
 
+    public void PowerUpLaserBlasterForEntireLevel()
+    {
+        EnableLaserBlaster();
+    }
+
     public void PowerUpSuperBlasterForEntireLevel()
     {
         EnableSuperBlaster();
@@ -213,12 +255,14 @@ public class PowerUpManager : MonoBehaviour
     public void ResetPowerUp()
     {
         IsPowerUp = false;
+        timePowerUpExpires = 0.0f;
         damageIncrease = 0;
         rocketForceMultiplier = DEFAULT_ROCKET_FORCE_MULTIPLIER;
         isSuperBlaster = false;
         isMultiBlaster = false;
         isSpeedBlaster = false;
         isTripleBlaster = false;
+        isLaserBlaster = false;
         EventAggregator.PublishPowerUpExpired();
     }
 
@@ -247,9 +291,16 @@ public class PowerUpManager : MonoBehaviour
                 }
                 else
                 {
-                    if (isSpeedBlaster)
+                    if (isLaserBlaster)
                     {
-                        HandleSpeedBlaster(rocketSpawn);
+                        HandleLaserBlaster(rocketSpawn);
+                    }
+                    else
+                    {
+                        if (isSpeedBlaster)
+                        {
+                            HandleSpeedBlaster(rocketSpawn);
+                        }
                     }
                 }
             }

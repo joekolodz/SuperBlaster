@@ -28,37 +28,28 @@ public class ObjectHit : MonoBehaviour
     private GameObject flamesInstance;
     private bool isOnFire = false;
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void IsSmoking()
     {
-        if (collision.gameObject.name.Contains(hitTriggerObject.name))
+        if (!isSmoking)
         {
-            if (PowerUpManager.Instance.IsPowerUp)
+            smokeInstance = Instantiate(smoke, transform.position, Quaternion.identity);
+            smokeInstance.transform.localScale *= smokeSizeMultiplier;
+
+            var ps = smokeInstance.transform.Find("PS Smoke Trail");
+            ps.localScale *= smokeSizeMultiplier;
+
+            //say Yeah 30% of the time
+            if (soundYeah != null && !soundYeah.isPlaying && Random.Range(0.0f, 1.0f) <= 0.3f)
             {
-                health -= PowerUpManager.Instance.GetAdjustedDamage();
-            }
-            else
-            {
-                health--;
+                soundYeah.Play();
             }
 
-            if (!isSmoking)
-            {
-                smokeInstance = Instantiate(smoke, transform.position, Quaternion.identity);
-                smokeInstance.transform.localScale *= smokeSizeMultiplier;
-
-                var ps = smokeInstance.transform.Find("PS Smoke Trail");
-                ps.localScale *= smokeSizeMultiplier;
-
-                //say Yeah 30% of the time
-                if (soundYeah != null && !soundYeah.isPlaying && Random.Range(0.0f, 1.0f) <= 0.3f)
-                {
-                    soundYeah.Play();
-                }
-
-                isSmoking = true;
-            }
+            isSmoking = true;
         }
+    }
 
+    private void IsOnFire()
+    {
         if (health <= healthWhenFlamesStart)
         {
             if (!isOnFire && flames != null)
@@ -72,21 +63,46 @@ public class ObjectHit : MonoBehaviour
                 isOnFire = true;
             }
         }
+    }
 
+    private void IsKilled()
+    {
         if (health <= 0)
         {
             var bx = gameObject.transform.parent.gameObject;
             var b = bx.GetComponent<BadGuyMovement>();
-            if (b != null)
-            {
-                Returned++;
-            }
-
             gameObject.GetComponent<ObjectDestroy>().Explode(delayDestroy);
+        }
 
+    }
+
+    private void UpdateDamageState()
+    {
+        IsSmoking();
+        IsOnFire();
+        IsKilled();
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.name.Contains(hitTriggerObject.name))
+        {
+            if (PowerUpManager.Instance.IsPowerUp)
+            {
+                TakeDamage(PowerUpManager.Instance.GetAdjustedDamage());
+            }
+            else
+            {
+                TakeDamage(1);
+            }
         }
     }
-    private int Returned = 0;
+
+    public void TakeDamage(int damageAmount)
+    {
+        health -= damageAmount;
+        UpdateDamageState();
+    }
 
     public void Update()
     {

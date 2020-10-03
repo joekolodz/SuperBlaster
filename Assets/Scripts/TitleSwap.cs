@@ -12,6 +12,7 @@ public class TitleSwap : MonoBehaviour
         SpeedBlaster,
         TripleBlaster,
         MultiBlaster,
+        LaserBlaster,
         SuperBlaster
     }
 
@@ -40,6 +41,9 @@ public class TitleSwap : MonoBehaviour
                 break;
             case PowerUpManager.PowerUpNames.MultiBlaster:
                 titleName = TitleNames.MultiBlaster;
+                break;
+            case PowerUpManager.PowerUpNames.LaserBlaster:
+                titleName = TitleNames.LaserBlaster;
                 break;
             case PowerUpManager.PowerUpNames.SuperBlaster:
                 titleName = TitleNames.SuperBlaster;
@@ -79,8 +83,11 @@ public class TitleSwap : MonoBehaviour
             case TitleNames.MultiBlaster:
                 AnimatePowerUpTitle(titles[3]);
                 break;
-            case TitleNames.SuperBlaster:
+            case TitleNames.LaserBlaster:
                 AnimatePowerUpTitle(titles[4]);
+                break;
+            case TitleNames.SuperBlaster:
+                AnimatePowerUpTitle(titles[5]);
                 break;
         }
     }

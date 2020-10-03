@@ -3229,6 +3229,36 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -0.26
       objectReference: {fileID: 0}
+    - target: {fileID: 5436067138170104598, guid: 10b14c378afb01b4092d4ff1ddf3a6f5,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.82903755
+      objectReference: {fileID: 0}
+    - target: {fileID: 5436067138170104598, guid: 10b14c378afb01b4092d4ff1ddf3a6f5,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.559193
+      objectReference: {fileID: 0}
+    - target: {fileID: 5436067138170104598, guid: 10b14c378afb01b4092d4ff1ddf3a6f5,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 112
+      objectReference: {fileID: 0}
+    - target: {fileID: 5436067138170104598, guid: 10b14c378afb01b4092d4ff1ddf3a6f5,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 4.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5436067138170104598, guid: 10b14c378afb01b4092d4ff1ddf3a6f5,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5436067138170104593, guid: 10b14c378afb01b4092d4ff1ddf3a6f5,
+        type: 3}
+      propertyPath: m_TagString
+      value: WallCloseTrigger
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 10b14c378afb01b4092d4ff1ddf3a6f5, type: 3}
 --- !u!1001 &1179475416

@@ -36,6 +36,7 @@ public class LevelBehavior23 : MonoBehaviour
         StartCoroutine(WaitForTime.Wait(DoorDelayOpenTime, StartWallAnimation));
 
         ObjectPooler.Instance.PopulateBadGuyArrowheadPool(BadGuysPerWave);
+        ObjectPooler.Instance.Reset();
         EventAggregator.BadGuyDied += EventAggregator_BadGuyDied;
         EventAggregator.WallCloseTriggered += EventAggregator_WallCloseTriggered;
     }
@@ -68,7 +69,7 @@ public class LevelBehavior23 : MonoBehaviour
             Debug.Log("Next Wave!!");//TODO event to show big flashy message?
             _currentWave++;
             badGuyIndex = 0;
-            _waveDelayTime = Time.time + 1.0f; //buffer delay regardless of wave delay variable setting
+            _waveDelayTime = Time.time + 0.25f; //buffer delay regardless of wave delay variable setting
             _nextSpawnTime = Time.time + SpawnInterval;
             StartCoroutine(WaitForTime.Wait(DoorDelayOpenTime, StartWallAnimation));
         }

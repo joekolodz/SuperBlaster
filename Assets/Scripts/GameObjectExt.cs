@@ -4,6 +4,15 @@ public static class GameObjectEx
 {
     public static bool IsDebug = false;
 
+    public static GameObject Instantiate(this Object thisGameObject, GameObject original, Transform parent, Vector3 position, Quaternion rotation, bool worldPositionStays)
+    {
+        var prefabInstance = GameObject.Instantiate(original);
+        prefabInstance.transform.SetParent(parent, worldPositionStays);
+        prefabInstance.transform.localPosition = position;
+        prefabInstance.transform.rotation = rotation;
+        return prefabInstance;
+    }
+
     public static void DrawLine(this GameObject container, Vector3 point, Color color)
     {
         if (!IsDebug)
