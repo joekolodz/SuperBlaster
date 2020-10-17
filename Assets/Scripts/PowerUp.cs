@@ -186,19 +186,20 @@ public class PowerUpManager : MonoBehaviour
 
     private void HandleLaserBlaster(RocketSpawn rocketSpawn)
     {
-        var position = rocketSpawn.spawnPoint.localPosition + new Vector3(0f, 1.0f);
-        var l = gameObject.Instantiate(LaserBlastPrefab, rocketSpawn.transform, position, rocketSpawn.transform.rotation, true);
+        var l = ObjectPooler.Instance.GetLaser();
+        if (!l) return;
+
+        l.transform.position = rocketSpawn.spawnPoint.position;
+        l.transform.rotation = rocketSpawn.spawnPoint.rotation;
         l.SetActive(true);
 
-        position = rocketSpawn.spawnPoint.localPosition + new Vector3(0f, 1.0f);
-        var rotation = rocketSpawn.transform.rotation * Quaternion.Euler(0, 0, 3);
-        l = gameObject.Instantiate(LaserBlastPrefab, rocketSpawn.transform, position, rotation, true);
-        l.SetActive(true);
+        const int force = 8000;
 
-        position = rocketSpawn.spawnPoint.localPosition + new Vector3(0.0f, 1.0f);
-        rotation = rocketSpawn.transform.rotation * Quaternion.Euler(0, 0, -3);
-        l = gameObject.Instantiate(LaserBlastPrefab, rocketSpawn.transform, position, rotation, true);
-        l.SetActive(true);
+        var r = l.GetComponent<Rigidbody2D>();
+        if (r)
+        {
+            r.AddForce(l.transform.right * force);
+        }
     }
 
     private void HandleSuperBlaster()

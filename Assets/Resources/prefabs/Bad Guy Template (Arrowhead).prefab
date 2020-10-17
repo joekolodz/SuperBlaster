@@ -182,12 +182,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d29b4d4bdf8372b4f8cb5a192e69ee29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  plasma: {fileID: 1313798887493962, guid: c5dedb66d13f11248a5f8479942376ed, type: 3}
   spawnPoint: {fileID: 4827058989721564}
   roundsPerBurst: 1
   delayBetweenRounds: 0
   delayBetweenShots: 5
   accuracy: 0.25
+  isFiring: 0
 --- !u!114 &114240111180210108
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -203,6 +203,8 @@ MonoBehaviour:
   badGuy: {fileID: 4897614030326522}
   moveSpeed: 5
   isDestroyed: 0
+  IsNextWaypointRandom: 0
+  Id: 0
 --- !u!1 &1499543582273160
 GameObject:
   m_ObjectHideFlags: 0
@@ -344,6 +346,7 @@ MonoBehaviour:
   multiExplosionIntervalDelay: 0.3
   destructionValue: 50
   soundOnDestroy: {fileID: 82751032833206694}
+  IsPooledObject: 0
 --- !u!114 &114051034862483666
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -356,8 +359,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77738e1357ceaac46af5a0c148d047fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isEnabled: 1
-  children: []
   smoke: {fileID: 1777618879577564, guid: eb93f9f9ab4d94f468df1454ad17fdb6, type: 3}
   flames: {fileID: 0}
   smokeSizeMultiplier: 1

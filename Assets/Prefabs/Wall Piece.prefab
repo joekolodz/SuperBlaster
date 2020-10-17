@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 212289544605695030}
   - component: {fileID: 60636565522492954}
   - component: {fileID: 50807731894022988}
+  - component: {fileID: 2787493947425981659}
   m_Layer: 0
   m_Name: Wall Piece
   m_TagString: Untagged
@@ -146,3 +147,25 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &2787493947425981659
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1971670767734720}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77738e1357ceaac46af5a0c148d047fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsIndestructable: 1
+  smoke: {fileID: 1777618879577564, guid: eb93f9f9ab4d94f468df1454ad17fdb6, type: 3}
+  flames: {fileID: 0}
+  smokeSizeMultiplier: 0.61
+  flameSizeMultiplier: 0.76
+  health: 10
+  healthWhenFlamesStart: 13
+  hitTriggerObject: {fileID: 0}
+  delayDestroy: 2
+  soundYeah: {fileID: 0}

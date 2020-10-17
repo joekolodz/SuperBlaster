@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ObjectHit : MonoBehaviour
 {
+    public bool IsIndestructable = false;
     public GameObject smoke;
     public GameObject flames;
 
@@ -69,11 +70,9 @@ public class ObjectHit : MonoBehaviour
     {
         if (health <= 0)
         {
-            var bx = gameObject.transform.parent.gameObject;
-            var b = bx.GetComponent<BadGuyMovement>();
+            //TODO get gameObject's death animation (so walls crumble etc)
             gameObject.GetComponent<ObjectDestroy>().Explode(delayDestroy);
         }
-
     }
 
     private void UpdateDamageState()
@@ -85,21 +84,15 @@ public class ObjectHit : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.name.Contains(hitTriggerObject.name))
-        {
-            if (PowerUpManager.Instance.IsPowerUp)
-            {
-                TakeDamage(PowerUpManager.Instance.GetAdjustedDamage());
-            }
-            else
-            {
-                TakeDamage(1);
-            }
-        }
+        Debug.Log($"ObjectHit:{gameObject.name} hit by {collision.gameObject.name}");
+        if (hitTriggerObject == null) return;
+        if (!collision.gameObject.name.Contains(hitTriggerObject.name)) return;
+        TakeDamage(PowerUpManager.Instance.IsPowerUp ? PowerUpManager.Instance.GetAdjustedDamage() : 1);
     }
 
     public void TakeDamage(int damageAmount)
     {
+        if (IsIndestructable) return;
         health -= damageAmount;
         UpdateDamageState();
     }

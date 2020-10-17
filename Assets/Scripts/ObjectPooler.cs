@@ -29,6 +29,11 @@ public class ObjectPooler : MonoBehaviour
     private GameObject PlasmaPrefab;
     private List<GameObject> _plasmaPool;
 
+    private GameObject LaserPool;
+    private int LaserPoolSize = 30;
+    private GameObject LaserPrefab;
+    private List<GameObject> _laserPool;
+
     private GameObject BadGuyArrowheadPool;
     //private int BadGuyArrowheadPoolSize = 20;
     private GameObject BadGuyArrowheadPrefab;
@@ -55,6 +60,9 @@ public class ObjectPooler : MonoBehaviour
         PlasmaPrefab = (GameObject)Resources.Load("prefabs/Plasma Blast");
         PlasmaPool = new GameObject("Plasma Pool");
 
+        LaserPrefab = (GameObject)Resources.Load("prefabs/Laser Blast");
+        LaserPool = new GameObject("Laser Pool");
+
         ExplosionLargePrefab = (GameObject)Resources.Load("prefabs/Explosion Large");
         ExplosionLargePool = new GameObject("Explosion-Large Pool");
 
@@ -66,6 +74,7 @@ public class ObjectPooler : MonoBehaviour
 
         _rocketPool = new List<GameObject>();
         _plasmaPool = new List<GameObject>();
+        _laserPool = new List<GameObject>();
         _explosionLargePool = new List<GameObject>();
         _explosionSmallPool = new List<GameObject>();
         _badGuyArrowheadPool = new List<GameObject>();
@@ -73,6 +82,7 @@ public class ObjectPooler : MonoBehaviour
 
         RocketPool.transform.SetParent(gameObject.transform, true);
         PlasmaPool.transform.SetParent(gameObject.transform, true);
+        LaserPool.transform.SetParent(gameObject.transform, true);
         ExplosionLargePool.transform.SetParent(gameObject.transform, true);
         ExplosionSmallPool.transform.SetParent(gameObject.transform, true);
         BadGuyArrowheadPool.transform.SetParent(gameObject.transform, true);
@@ -99,6 +109,14 @@ public class ObjectPooler : MonoBehaviour
             r.SetActive(false);
             r.transform.SetParent(PlasmaPool.transform, true);
             _plasmaPool.Add(r);
+        }
+
+        for (var i = 0; i < LaserPoolSize; i++)
+        {
+            var r = Instantiate(LaserPrefab);
+            r.SetActive(false);
+            r.transform.SetParent(LaserPool.transform, true);
+            _laserPool.Add(r);
         }
 
         for (var i = 0; i < ExplosionLargePoolSize; i++)
@@ -168,6 +186,12 @@ public class ObjectPooler : MonoBehaviour
         {
             ReturnPlasma(blast.gameObject);
         }
+
+        var allLaserBlasts = FindObjectsOfType<LaserFire>();
+        foreach (var blast in allLaserBlasts)
+        {
+            ReturnLaser(blast.gameObject);
+        }
     }
 
     public GameObject GetRocket()
@@ -210,6 +234,23 @@ public class ObjectPooler : MonoBehaviour
         plasma.SetActive(false);
         plasma.transform.position = Vector3.zero;
         _plasmaPool.Add(plasma);
+    }
+
+    public GameObject GetLaser()
+    {
+        if (_laserPool.Count == 0) return null;
+
+        var index = _laserPool.Count - 1;
+        var r = _laserPool[index];
+        _laserPool.RemoveAt(index);
+        return r;
+    }
+
+    public void ReturnLaser(GameObject laser)
+    {
+        laser.SetActive(false);
+        laser.transform.position = Vector3.zero;
+        _laserPool.Add(laser);
     }
 
     public GameObject GetExplosionLarge()

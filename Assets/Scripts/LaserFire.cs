@@ -13,13 +13,4 @@ public class LaserFire : MonoBehaviour
         _expirationTime = Time.time + TimeToLiveInSeconds;        
         Debug.Log($"Time:{Time.time}, TimeToLiveInMilliseconds:{TimeToLiveInSeconds}, _expirationTime: {_expirationTime}");
     }
-
-    void Update()
-    {
-        if(Time.time > _expirationTime)
-        {
-            Debug.Log($"Times up!");
-            Destroy(gameObject);
-        }
-    }
 }
