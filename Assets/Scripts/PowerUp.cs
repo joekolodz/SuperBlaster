@@ -193,7 +193,7 @@ public class PowerUpManager : MonoBehaviour
         l.transform.rotation = rocketSpawn.spawnPoint.rotation;
         l.SetActive(true);
 
-        const int force = 8000;
+        const int force = 12 * 1000;
 
         var r = l.GetComponent<Rigidbody2D>();
         if (r)
