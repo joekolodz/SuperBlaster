@@ -60,7 +60,7 @@ jobs:
 
 
   buildWebGL:
-    needs: testRunner
+#    needs: testRunner
     name: Build for WebGL 🖥️
     runs-on: ubuntu-latest
     strategy:
