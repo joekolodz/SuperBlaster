@@ -3,7 +3,7 @@
 public class LaserFire : MonoBehaviour
 {
 
-    public float Force = 5000;
+    public float Force = 10 * 1000;
     public float TimeToLiveInSeconds = 0.25f;
 
     private float _expirationTime;
