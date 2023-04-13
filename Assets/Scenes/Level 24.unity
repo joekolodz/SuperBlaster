@@ -1488,7 +1488,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6eb37d06244428f41b3c4d4cabc2744a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PowerUpType: 4
+  PowerUpType: 1
 --- !u!4 &305190226
 Transform:
   m_ObjectHideFlags: 0
@@ -1954,14 +1954,14 @@ MonoBehaviour:
   - {fileID: 561269970}
   - {fileID: 1676611561}
   DoorDelayOpenTime: 1
-  BadGuysPerWave: 1
+  BadGuysPerWave: 80
   HowManyWaves: 4
   SpawnInterval: 0.2
   WaveDelay: 1.25
   RoundsPerBurst: 2
   DelayBetweenRounds: 1
   DelayBetweenShots: 1
-  Accuracy: 0.25
+  Accuracy: 0.35
   MoveSpeed: 30
   Health: 1
 --- !u!4 &439487146
@@ -3196,6 +3196,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4836648102480918, guid: 5864c371a5953e44c9328af4e5be2545, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 28.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4836648102480918, guid: 5864c371a5953e44c9328af4e5be2545, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 31.3
+      objectReference: {fileID: 0}
     - target: {fileID: 4461297046864722, guid: 5864c371a5953e44c9328af4e5be2545, type: 3}
       propertyPath: m_LocalPosition.x
       value: -22
@@ -3283,14 +3291,6 @@ PrefabInstance:
     - target: {fileID: 4652037154213192, guid: 5864c371a5953e44c9328af4e5be2545, type: 3}
       propertyPath: m_LocalPosition.y
       value: -1.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4836648102480918, guid: 5864c371a5953e44c9328af4e5be2545, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 28.7
-      objectReference: {fileID: 0}
-    - target: {fileID: 4836648102480918, guid: 5864c371a5953e44c9328af4e5be2545, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 31.3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5864c371a5953e44c9328af4e5be2545, type: 3}
@@ -5191,7 +5191,7 @@ PrefabInstance:
     - target: {fileID: 2653260998239849494, guid: c7807539115234342be3aa978cebe13f,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2653260998239849492, guid: c7807539115234342be3aa978cebe13f,
         type: 3}
@@ -5271,6 +5271,11 @@ PrefabInstance:
     - target: {fileID: 4187496047776771837, guid: c7807539115234342be3aa978cebe13f,
         type: 3}
       propertyPath: m_isInputParsingRequired
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4187496047776771811, guid: c7807539115234342be3aa978cebe13f,
+        type: 3}
+      propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -6401,7 +6406,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 13.69, y: 0.61}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 1680, y: 831.8644}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &2070947764
@@ -6513,6 +6518,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Title (Triple Blaster) 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1686991385436834506, guid: 68a93348348adcf4ba028d4ee0dae837,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1686991385436834505, guid: 68a93348348adcf4ba028d4ee0dae837,
         type: 3}
@@ -6627,6 +6637,11 @@ PrefabInstance:
     - target: {fileID: 1686991385436834503, guid: 68a93348348adcf4ba028d4ee0dae837,
         type: 3}
       propertyPath: m_isInputParsingRequired
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1686991385436834503, guid: 68a93348348adcf4ba028d4ee0dae837,
+        type: 3}
+      propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []

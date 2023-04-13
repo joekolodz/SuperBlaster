@@ -47,7 +47,7 @@ public class LevelBehavior24 : MonoBehaviour
         StartCoroutine(WaitForTime.Wait(DoorDelayOpenTime, StartWallAnimation));
 
         ObjectPooler.Instance.PopulateBadGuyArrowheadPool(BadGuysPerWave);
-        ObjectPooler.Instance.Reset();
+        
         EventAggregator.BadGuyDied += EventAggregator_BadGuyDied;
         EventAggregator.WallCloseTriggered += EventAggregator_WallCloseTriggered;
     }

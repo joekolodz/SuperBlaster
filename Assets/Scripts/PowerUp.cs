@@ -91,8 +91,8 @@ public class PowerUpManager : MonoBehaviour
             IsPowerUp = true;
             EventAggregator.PublishPowerUpTriggered(new PowerUpTriggeredEventArgs(PowerUpNames.SpeedBlaster));
         }
-        damageIncrease = 4;
-        rocketForceMultiplier = 3.0f;
+        damageIncrease = 5;
+        rocketForceMultiplier = 2.0f;
         isSpeedBlaster = true;
     }
 

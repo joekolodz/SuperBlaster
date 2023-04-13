@@ -144,7 +144,7 @@ public class ObjectPooler : MonoBehaviour
         {
             foreach (var o in _badGuyArrowheadPool)
             {
-                ReturnBadGuyArrowhead(o);
+                //WHAT? ReturnBadGuyArrowhead(o);
                 var bgm = o.GetComponent<BadGuyMovement>();
                 bgm.Reset();
             }

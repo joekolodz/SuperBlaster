@@ -893,8 +893,8 @@ D:\Games\Unity Games\SuperBlaster\Temp\bin\Debug\UnityEngine.Timeline.xml
 D:\Games\Unity Games\SuperBlaster\Temp\bin\Debug\UnityEngine.Networking.xml
 D:\Games\Unity Games\SuperBlaster\Temp\bin\Debug\UnityEngine.GoogleAudioSpatializer.xml
 D:\Games\Unity Games\SuperBlaster\Temp\bin\Debug\UnityEngine.SpatialTracking.xml
-D:\Games\Unity Games\SuperBlaster\obj\Debug\Assembly-CSharp.csprojAssemblyReference.cache
 D:\Games\Unity Games\SuperBlaster\obj\Debug\Assembly-CSharp.csproj.CoreCompileInputs.cache
 D:\Games\Unity Games\SuperBlaster\obj\Debug\Assembly-CSharp.csproj.CopyComplete
 D:\Games\Unity Games\SuperBlaster\obj\Debug\Assembly-CSharp.dll
 D:\Games\Unity Games\SuperBlaster\obj\Debug\Assembly-CSharp.pdb
+D:\Games\Unity Games\SuperBlaster\obj\Debug\Assembly-CSharp.csproj.AssemblyReference.cache

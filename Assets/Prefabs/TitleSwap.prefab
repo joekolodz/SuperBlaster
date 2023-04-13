@@ -224,6 +224,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Title (Speed Blaster)
       objectReference: {fileID: 0}
+    - target: {fileID: 3704983844400564639, guid: 6487a7636dc666643b703be9370601eb,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3704983844400564636, guid: 6487a7636dc666643b703be9370601eb,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -892,6 +897,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Title (Main)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5162266038393408490, guid: 53f51dae37803eb4a9777a5f3baabd53,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5162266038393408491, guid: 53f51dae37803eb4a9777a5f3baabd53,
         type: 3}

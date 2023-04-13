@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System;
+using UnityEngine.Events;
 
 public class PowerUpTriggeredEventArgs : EventArgs
 {
@@ -8,6 +9,16 @@ public class PowerUpTriggeredEventArgs : EventArgs
     public PowerUpTriggeredEventArgs(PowerUpManager.PowerUpNames powerUpName)
     {
         PowerUpName = powerUpName;
+    }
+}
+
+public class PowerDownTriggeredEventArgs : EventArgs
+{
+    public PowerDownManager.PowerDownNames PowerDownName;
+
+    public PowerDownTriggeredEventArgs(PowerDownManager.PowerDownNames powerDownName)
+    {
+        PowerDownName = powerDownName;
     }
 }
 
@@ -62,6 +73,8 @@ public class EventAggregator
 {
     public static event EventHandler PowerUpExpired;
     public static event EventHandler<PowerUpTriggeredEventArgs> PowerUpTriggered;
+    public static event EventHandler PowerDownExpired;
+    public static event EventHandler<PowerDownTriggeredEventArgs> PowerDownTriggered;
     public static event EventHandler<ObjectDestroyedEventArgs> ObjectDestroyed;
     public static event EventHandler<BadGuyDiedEventArgs> BadGuyDied;
     public static event EventHandler LevelCompleted;
@@ -79,6 +92,16 @@ public class EventAggregator
     public static void PublishPowerUpTriggered(PowerUpTriggeredEventArgs e)
     {
         PowerUpTriggered?.Invoke(null, e);
+    }
+
+    public static void PublishPowerDownExpired()
+    {
+        PowerUpExpired?.Invoke(null, new EventArgs());
+    }
+
+    public static void PublishPowerDownTriggered(PowerDownTriggeredEventArgs e)
+    {
+        PowerDownTriggered?.Invoke(null, e);
     }
 
     public static void PublishObjectDestroyed(ObjectDestroyedEventArgs e)
