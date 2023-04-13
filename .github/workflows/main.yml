@@ -19,7 +19,10 @@ jobs:
     name: Build SuperBlaster
     runs-on: windows-latest
     steps:    
-      - name: Build Standalone Windows 64 
+      - name: Checkout
+      - uses: actions/checkout@v3
+      
+      - name: Unity build standalone windows 64 
       - uses: game-ci/unity-builder@v2
         env:
           UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
