@@ -16,6 +16,7 @@ jobs:
       run: exit 1
 
   build:
+    needs: checkLicense
     name: Build SuperBlaster
     runs-on: ubuntu-latest
     steps:    
