@@ -23,7 +23,9 @@ sysinfo.txt
 !/[Aa]ssets/**/*.meta
 
 # TextMesh Pro files
-[Aa]ssets/TextMesh*Pro/
+[Aa]ssets/TextMesh*Pro/Sprites
+[Aa]ssets/TextMesh*Pro/Documentation
+
 
 # Visual Studio cache directory
 .vs/
