@@ -30,13 +30,14 @@ jobs:
         UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
         UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
       with:
-        targetPlatform: StandaloneWindows64      
+        targetPlatform: StandaloneWindows64
+        buildName: SuperBlaster-windowsx64
 
     - name: Upload build output
       if: always()
       uses: actions/upload-artifact@v3
       with:
-        name: Build Output
+        name: SuperBlaster Windows 64bit
         path: build
         
 #  testRunner:
