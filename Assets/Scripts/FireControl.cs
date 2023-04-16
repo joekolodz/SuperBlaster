@@ -17,7 +17,7 @@ public class FireControl : MonoBehaviour
     private GoodGuyManager _currentlySelectedGuy;
     private bool isAllDestroyed = false;
 
-    void Awake()
+    public void Awake()
     {
         Time.timeScale = 1.0f;
 
@@ -107,6 +107,8 @@ public class FireControl : MonoBehaviour
 
         if (isFiring)
         {
+            Debug.LogWarning("tits up!");
+
             //are we clicking on something?
             var mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             var guy = IsGuySelected(mousePos);
