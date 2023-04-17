@@ -109,4 +109,5 @@ Icon?
 /[Cc]odeCoverage/
 
 #-- my own
-/Publish/Android
+/builds/
+/Publish/

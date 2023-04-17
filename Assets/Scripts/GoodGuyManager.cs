@@ -11,7 +11,8 @@ public class GoodGuyManager : MonoBehaviour
 
     private void Awake()
     {
-        isSelected = false;
+        //isSelected = false;
+        SimpleLog.Log("GoodGuyManagere - Awake - clearing isSelected");
     }
 
     // Update is called once per frame
@@ -72,6 +73,7 @@ public class GoodGuyManager : MonoBehaviour
 
     public void Unselect()
     {
+        SimpleLog.Log("UNSELECTED");
         isSelected = false;
         guy.GetComponent<SpriteRenderer>().color = Color.white;
     }

@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class SoundEffectsManager : MonoBehaviour
@@ -9,9 +7,9 @@ public class SoundEffectsManager : MonoBehaviour
 
     private bool _isInitialized = false;
     private const int MaxPlasmaHitSounds = 1;
-    private AudioSource SmallExplosion;
-    private AudioSource LargeExplosion;
-    private AudioSource RocketLaunched; //RocketFire.cs
+    //private AudioSource SmallExplosion;
+    //private AudioSource LargeExplosion;
+    //private AudioSource RocketLaunched; //RocketFire.cs
     private List<AudioSource> RocketLaunchedList;
     private List<AudioSource> PlasmaBlast; //PlasmaBlast.cs
     private AudioSource PlasmaBlastPrefab;
@@ -20,8 +18,8 @@ public class SoundEffectsManager : MonoBehaviour
     private AudioSource PlasmaHitPrefab;
     private GameObject PlasmaHitPool;
 
-    private AudioSource ObjectHit; //ObjectHit.cs
-    private AudioSource ObjectDestroy; //ObjectDestroy.cs
+    //private AudioSource ObjectHit; //ObjectHit.cs
+    //private AudioSource ObjectDestroy; //ObjectDestroy.cs
 
     // Explicit static constructor to tell C# compiler
     // not to mark type as beforefieldinit
@@ -58,17 +56,17 @@ public class SoundEffectsManager : MonoBehaviour
 
     public void OnDestroy()
     {
-        SmallExplosion = null;
-        LargeExplosion = null;
-        RocketLaunched = null;
+        //SmallExplosion = null;
+        //LargeExplosion = null;
+        //RocketLaunched = null;
         RocketLaunchedList = null;
         PlasmaBlast = null;
         PlasmaBlastPrefab = null;
         PlasmaHit = null;
         PlasmaHitPrefab = null;
         PlasmaHitPool = null;
-        ObjectHit = null;
-        ObjectDestroy = null;
+        //ObjectHit = null;
+        //ObjectDestroy = null;
         EventAggregator.PlasmaBlastHit -= EventAggregator_PlasmaBlastHit;
         _isInitialized = false;
     }

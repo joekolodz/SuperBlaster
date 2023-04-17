@@ -84,7 +84,6 @@ public class ObjectHit : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log($"ObjectHit:{gameObject.name} hit by {collision.gameObject.name}");
         if (hitTriggerObject == null) return;
         if (!collision.gameObject.name.Contains(hitTriggerObject.name)) return;
         TakeDamage(PowerUpManager.Instance.IsPowerUp ? PowerUpManager.Instance.GetAdjustedDamage() : 1);
