@@ -71,13 +71,13 @@ jobs:
         UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
       with:
         targetPlatform: ${{ matrix.targetPlatform }}
-        androidAppBundle: true
+        androidExportType: "androidAppBundle"
         androidKeystoreName: user.keystore
         androidKeystoreBase64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
         androidKeystorePass: ${{ secrets.ANDROID_KEYSTORE_PASS }}
         androidKeyaliasName: ${{ secrets.ANDROID_KEYALIAS_NAME }}
         androidKeyaliasPass: ${{ secrets.ANDROID_KEYALIAS_PASS }}
-        androidTargetSdkVersion: AndroidApiLevel31
+        androidTargetSdkVersion: AndroidApiLevel30
 
 
     - name: Upload build output
