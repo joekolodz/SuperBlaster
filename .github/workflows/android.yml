@@ -85,7 +85,7 @@ jobs:
       #if: github.event.action == 'published' || contains(github.event.inputs.workflow_mode, matrix.targetPlatform) || (contains(github.event.inputs.workflow_mode, 'Steam') && matrix.targetPlatform == 'StandaloneLinux64')
       with:
         name: SuperBlaster.aab
-        path: build/${{ matrix.targetPlatform }}.aab
+        path: build/Android/Android.aab
 
 
 
