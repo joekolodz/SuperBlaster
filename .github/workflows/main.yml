@@ -1,7 +1,10 @@
 name: Build
 
-on: push
-
+on: 
+  push:
+    paths-ignore:
+      - '.github/workflows/android.yml'
+  
 env:
   UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
 
