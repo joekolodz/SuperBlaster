@@ -74,7 +74,8 @@ public class PowerUpManager : MonoBehaviour
                 EnableMultiBlaster();
                 break;
             case var i when i >= 80.0f && i < 90.0f:
-                EnableLaserBlaster();
+                //EnableLaserBlaster();//laser blaster not ready
+                EnableSuperBlaster();
                 break;
             case var i when i >= 90.0f:
                 EnableSuperBlaster();
@@ -91,8 +92,8 @@ public class PowerUpManager : MonoBehaviour
             IsPowerUp = true;
             EventAggregator.PublishPowerUpTriggered(new PowerUpTriggeredEventArgs(PowerUpNames.SpeedBlaster));
         }
-        damageIncrease = 5;
-        rocketForceMultiplier = 2.0f;
+        damageIncrease = 6;
+        rocketForceMultiplier = 3.0f;
         isSpeedBlaster = true;
     }
 

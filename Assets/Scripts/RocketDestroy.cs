@@ -11,12 +11,12 @@ public class RocketDestroy : MonoBehaviour
 
         EventAggregator.PublishObjectDestroyed(new ObjectDestroyedEventArgs(gameObject.transform));
 
-        var trail = gameObject.GetComponentInChildren<TrailRenderer>();
-        if (trail != null)
-        {
-            trail.Clear();
-        }
+        //var trail = gameObject.GetComponentInChildren<TrailRenderer>();
+        //if (trail != null)
+        //{
+        //    trail.Clear();
+        //}
 
-        ObjectPooler.Instance.ReturnRocket(gameObject);
+        //ObjectPooler.Instance.ReturnRocket(gameObject);
     }
 }
