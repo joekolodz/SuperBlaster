@@ -73,7 +73,7 @@ jobs:
         targetPlatform: ${{ matrix.targetPlatform }}
         unityVersion: "2022.2.15f1"
         androidExportType: "androidAppBundle"
-        androidKeystoreName: user.keystore
+        androidKeystoreName: superblaster.keystore
         androidKeystoreBase64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
         androidKeystorePass: ${{ secrets.ANDROID_KEYSTORE_PASS }}
         androidKeyaliasName: ${{ secrets.ANDROID_KEYALIAS_NAME }}
