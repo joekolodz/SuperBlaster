@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class ObjectDestroy : MonoBehaviour
 {
@@ -12,6 +14,9 @@ public class ObjectDestroy : MonoBehaviour
     public int destructionValue;
     public AudioSource soundOnDestroy;
     public bool IsPooledObject = false;
+
+
+    private static DateTime LastTimeSoundPlayed = DateTime.Now;
 
     public void Explode(float delayDestroy)
     {
@@ -28,12 +33,12 @@ public class ObjectDestroy : MonoBehaviour
         var collider = gameObject.GetComponent<CircleCollider2D>();
         if (collider != null) collider.enabled = false;
 
-        //todo remove me
-        //PowerUpManager.Instance.IsPowerUpHit(gameObject.tag);
-
-        if (soundOnDestroy != null && !soundOnDestroy.isPlaying && Random.Range(0.0f, 1.0f) <= 0.3f)
+        var rand = Random.Range(0.0f, 1.0f);
+        if (soundOnDestroy != null && !soundOnDestroy.isPlaying && rand <= 0.3f && DateTime.Now > ObjectDestroy.LastTimeSoundPlayed.AddSeconds(7))
         {
-            AudioSource.PlayClipAtPoint(soundOnDestroy.clip, new Vector3(0, 0, 0));
+            var volume = 0.1f;
+            AudioSource.PlayClipAtPoint(soundOnDestroy.clip, new Vector3(0, 0, 0), volume);
+            ObjectDestroy.LastTimeSoundPlayed = DateTime.Now;
         }
 
         EventAggregator.PublishObjectDestroyed(new ObjectDestroyedEventArgs(gameObject.transform, explosionSizeMultiplier, false));

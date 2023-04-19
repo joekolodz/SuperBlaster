@@ -12,7 +12,7 @@ public class PowerUpDestroy : MonoBehaviour
         if (collision.gameObject.name.Contains(hitTriggerObject.name))
         {
             PowerUpManager.Instance.PowerUpHit();
-
+            soundOnDestroy.volume = 0.1f;
             AudioSource.PlayClipAtPoint(soundOnDestroy.clip, new Vector3(0, 0, 0));
 
             Explode();

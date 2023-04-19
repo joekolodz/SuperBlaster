@@ -39,9 +39,9 @@ public class ObjectHit : MonoBehaviour
             var ps = smokeInstance.transform.Find("PS Smoke Trail");
             ps.localScale *= smokeSizeMultiplier;
 
-            //say Yeah 30% of the time
-            if (soundYeah != null && !soundYeah.isPlaying && Random.Range(0.0f, 1.0f) <= 0.3f)
+            if (soundYeah != null && !soundYeah.isPlaying && Random.Range(0.0f, 1.0f) <= 0.2f)
             {
+                soundYeah.volume = 0.1f;
                 soundYeah.Play();
             }
 

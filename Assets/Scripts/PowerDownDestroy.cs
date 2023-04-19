@@ -12,7 +12,7 @@ public class PowerDownDestroy : MonoBehaviour
         if (collision.gameObject.name.Contains(hitTriggerObject.name))
         {
             PowerDownManager.Instance.PowerDownHit();
-
+            soundOnDestroy.volume = 0.1f;
             AudioSource.PlayClipAtPoint(soundOnDestroy.clip, new Vector3(0, 0, 0));
 
             Explode();

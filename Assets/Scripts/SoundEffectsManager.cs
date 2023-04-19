@@ -101,8 +101,6 @@ public class SoundEffectsManager : MonoBehaviour
     //unused - remove?
     private void PlayRocketLaunched()
     {
-        //PlayAudio(ref RocketLaunched, "audio/rocket launched");
-
         AudioSource available = null;
 
         foreach (var source in RocketLaunchedList)
@@ -118,12 +116,11 @@ public class SoundEffectsManager : MonoBehaviour
         {
             available = LoadSoundEffect("audio/rocket launched");
             available.priority = 98;
-            available.volume = 0.213f;
             RocketLaunchedList.Add(available);
         }
 
+        available.volume = 0.1f;
         available.Play();
-
     }
 
     private void PlayPlasmaHit()
@@ -149,6 +146,7 @@ public class SoundEffectsManager : MonoBehaviour
             PlasmaHit.Add(available);
         }
 
+        available.volume = 0.1f;
         available.Play();
     }
 }

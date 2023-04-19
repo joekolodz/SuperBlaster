@@ -55,6 +55,7 @@ public class MusicManager : MonoBehaviour
 
     public void Play()
     {
+        activeMusic.volume = 0.1f;
         activeMusic?.Play();
     }
 

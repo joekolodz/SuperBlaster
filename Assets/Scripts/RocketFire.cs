@@ -13,6 +13,11 @@ public class RocketFire : MonoBehaviour
         _rigidBody = GetComponent<Rigidbody2D>();
     }
 
+    void Update()
+    {
+        Debug.Log("Rocket Update");
+    }
+
     public void FireRocket(float force)
     {
         _currentForce += force;
@@ -30,6 +35,7 @@ public class RocketFire : MonoBehaviour
         if (collision.gameObject.CompareTag("FirePoint"))
         {
             if (audioSource.isPlaying) return;
+            audioSource.volume = 0.1f;
             audioSource.Play();
         }
     }

@@ -14,6 +14,7 @@ public class PlasmaFire : MonoBehaviour
             GetComponent<Rigidbody2D>().AddForce(transform.right * plasmaForce);
 
             if (audioSource.isPlaying) return;
+            audioSource.volume = 0.1f;
             audioSource.Play();
         }
     }
