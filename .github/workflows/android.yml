@@ -72,7 +72,7 @@ jobs:
       with:
         targetPlatform: ${{ matrix.targetPlatform }}
         unityVersion: '2022.2.15f1'
-        androidExportType: 'androidAppBundle'
+        androidAppBundle: true
         androidKeystoreName: superblaster.keystore
         androidKeystoreBase64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
         androidKeystorePass: ${{ secrets.ANDROID_KEYSTORE_PASS }}
@@ -84,8 +84,8 @@ jobs:
       uses: actions/upload-artifact@v3
       #if: github.event.action == 'published' || contains(github.event.inputs.workflow_mode, matrix.targetPlatform) || (contains(github.event.inputs.workflow_mode, 'Steam') && matrix.targetPlatform == 'StandaloneLinux64')
       with:
-        name: SuperBlaster-${{ matrix.targetPlatform }}
-        path: build/${{ matrix.targetPlatform }}.*
+        name: SuperBlaster.aab
+        path: build/Android/Android.aab
 
 
 
