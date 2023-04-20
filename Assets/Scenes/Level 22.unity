@@ -6184,7 +6184,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
+  m_PresetInfoIsWorld: 1
 --- !u!223 &1416531634
 Canvas:
   m_ObjectHideFlags: 0
@@ -6396,7 +6396,7 @@ GameObject:
   - component: {fileID: 1438899455}
   - component: {fileID: 1438899454}
   m_Layer: 5
-  m_Name: Button (Quit)
+  m_Name: Button (Home)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6468,8 +6468,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 746063284}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: Quit
+        m_TargetAssemblyTypeName: MenuControl, Assembly-CSharp
+        m_MethodName: Home
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -7941,7 +7941,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: QUIT
+  m_Text: HOME
 --- !u!222 &2100822267
 CanvasRenderer:
   m_ObjectHideFlags: 0
