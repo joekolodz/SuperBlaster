@@ -82,10 +82,21 @@ public class ObjectHit : MonoBehaviour
         IsKilled();
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        DetectHit(collision.gameObject);
+    }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        DetectHit(collision.gameObject);
+    }
+
+    private void DetectHit(GameObject collidingGameObject)
+    {
+        //Debug.Log($"{gameObject.name} detected a hit from: {collidingGameObject.name}");
         if (hitTriggerObject == null) return;
-        if (!collision.gameObject.name.Contains(hitTriggerObject.name)) return;
+        if (!collidingGameObject.name.Contains(hitTriggerObject.name)) return;
         TakeDamage(PowerUpManager.Instance.IsPowerUp ? PowerUpManager.Instance.GetAdjustedDamage() : 1);
     }
 

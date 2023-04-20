@@ -21,6 +21,7 @@ public class PowerUpManager : MonoBehaviour
     private const float POWERUP_TIME_IN_SECONDS = 15.0f;
 
     public bool IsPowerUp { get; private set; }
+    public PowerUpNames PowerUpType { get; private set; }
 
     private int damageIncrease = 0;
 
@@ -95,6 +96,7 @@ public class PowerUpManager : MonoBehaviour
         damageIncrease = 6;
         rocketForceMultiplier = 3.0f;
         isSpeedBlaster = true;
+        PowerUpType = PowerUpNames.SpeedBlaster;
     }
 
     private void EnableTripleBlaster()
@@ -106,6 +108,7 @@ public class PowerUpManager : MonoBehaviour
         }
         damageIncrease = 3;
         isTripleBlaster = true;
+        PowerUpType = PowerUpNames.TripleBlaster;
     }
 
     private void EnableMultiBlaster()
@@ -117,6 +120,7 @@ public class PowerUpManager : MonoBehaviour
         }
         damageIncrease = 3;
         isMultiBlaster = true;
+        PowerUpType = PowerUpNames.MultiBlaster;
     }
 
     private void EnableLaserBlaster()
@@ -128,6 +132,7 @@ public class PowerUpManager : MonoBehaviour
         }
         damageIncrease = 10;
         isLaserBlaster = true;
+        PowerUpType = PowerUpNames.LaserBlaster;
     }
 
     private void EnableSuperBlaster()
@@ -138,6 +143,7 @@ public class PowerUpManager : MonoBehaviour
             EventAggregator.PublishPowerUpTriggered(new PowerUpTriggeredEventArgs(PowerUpNames.SuperBlaster));
         }
         isSuperBlaster = true;
+        PowerUpType = PowerUpNames.SuperBlaster;
         EnableSpeedBlaster();
         EnableTripleBlaster();
         EnableMultiBlaster();
@@ -257,6 +263,7 @@ public class PowerUpManager : MonoBehaviour
     public void ResetPowerUp()
     {
         IsPowerUp = false;
+        PowerUpType = PowerUpNames.None;
         timePowerUpExpires = 0.0f;
         damageIncrease = 0;
         rocketForceMultiplier = DEFAULT_ROCKET_FORCE_MULTIPLIER;

@@ -146,4 +146,18 @@ public class MenuControl : MonoBehaviour
             MusicManager.Instance.UnPause();
         }
     }
+
+    public void Home()
+    {
+        var fireControl = GameObject.Find("FireControl");
+        if (fireControl)
+        {
+            fireControl.GetComponent<FireControl>().StopAllBadGuyMovement();
+        }
+
+        PowerUpManager.Instance.ResetPowerUp();
+        ObjectPooler.Instance.Reset();
+        ScoreBucket.SaveHighScore();
+        SceneManager.LoadSceneAsync(0);
+    }
 }
