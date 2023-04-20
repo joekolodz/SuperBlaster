@@ -2064,8 +2064,8 @@ MonoBehaviour:
   - {fileID: 561269970}
   - {fileID: 1676611561}
   DoorDelayOpenTime: 1
-  BadGuysPerWave: 100
-  HowManyWaves: 4
+  BadGuysPerWave: 200
+  HowManyWaves: 3
   SpawnInterval: 0.2
   WaveDelay: 1.25
   RoundsPerBurst: 2
@@ -3119,7 +3119,7 @@ Animator:
   m_GameObject: {fileID: 672364656}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 716658c9af40ffa4fa335bc3aca1bd0e, type: 2}
+  m_Controller: {fileID: 9100000, guid: 46ad5dd0941742d47ad1fe3e33513cbd, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -6666,7 +6666,7 @@ Animator:
   m_GameObject: {fileID: 1852127720}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 03f5619d54b26c04c9478845a2780784, type: 2}
+  m_Controller: {fileID: 9100000, guid: c1de333fed266c14bb4739a115fac747, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
