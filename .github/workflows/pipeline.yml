@@ -1,0 +1,173 @@
+name: Build - All Platforms
+
+on: 
+  push:
+    paths-ignore:
+      - '.github/workflows/android.yml'
+      - '.github/workflows/main.yml'
+  
+
+jobs:
+
+  checkLicense:
+    name: Check for the Unity license
+    runs-on: ubuntu-latest
+    steps:
+    - name: Fail - No license ☠️
+      if: ${{ !startsWith(env.UNITY_LICENSE, '<') }}
+      run: exit 1
+
+  buildForNonWindows:
+    name: Build SuperBlaster for ${{ matrix.targetPlatform }}
+    needs: checkLicense
+    runs-on: ubuntu-latest
+
+    strategy:
+          fail-fast: false
+          matrix:
+            targetPlatform:
+              - Android
+
+    outputs:
+      buildVersion: ${{ steps.build.outputs.buildVersion }}
+    
+
+    steps:    
+    - name: Free Disk Space for Android
+      if: matrix.targetPlatform == 'Android'
+      run: |
+        df -h
+        sudo swapoff -a
+        sudo rm -f /swapfile
+        sudo rm -rf /usr/share/dotnet
+        sudo rm -rf /opt/ghc
+        sudo rm -rf "/usr/local/share/boost"
+        sudo rm -rf "$AGENT_TOOLSDIRECTORY"
+        df -h
+              
+              
+    - name: Checkout
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+
+    - name: Create LFS file list
+      run: git lfs ls-files -l | cut -d' ' -f1 | sort > .lfs-assets-id
+
+    - name: Restore LFS cache
+      uses: actions/cache@v3
+      id: lfs-cache
+      with:
+        path: .git/lfs
+        key: ${{ runner.os }}-lfs-${{ hashFiles('.lfs-assets-id') }}
+
+    - name: Git LFS Pull
+      run: |
+        git lfs pull
+        git add .
+        git reset --hard
+
+    - uses: actions/cache@v3
+      with:
+        path: Library
+        key: Library-build-${{ matrix.targetPlatform }}-${{ hashFiles('Assets/**', 'Packages/**', 'ProjectSettings/**') }}
+        restore-keys: |
+          Library-build-${{ matrix.targetPlatform }}-
+          Library-build-
+          
+
+    - name: Build Unity Project
+      id: build
+      uses: game-ci/unity-builder@v2
+      env:
+        UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+        UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+        UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+      with:
+        targetPlatform: ${{ matrix.targetPlatform }}
+#        buildName: SuperBlaster.aab
+        unityVersion: '2022.2.15f1'
+        androidAppBundle: true
+        androidKeystoreName: superblaster.keystore
+        androidKeystoreBase64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+        androidKeystorePass: ${{ secrets.ANDROID_KEYSTORE_PASS }}
+        androidKeyaliasName: ${{ secrets.ANDROID_KEYALIAS_NAME }}
+        androidKeyaliasPass: ${{ secrets.ANDROID_KEYALIAS_PASS }}
+        
+
+    - name: Upload build output
+      uses: actions/upload-artifact@v3
+      #if: github.event.action == 'published' || contains(github.event.inputs.workflow_mode, matrix.targetPlatform) || (contains(github.event.inputs.workflow_mode, 'Steam') && matrix.targetPlatform == 'StandaloneLinux64')
+      with:
+        name: SuperBlaster.aab
+        path: build/Android/Android.aab
+
+
+
+
+
+
+  buildForWindows:
+    name: Build SuperBlaster for Windows
+    needs: checkLicense
+    runs-on: ubuntu-latest
+
+
+    strategy:
+          fail-fast: false
+          matrix:
+            targetPlatform:
+              - StandaloneWindows64
+              
+    outputs:
+      buildVersion: ${{ steps.build.outputs.buildVersion }}
+
+
+    steps:    
+    - name: Checkout
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+
+
+    - name: Create LFS file list
+      run: git lfs ls-files -l | cut -d' ' -f1 | sort > .lfs-assets-id
+
+    - name: Restore LFS cache
+      uses: actions/cache@v3
+      id: lfs-cache
+      with:
+        path: .git/lfs
+        key: ${{ runner.os }}-lfs-${{ hashFiles('.lfs-assets-id') }}
+
+    - name: Git LFS Pull
+      run: |
+        git lfs pull
+        git add .
+        git reset --hard
+
+    - uses: actions/cache@v3
+      with:
+        path: Library
+        key: Library-build-${{ matrix.targetPlatform }}-${{ hashFiles('Assets/**', 'Packages/**', 'ProjectSettings/**') }}
+        restore-keys: |
+          Library-build-${{ matrix.targetPlatform }}-
+          Library-build-
+
+
+    - name: Unity build standalone windows 64 
+      uses: game-ci/unity-builder@v2
+      env:
+        UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+        UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+        UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+      with:
+        targetPlatform: ${{ matrix.targetPlatform }}
+        buildName: SuperBlaster-windowsx64
+
+    - name: Upload build output
+      if: always()
+      uses: actions/upload-artifact@v3
+      with:
+        name: SuperBlaster Windows 64bit
+        path: build
