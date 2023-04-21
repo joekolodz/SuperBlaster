@@ -6,6 +6,8 @@ on:
       - '.github/workflows/android.yml'
       - '.github/workflows/main.yml'
   
+env:
+  UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
 
 jobs:
 
@@ -14,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Fail - No license ☠️
-      if: ${{ !startsWith( ${{ secrets.UNITY_LICENSE }}, '<') }}
+      if: ${{ !startsWith(env.UNITY_LICENSE, '<') }}
       run: exit 1
 
   buildForNonWindows:
