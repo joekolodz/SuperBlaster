@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Fail - No license ☠️
-      if: ${{ !startsWith(secrets.UNITY_LICENSE, '<') }}
+      if: ${{ !startsWith( ${{ secrets.UNITY_LICENSE }}, '<') }}
       run: exit 1
 
   buildForNonWindows:
