@@ -721,7 +721,7 @@ MonoBehaviour:
   flames: {fileID: 1089653079747642, guid: 67aca50139b80d5438768b2c2232ee4b, type: 3}
   smokeSizeMultiplier: 1
   flameSizeMultiplier: 1
-  health: 15
+  health: 20
   healthWhenFlamesStart: 2
   hitTriggerObject: {fileID: 1313798887493962, guid: c5dedb66d13f11248a5f8479942376ed,
     type: 3}
@@ -1994,7 +1994,7 @@ PrefabInstance:
     - target: {fileID: 114261079136514148, guid: f6667adf6d3748043bebfdeead9fe193,
         type: 3}
       propertyPath: health
-      value: 10
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 114261079136514148, guid: f6667adf6d3748043bebfdeead9fe193,
         type: 3}
@@ -3324,7 +3324,7 @@ PrefabInstance:
     - target: {fileID: 212289544605695030, guid: 0a3aac80912a76f4c918cbbe3e184f20,
         type: 3}
       propertyPath: m_SortingOrder
-      value: 11
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4094,7 +4094,7 @@ PrefabInstance:
     - target: {fileID: 212289544605695030, guid: 0a3aac80912a76f4c918cbbe3e184f20,
         type: 3}
       propertyPath: m_SortingOrder
-      value: 11
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4218,7 +4218,7 @@ PrefabInstance:
     - target: {fileID: 212289544605695030, guid: 0a3aac80912a76f4c918cbbe3e184f20,
         type: 3}
       propertyPath: m_SortingOrder
-      value: 11
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4370,7 +4370,7 @@ PrefabInstance:
     - target: {fileID: 212289544605695030, guid: 0a3aac80912a76f4c918cbbe3e184f20,
         type: 3}
       propertyPath: m_SortingOrder
-      value: 11
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -5282,7 +5282,7 @@ PrefabInstance:
     - target: {fileID: 212289544605695030, guid: 0a3aac80912a76f4c918cbbe3e184f20,
         type: 3}
       propertyPath: m_SortingOrder
-      value: 11
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -5362,7 +5362,7 @@ PrefabInstance:
     - target: {fileID: 212289544605695030, guid: 0a3aac80912a76f4c918cbbe3e184f20,
         type: 3}
       propertyPath: m_SortingOrder
-      value: 11
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -5701,7 +5701,7 @@ PrefabInstance:
     - target: {fileID: 212289544605695030, guid: 0a3aac80912a76f4c918cbbe3e184f20,
         type: 3}
       propertyPath: m_SortingOrder
-      value: 11
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -5833,7 +5833,7 @@ PrefabInstance:
     - target: {fileID: 114261079136514148, guid: f6667adf6d3748043bebfdeead9fe193,
         type: 3}
       propertyPath: health
-      value: 10
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 114261079136514148, guid: f6667adf6d3748043bebfdeead9fe193,
         type: 3}
@@ -6359,7 +6359,7 @@ PrefabInstance:
     - target: {fileID: 114261079136514148, guid: f6667adf6d3748043bebfdeead9fe193,
         type: 3}
       propertyPath: health
-      value: 10
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 114261079136514148, guid: f6667adf6d3748043bebfdeead9fe193,
         type: 3}
@@ -6618,7 +6618,7 @@ PrefabInstance:
     - target: {fileID: 212289544605695030, guid: 0a3aac80912a76f4c918cbbe3e184f20,
         type: 3}
       propertyPath: m_SortingOrder
-      value: 11
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -9069,7 +9069,7 @@ PrefabInstance:
     - target: {fileID: 114261079136514148, guid: f6667adf6d3748043bebfdeead9fe193,
         type: 3}
       propertyPath: health
-      value: 10
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 114261079136514148, guid: f6667adf6d3748043bebfdeead9fe193,
         type: 3}

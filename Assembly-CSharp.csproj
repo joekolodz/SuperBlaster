@@ -99,6 +99,7 @@
     <Compile Include="Assets\Scripts\Explosions.cs" />
     <Compile Include="Assets\Auto Letterbox\ForceCameraRatio.cs" />
     <Compile Include="Assets\Scripts\LevelConfiguration.cs" />
+    <Compile Include="Assets\Scripts\LevelBehavior31.cs" />
     <Compile Include="Assets\Scripts\BackgroundMusicKeepAlive.cs" />
     <Compile Include="Assets\Scripts\WaitForTime.cs" />
     <Compile Include="Assets\Scripts\WallCloseTrigger.cs" />

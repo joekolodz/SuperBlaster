@@ -12,9 +12,10 @@ public class ObjectHit : MonoBehaviour
     public float smokeSizeMultiplier = 1;
     [Range(0, 10)]
     public float flameSizeMultiplier = 1;
-    [Range(0, 50)]
+    [Range(0, 200)]
     public int health = 3;
     public int healthWhenFlamesStart = 1;
+    public int healthWhenSmokeStarts = 0;
     /// <summary>
     /// The thing that destroyed this object
     /// </summary>
@@ -29,15 +30,26 @@ public class ObjectHit : MonoBehaviour
     private GameObject flamesInstance;
     private bool isOnFire = false;
 
+    private void Start()
+    {
+        if (healthWhenSmokeStarts == 0)
+        {
+            healthWhenSmokeStarts = health - 1;
+        }
+    }
+
     private void IsSmoking()
     {
         if (!isSmoking)
         {
-            smokeInstance = Instantiate(smoke, transform.position, Quaternion.identity);
-            smokeInstance.transform.localScale *= smokeSizeMultiplier;
-
-            var ps = smokeInstance.transform.Find("PS Smoke Trail");
-            ps.localScale *= smokeSizeMultiplier;
+            if (health <= healthWhenSmokeStarts)
+            {
+                smokeInstance = Instantiate(smoke, transform.position, Quaternion.identity);
+                smokeInstance.transform.localScale *= smokeSizeMultiplier;
+                var ps = smokeInstance.transform.Find("PS Smoke Trail");
+                ps.localScale *= smokeSizeMultiplier;
+                isSmoking = true;
+            }
 
             if (soundYeah != null && !soundYeah.isPlaying && Random.Range(0.0f, 1.0f) <= 0.2f)
             {
@@ -45,7 +57,6 @@ public class ObjectHit : MonoBehaviour
                 soundYeah.Play();
             }
 
-            isSmoking = true;
         }
     }
 

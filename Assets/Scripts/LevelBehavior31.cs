@@ -1,7 +1,7 @@
-using System;
+﻿using System;
 using UnityEngine;
 
-public class LevelBehavior30 : MonoBehaviour
+public class LevelBehavior31 : MonoBehaviour
 {
     [SerializeField]
     private Animator _wall1Animator;
