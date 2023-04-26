@@ -27,6 +27,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: -3.34, y: 0.461, z: 0}
   m_LocalScale: {x: 1.5524114, y: 1.5524114, z: 1.5524114}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4760171540428930}
   m_RootOrder: 0
@@ -41,6 +42,25 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -83,8 +103,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1391608932643452}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -20.98, y: 8.93, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 3.4429016, y: 3.4429016, z: 3.4429016}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4418625409545886}
   m_Father: {fileID: 0}
@@ -102,12 +123,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d29b4d4bdf8372b4f8cb5a192e69ee29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  plasma: {fileID: 1313798887493962, guid: c5dedb66d13f11248a5f8479942376ed, type: 3}
   spawnPoint: {fileID: 4778837124740980}
   roundsPerBurst: 4
   delayBetweenRounds: 0.07
   delayBetweenShots: 8
   accuracy: 0.25
+  isFiring: 0
 --- !u!114 &114416301555870266
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -123,6 +144,8 @@ MonoBehaviour:
   badGuy: {fileID: 4418625409545886}
   moveSpeed: 5
   isDestroyed: 0
+  IsNextWaypointRandom: 0
+  Id: 0
 --- !u!1 &1675100311429308
 GameObject:
   m_ObjectHideFlags: 0
@@ -148,8 +171,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1675100311429308}
   m_LocalRotation: {x: 0, y: -1, z: 0, w: 0}
-  m_LocalPosition: {x: -0.232, y: 0.799, z: 0}
+  m_LocalPosition: {x: 0, y: 0.799, z: 0}
   m_LocalScale: {x: 0.4407723, y: 0.4407723, z: 0.4407723}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4778837124740980}
   m_Father: {fileID: 4418625409545886}
@@ -166,9 +190,12 @@ SpriteRenderer:
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 4294967295
   m_RendererPriority: 0
   m_Materials:
@@ -180,6 +207,7 @@ SpriteRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -234,8 +262,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1678734081108822}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.29, y: 0.33, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4760171540428930}
   m_Father: {fileID: 4376499332718280}
@@ -252,9 +281,12 @@ SpriteRenderer:
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 4294967295
   m_RendererPriority: 0
   m_Materials:
@@ -266,6 +298,7 @@ SpriteRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -306,6 +339,12 @@ Rigidbody2D:
   m_AngularDrag: 0.05
   m_GravityScale: 0
   m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
@@ -320,6 +359,25 @@ CircleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -344,6 +402,7 @@ MonoBehaviour:
   multiExplosionIntervalDelay: 0.3
   destructionValue: 100
   soundOnDestroy: {fileID: 82284680806736834}
+  IsPooledObject: 0
 --- !u!114 &114914407014248966
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -356,14 +415,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77738e1357ceaac46af5a0c148d047fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isEnabled: 1
-  children: []
+  IsIndestructable: 0
   smoke: {fileID: 1777618879577564, guid: eb93f9f9ab4d94f468df1454ad17fdb6, type: 3}
   flames: {fileID: 0}
   smokeSizeMultiplier: 1
   flameSizeMultiplier: 1
   health: 3
   healthWhenFlamesStart: 1
+  healthWhenSmokeStarts: 0
   hitTriggerObject: {fileID: 1301070703825744, guid: fdb8c7e04a28c0041929e7a274a73d04,
     type: 3}
   delayDestroy: 2

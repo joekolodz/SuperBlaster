@@ -47,7 +47,7 @@ public class LevelBehavior24 : MonoBehaviour
         StartCoroutine(WaitForTime.Wait(DoorDelayOpenTime, StartWallAnimation));
 
         ObjectPooler.Instance.PopulateBadGuyArrowheadPool(BadGuysPerWave);
-        
+
         EventAggregator.BadGuyDied += EventAggregator_BadGuyDied;
         EventAggregator.WallCloseTriggered += EventAggregator_WallCloseTriggered;
     }
@@ -126,7 +126,7 @@ public class LevelBehavior24 : MonoBehaviour
             var animator = animation.GetComponent<Animator>();
             var state = animator.GetCurrentAnimatorStateInfo(0);
             animator = null;
-            
+
         }
     }
 
@@ -141,7 +141,12 @@ public class LevelBehavior24 : MonoBehaviour
         if (Time.time > _waveDelayTime + WaveDelay)
         {
             //spawner
-            if (Time.time > _nextSpawnTime && badGuyIndex < BadGuysPerWave)
+            if (Time.time > _nextSpawnTime && badGuyIndex >= BadGuysPerWave)
+            {
+                Debug.Log("**********       **********       **********       **********       PREVENTED!!!!       **********       **********       **********       ");
+            }
+
+            if (Time.time > _nextSpawnTime && badGuyIndex <= (BadGuysPerWave - WaveSpawnPoint.Count))
             {
                 _nextSpawnTime = Time.time + SpawnInterval;
 

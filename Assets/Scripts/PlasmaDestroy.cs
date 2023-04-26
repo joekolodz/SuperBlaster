@@ -25,11 +25,6 @@ public class PlasmaDestroy : MonoBehaviour
         ReturnPlasma();
     }
 
-    private void OnBecameInvisible()
-    {
-        ReturnPlasma();
-    }
-
     private void ReturnPlasma()
     {
         ObjectPooler.Instance.ReturnPlasma(gameObject);      

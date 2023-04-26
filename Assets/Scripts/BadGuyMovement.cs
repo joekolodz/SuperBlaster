@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UIElements;
 
 public class BadGuyMovement : MonoBehaviour
 {
@@ -38,6 +39,7 @@ public class BadGuyMovement : MonoBehaviour
         if (waypointList == null) return; //happens on main menu
 
         navigation = waypointList.GetComponent<Navigation>();
+
         if (navigation == null)
             Debug.Break();
 
@@ -93,10 +95,9 @@ public class BadGuyMovement : MonoBehaviour
         return Quaternion.Slerp(source.rotation, Quaternion.Euler(0, 0, targetAngle), strength);
     }
 
+
     void Update()
     {
-        gameObject.DrawCircle(new Color(1, 1, 0));
-
         if (badGuy == null || nextWaypoint == null || radar == null) return;
 
         badGuy.gameObject.DrawCircle(new Color(0, 1, 1));
@@ -129,31 +130,30 @@ public class BadGuyMovement : MonoBehaviour
     public void RotateToFaceRadar(float withAccuracy)
     {
         if (badGuy == null || radar == null) return;
-
+        
+        //rotate the rifle to point directly at the base
+        var rifle = badGuy.Find("Plasma Rifle");
+        rifle.rotation = GeometricFunctions.RotateToFace(rifle.position, radar.position);
+        rifle.Rotate(0.0f, -180.0f, 0.0f);
+        
         var adjustAngle = new Vector3(0f, 0f, 0f);
 
-        //account for accuracy and nudge the aim off a litte if necessary
-        var isAccurate = Random.Range(0.0f, 1.0f) <= withAccuracy;
+        //determine how accurate this shot was
+        //add inaccuracy based on configuration
+        var isInaccurate = Random.Range(0.0f, 1.0f) > withAccuracy;
 
-        if (isAccurate)
+        if (isInaccurate)
         {
-            //this accounts for the rifle offset and points closer to the center of the radar
-            adjustAngle.z = AccuracyAdjustmentAngle;
-        }
-        else
-        {
-            //add cone of inaccuracy and account for accidental accuracy range around -7
-            adjustAngle.z = Random.Range(-20.0f, +20.0f);
-            if (adjustAngle.z < -0.0f && adjustAngle.z > -14.0f)
+            //push the aim 7 to 20 degrees off center
+            adjustAngle.z = Random.Range(7.0f, +20.0f);
+
+            //apply 50% chance of negation so that the missed shots don't always go to the same side
+            if (Random.Range(0.0f, 1.0f) >= 0.5f)
             {
-                adjustAngle.z = -25f;
+                adjustAngle.z *= -1;
             }
         }
-
-        //rotate to face the radar target
-        badGuy.rotation = GeometricFunctions.RotateToFace(badGuy.position, radar.position);
-
         //account for final accuracy
-        badGuy.Rotate(adjustAngle);
+        rifle.Rotate(adjustAngle);
     }
 }

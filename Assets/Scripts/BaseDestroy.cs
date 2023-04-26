@@ -9,6 +9,7 @@ public class BaseDestroy : MonoBehaviour
 
     void OnDestroy()
     {
+        if (StateManager.isWaitingForNextLevelToStart) return;
         EventAggregator.PublishBaseDestroyed();
     }
 }

@@ -1,5 +1,7 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Net.Sockets;
 using UnityEngine;
 
 public class ObjectPooler : MonoBehaviour
@@ -38,7 +40,6 @@ public class ObjectPooler : MonoBehaviour
     //private int BadGuyArrowheadPoolSize = 20;
     private GameObject BadGuyArrowheadPrefab;
     private List<GameObject> _badGuyArrowheadPool;
-    private List<GameObject> _badGuyAllinstances;
 
 
     // Explicit static constructor to tell C# compiler
@@ -78,7 +79,6 @@ public class ObjectPooler : MonoBehaviour
         _explosionLargePool = new List<GameObject>();
         _explosionSmallPool = new List<GameObject>();
         _badGuyArrowheadPool = new List<GameObject>();
-        _badGuyAllinstances = new List<GameObject>();
 
         RocketPool.transform.SetParent(gameObject.transform, true);
         PlasmaPool.transform.SetParent(gameObject.transform, true);
@@ -108,6 +108,7 @@ public class ObjectPooler : MonoBehaviour
             var r = Instantiate(PlasmaPrefab);
             r.SetActive(false);
             r.transform.SetParent(PlasmaPool.transform, true);
+
             _plasmaPool.Add(r);
         }
 
@@ -161,14 +162,13 @@ public class ObjectPooler : MonoBehaviour
             r.transform.SetParent(BadGuyArrowheadPool.transform, true);
             r.GetComponent<BadGuyMovement>().Id = i + 1;
             _badGuyArrowheadPool.Add(r);
-            _badGuyAllinstances.Add(r);
         }
         IsBadGuyArrowheadPoolPopulated = true;
     }
 
     public void Reset()
     {
-        foreach (var o in _badGuyAllinstances)
+        foreach (var o in _badGuyArrowheadPool)
         {
             ReturnBadGuyArrowhead(o);
             var bgm = o.GetComponent<BadGuyMovement>();
@@ -223,16 +223,24 @@ public class ObjectPooler : MonoBehaviour
     {
         if (_plasmaPool.Count == 0) return null;
 
+
         var index = _plasmaPool.Count - 1;
         var r = _plasmaPool[index];
         _plasmaPool.RemoveAt(index);
+
         return r;
     }
 
     public void ReturnPlasma(GameObject plasma)
     {
         plasma.SetActive(false);
+        var rb = plasma.GetComponent<Rigidbody2D>();
+        rb.velocity = Vector2.zero;
+        rb.angularVelocity = 0f;
+        rb.AddForce(-transform.right * 3000);
+
         plasma.transform.position = Vector3.zero;
+        plasma.transform.rotation = Quaternion.identity;
         _plasmaPool.Add(plasma);
     }
 
