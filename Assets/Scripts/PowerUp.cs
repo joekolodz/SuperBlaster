@@ -55,6 +55,28 @@ public class PowerUpManager : MonoBehaviour
         LaserBlastPrefab = (GameObject)Resources.Load("prefabs/Laser Blast");
     }
 
+    public void ForcePowerUp(PowerUpManager.PowerUpNames forcePowerUp)
+    {
+        switch (forcePowerUp)
+        {
+            case PowerUpNames.SpeedBlaster:
+                PowerUpSpeedBlasterForEntireLevel();
+                break;
+            case PowerUpNames.MultiBlaster:
+                PowerUpMultiBlasterForEntireLevel();
+                break;
+            case PowerUpNames.TripleBlaster:
+                PowerUpTripleBlasterForEntireLevel();
+                break;
+            case PowerUpNames.LaserBlaster:
+                PowerUpLaserBlasterForEntireLevel();
+                break;
+            case PowerUpNames.SuperBlaster:
+                PowerUpSuperBlasterForEntireLevel();
+                break;
+        }
+    }
+
     private void SceneManager_sceneLoaded(Scene arg0, LoadSceneMode arg1)
     {
         ResetPowerUp();

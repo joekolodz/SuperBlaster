@@ -8,23 +8,6 @@ public class LevelConfiguration : MonoBehaviour
 
     void Start()
     {
-        switch(PowerUpType)
-        {
-            case PowerUpManager.PowerUpNames.SpeedBlaster:
-                PowerUpManager.Instance.PowerUpSpeedBlasterForEntireLevel();
-                break;
-            case PowerUpManager.PowerUpNames.MultiBlaster:
-                PowerUpManager.Instance.PowerUpMultiBlasterForEntireLevel();
-                break;
-            case PowerUpManager.PowerUpNames.TripleBlaster:
-                PowerUpManager.Instance.PowerUpTripleBlasterForEntireLevel();
-                break;
-            case PowerUpManager.PowerUpNames.LaserBlaster:
-                PowerUpManager.Instance.PowerUpLaserBlasterForEntireLevel();
-                break;
-            case PowerUpManager.PowerUpNames.SuperBlaster:
-                PowerUpManager.Instance.PowerUpSuperBlasterForEntireLevel();
-                break;
-        }
+        PowerUpManager.Instance.ForcePowerUp(PowerUpType);
     }
 }
