@@ -35,7 +35,6 @@ public class RocketDestroy : MonoBehaviour
             return;
         }
 
-        Debug.Log($"{gameObject.name} detected a hit from: {collidingGameObject.name}");
         DestroyRocket();
     }
 

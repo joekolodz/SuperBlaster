@@ -35,7 +35,6 @@ public class FireControl : MonoBehaviour
             var manager = guy.GetComponent<GoodGuyManager>();
             if (manager.isSelectedOnStartup)
             {
-                SimpleLog.Log($"AWAKE - Select Guy");
                 SelectGuy(manager);
                 break;
             }
@@ -95,15 +94,10 @@ public class FireControl : MonoBehaviour
             var guy = IsGuySelected(mousePos);
             if (guy)
             {
-                SimpleLog.Log("clicked on a guy");
-
-                SimpleLog.Log("UPDATE - Select Guy");
                 SelectGuy(guy);
             }
             else
             {
-                SimpleLog.Log($"Already have a guy: NULL={_currentlySelectedGuy is null}");
-                SimpleLog.Log($"Already have a guy: isSelected={_currentlySelectedGuy?.isSelected}");
                 FireARocket(_currentlySelectedGuy, mousePos);
             }
         }
@@ -183,41 +177,29 @@ public class FireControl : MonoBehaviour
 
     void FireARocket(GoodGuyManager guyFiring, Vector3 mousePos)
     {
-        SimpleLog.Log("Firing a rocket");
-
-        SimpleLog.Log("isWaitingForNextLevelToStart");
         if (StateManager.isWaitingForNextLevelToStart) return;
-
-        SimpleLog.Log("don't fire when mouse is in menu area");
 
         if (mousePos.y < -24) return; //don't fire when mouse is in menu area
 
-        SimpleLog.Log("is selected");
         if (guyFiring.isSelected)
         {
-            SimpleLog.Log("Aim At Mouse");
             var rocketSpawn = guyFiring.AimAtMouse(mousePos);
 
-            SimpleLog.Log("IsPowerUp");
             if (PowerUpManager.Instance.IsPowerUp)
             {
-                SimpleLog.Log("HandlePowerUp");
                 PowerUpManager.Instance.HandlePowerUp(rocketSpawn);
             }
             else
             {
-                SimpleLog.Log("Instance Launch");
                 LaunchRocket.Instance.Launch(rocketSpawn);
             }
 
-            SimpleLog.Log("Buy Rocket");
             BuyRocket(rocketCost);
         }
     }
 
     public void UnselectAllGuys()
     {
-        SimpleLog.Log("!!! Unselect All Guys !!!");
         foreach (var guy in _goodGuys)
         {
             guy.GetComponent<GoodGuyManager>().Unselect();
@@ -226,18 +208,9 @@ public class FireControl : MonoBehaviour
 
     public void SelectGuy(GoodGuyManager guy)
     {
-        SimpleLog.Log("Unselect all guys");
-
         UnselectAllGuys();
-        
-        SimpleLog.Log("Select one guy");
         guy.Select();
-        
-        SimpleLog.Log("assign cache");
         _currentlySelectedGuy = guy;
-        SimpleLog.Log($"guy: isSelected={guy?.isSelected}");
-        SimpleLog.Log($"cache: isSelected={_currentlySelectedGuy?.isSelected}");
-
     }
 
     public void AddScore(int value)

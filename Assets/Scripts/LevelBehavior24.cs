@@ -84,7 +84,6 @@ public class LevelBehavior24 : MonoBehaviour
             _wallCloseTriggers[i].CloseActionTriggerCollider = null;
         }
 
-        Debug.Log($"WAVE {_currentWave} COMPLETED!");//TODO event to show big flashy message?
         if (_currentWave < HowManyWaves)
         {
             Debug.Log("Next Wave!!");//TODO event to show big flashy message?

@@ -105,10 +105,12 @@ public class ObjectHit : MonoBehaviour
 
     private void DetectHit(GameObject collidingGameObject)
     {
-        //Debug.Log($"{gameObject.name} detected a hit from: {collidingGameObject.name}");
         if (hitTriggerObject == null) return;
-        if (!collidingGameObject.name.Contains(hitTriggerObject.name)) return;
-        TakeDamage(PowerUpManager.Instance.IsPowerUp ? PowerUpManager.Instance.GetAdjustedDamage() : 1);
+        if (collidingGameObject.name == hitTriggerObject.name ||
+            collidingGameObject.name == hitTriggerObject.name + "(Clone)")
+        {
+            TakeDamage(PowerUpManager.Instance.IsPowerUp ? PowerUpManager.Instance.GetAdjustedDamage() : 1);
+        }
     }
 
     public void TakeDamage(int damageAmount)

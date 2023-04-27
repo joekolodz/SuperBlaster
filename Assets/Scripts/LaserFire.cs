@@ -11,6 +11,5 @@ public class LaserFire : MonoBehaviour
     private void Awake()
     {
         _expirationTime = Time.time + TimeToLiveInSeconds;        
-        //Debug.Log($"Time:{Time.time}, TimeToLiveInMilliseconds:{TimeToLiveInSeconds}, _expirationTime: {_expirationTime}");
     }
 }

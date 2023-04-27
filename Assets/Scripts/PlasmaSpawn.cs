@@ -17,11 +17,8 @@ public class PlasmaSpawn : MonoBehaviour
     private System.DateTime fireTime;
     public bool isFiring = false;
 
-    private bool _isDebugging = false;
-
     void Start()
     {
-        _isDebugging = name.Contains("(Triangle");
         fireTime = System.DateTime.Now.AddSeconds(delayBetweenShots + Random.Range(0.0f, 1.0f));
     }
 
@@ -48,7 +45,6 @@ public class PlasmaSpawn : MonoBehaviour
 
     public void Fire()
     {
-        if (_isDebugging) Debug.Log($"{System.DateTime.Now} - Firing");
         StartCoroutine(FirePlasmaBurst());
     }
 
@@ -70,16 +66,12 @@ public class PlasmaSpawn : MonoBehaviour
                     p.transform.position = spawnPoint.position;
                     p.transform.rotation = spawnPoint.rotation;
                     p.SetActive(true);
-                    if (_isDebugging) Debug.Log($"Got a plasma round");
                     yield return new WaitForSeconds(delayBetweenRounds);
-                    if (_isDebugging) Debug.Log($"Back after yield");
                 }
             }
         }
-        if (_isDebugging) Debug.Log($"Finished Firing");
 
         fireTime = System.DateTime.Now.AddSeconds(Random.Range(delayBetweenShots - 0.1f, delayBetweenShots + 0.1f));
-        if (_isDebugging) Debug.Log($"Next fire time: {fireTime}");
 
         isFiring = false;
 
