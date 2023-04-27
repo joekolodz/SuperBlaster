@@ -18,7 +18,7 @@ namespace Assets.Scripts
         public static void Log(string message)
         {
             message = $"{DateTime.Now.ToLongTimeString()}:{message}\n";
-            //File.AppendAllText(filePath, message);
+            File.AppendAllText(filePath, message);
         }
     }
 }
