@@ -80,7 +80,6 @@ public class FireControl : MonoBehaviour
     }
 
 
-    private GameObject myrocket;
     public void Update()
     {
         if (GameObject.Find("MenuControl").GetComponent<MenuControl>().isPaused) return;

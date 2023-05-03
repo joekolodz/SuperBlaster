@@ -25,12 +25,10 @@ public class RocketDestroy : MonoBehaviour
 
     private void DetectHit(GameObject collidingGameObject)
     {
-        if (collidingGameObject.name.Contains(gameObject.name) || collidingGameObject.name == "Rocket Spawn Point" || collidingGameObject.name == "Plasma Spawn Point")
-        {
-            return;
-        }
-
-        if (collidingGameObject.name.Contains("Reflective Wall"))
+        if (collidingGameObject.name.Contains(gameObject.name) || 
+            collidingGameObject.name.Contains("Reflective Wall") ||
+            collidingGameObject.name == "Rocket Spawn Point" || 
+            collidingGameObject.name == "Plasma Spawn Point")
         {
             return;
         }
@@ -46,13 +44,6 @@ public class RocketDestroy : MonoBehaviour
     private void DestroyRocket()
     {
         EventAggregator.PublishObjectDestroyed(new ObjectDestroyedEventArgs(gameObject.transform));
-
-        var trail = gameObject.GetComponentInChildren<TrailRenderer>();
-        if (trail != null)
-        {
-            trail.Clear();
-        }
-
         ObjectPooler.Instance.ReturnRocket(gameObject);
     }
 }

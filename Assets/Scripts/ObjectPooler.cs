@@ -206,16 +206,16 @@ public class ObjectPooler : MonoBehaviour
 
     public void ReturnRocket(GameObject rocket)
     {
+        rocket.SetActive(false);
         rocket.GetComponent<RocketFire>().StopRocket();
 
         var rb = rocket.GetComponent<Rigidbody2D>();
         rb.velocity = Vector2.zero;
         rb.angularVelocity = 0f;
-
-        rocket.SetActive(false);
-
         rocket.transform.position = Vector3.zero;
 
+        gameObject.GetComponentInChildren<TrailRenderer>()?.Clear();
+        
         _rocketPool.Add(rocket);
     }
 
