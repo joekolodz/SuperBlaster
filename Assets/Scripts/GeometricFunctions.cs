@@ -6,6 +6,7 @@ public class GeometricFunctions
     {
         var direction = to - from;
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        Debug.Log($"The ANGLE:{angle}");
         return Quaternion.Euler(new Vector3(0, 0, angle));
     }
 

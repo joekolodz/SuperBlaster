@@ -17,7 +17,7 @@ public class RocketDestroy : MonoBehaviour
         var x = gameObject.transform.position.x;
         var y = gameObject.transform.position.y;
         
-        if (x > 50 || x < -48 || y > 25 || y < -23)
+        if (x > 50 || x < -50 || y > 25 || y < -25)
         {
             DestroyRocket();
         }
@@ -26,6 +26,11 @@ public class RocketDestroy : MonoBehaviour
     private void DetectHit(GameObject collidingGameObject)
     {
         if (collidingGameObject.name.Contains(gameObject.name) || collidingGameObject.name == "Rocket Spawn Point" || collidingGameObject.name == "Plasma Spawn Point")
+        {
+            return;
+        }
+
+        if (collidingGameObject.name.Contains("Reflective Wall"))
         {
             return;
         }

@@ -73,6 +73,7 @@
     <Compile Include="Assets\Scripts\SoundEffectsManager.cs" />
     <Compile Include="Assets\Scripts\NextWaypoint.cs" />
     <Compile Include="Assets\Scripts\ShieldState.cs" />
+    <Compile Include="Assets\Scripts\ReflectiveWall.cs" />
     <Compile Include="Assets\Scripts\RocketFire.cs" />
     <Compile Include="Assets\Scripts\RocketDestroy.cs" />
     <Compile Include="Assets\Scripts\Navigation.cs" />
@@ -103,6 +104,7 @@
     <Compile Include="Assets\Scripts\BackgroundMusicKeepAlive.cs" />
     <Compile Include="Assets\Scripts\WaitForTime.cs" />
     <Compile Include="Assets\Scripts\WallCloseTrigger.cs" />
+    <Compile Include="Assets\Scripts\gizmos.cs" />
     <Compile Include="Assets\Scripts\TitleSwap.cs" />
     <Compile Include="Assets\Scripts\ObjectPooler.cs" />
     <Compile Include="Assets\Scripts\FireControl.cs" />
