@@ -25,7 +25,8 @@ public class RocketDestroy : MonoBehaviour
 
     private void DetectHit(GameObject collidingGameObject)
     {
-        if (collidingGameObject.name.Contains(gameObject.name) || 
+        //collidingGameObject.name.Contains(gameObject.name) ||
+        if (
             collidingGameObject.name.Contains("Reflective Wall") ||
             collidingGameObject.name == "Rocket Spawn Point" || 
             collidingGameObject.name == "Plasma Spawn Point")

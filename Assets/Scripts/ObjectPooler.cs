@@ -26,6 +26,9 @@ public class ObjectPooler : MonoBehaviour
     private GameObject RocketPrefab;
     private List<GameObject> _rocketPool;
 
+    private Queue<GameObject> _rocketQueue;
+
+
     private GameObject PlasmaPool;
     private int PlasmaPoolSize = 30;
     private GameObject PlasmaPrefab;
@@ -74,6 +77,7 @@ public class ObjectPooler : MonoBehaviour
         BadGuyArrowheadPool = new GameObject("Bad Guy - Arrowhead Pool");
 
         _rocketPool = new List<GameObject>();
+        _rocketQueue = new Queue<GameObject>();
         _plasmaPool = new List<GameObject>();
         _laserPool = new List<GameObject>();
         _explosionLargePool = new List<GameObject>();
@@ -100,7 +104,8 @@ public class ObjectPooler : MonoBehaviour
             var r = Instantiate(RocketPrefab);
             r.SetActive(false);
             r.transform.SetParent(RocketPool.transform, true);
-            _rocketPool.Add(r);
+            //_rocketPool.Add(r);
+            _rocketQueue.Enqueue(r);
         }
 
         for (var i = 0; i < PlasmaPoolSize; i++)
@@ -196,11 +201,18 @@ public class ObjectPooler : MonoBehaviour
 
     public GameObject GetRocket()
     {
-        if (_rocketPool.Count == 0) return null;
+        //if (_rocketPool.Count == 0) return null;
 
-        var index = _rocketPool.Count - 1;
-        var r = _rocketPool[index];
-        _rocketPool.RemoveAt(index);
+        //var index = _rocketPool.Count - 1;
+        //var r = _rocketPool[index];
+        //_rocketPool.RemoveAt(index);
+        //return r;
+
+
+        if (_rocketQueue.Count == 0) return null;
+
+        var index = _rocketQueue.Count - 1;
+        var r = _rocketQueue.Dequeue();
         return r;
     }
 
@@ -215,8 +227,9 @@ public class ObjectPooler : MonoBehaviour
         rocket.transform.position = Vector3.zero;
 
         gameObject.GetComponentInChildren<TrailRenderer>()?.Clear();
-        
-        _rocketPool.Add(rocket);
+
+        //_rocketPool.Add(rocket);
+        _rocketQueue.Enqueue(rocket);
     }
 
     public GameObject GetPlasma()

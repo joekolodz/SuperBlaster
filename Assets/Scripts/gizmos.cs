@@ -22,8 +22,6 @@ namespace Assets.Scripts
 
         public void OnDrawGizmos()
         {
-            //DrawThingSpace();
-
             //FindRotation();
 
             #region Vector Reflection
@@ -36,27 +34,7 @@ namespace Assets.Scripts
             #endregion
         }
 
-        private void DrawThingSpace()
-        {
-            var thing1 = GameObject.Find("Thing1");
-            var thing2 = GameObject.Find("Thing2");
-            var offset1 = new Vector3(11, 11, 0);
-
-            Gizmos.color = Color.blue;
-            Gizmos.DrawSphere(thing1.transform.position, 0.3f);
-
-            Gizmos.color = Color.red;
-            Gizmos.DrawSphere(thing2.transform.position, 0.3f);
-
-            Gizmos.color = Color.green;
-            Gizmos.DrawSphere(thing1.transform.position + offset1, 0.2f);
-
-
-            var offset2 = thing1.transform.InverseTransformPoint(thing2.transform.position);
-            Debug.Log($"offset1:{thing1.transform.position}, offset2:{offset2}");
-
-        }
-
+        
         private void FindRotation()
         {
             Gizmos.color = Color.yellow;
@@ -150,32 +128,32 @@ namespace Assets.Scripts
         /// </summary>
         /// <param name="objectOrigin"></param>
         /// <param name="objectIncident"></param>
-        /// <param name="notThisGameObject"></param>
-        public static void DrawRays(Vector3 objectOrigin, Vector3 objectIncident, GameObject notThisGameObject)
+        /// <param name="excludeThisGameObject"></param>
+        public static void DrawRays(Vector3 objectOrigin, Vector3 objectIncident, GameObject excludeThisGameObject)
         {
-            //var hits = Physics2D.RaycastAll(objectOrigin, objectIncident);
-            //RaycastHit2D hit = default;
+            var hits = Physics2D.RaycastAll(objectOrigin, objectIncident);
+            RaycastHit2D hit = default;
 
-            //foreach (var h in hits)
-            //{
-            //    if (h.transform.gameObject == notThisGameObject) continue;
+            foreach (var h in hits)
+            {
+                if (h.transform.gameObject == excludeThisGameObject) continue;
 
-            //    hit = h;
-            //    break;
-            //}
+                hit = h;
+                break;
+            }
 
-            //if (hit == default) return;
+            if (hit == default) return;
 
-            //Debug.DrawLine(objectOrigin, hit.point, Color.red);
-            //Debug.DrawRay(objectOrigin, objectIncident, Color.white);
+            Debug.DrawLine(objectOrigin, hit.point, Color.red);
+            Debug.DrawRay(objectOrigin, objectIncident, Color.white);
 
-            //var normal = hit.normal;
+            var normal = hit.normal;
 
-            //var reflection = Reflect2(objectIncident, normal);
-            //Debug.DrawRay(hit.point, reflection * 5, Color.green);
+            var reflection = Reflect2(objectIncident, normal);
+            Debug.DrawRay(hit.point, reflection * 5, Color.green);
 
-            ////draw hit normal
-            //Debug.DrawLine(hit.point, hit.point + new Vector2(normal.x, normal.y) * 5, Color.cyan);
+            //draw hit normal
+            Debug.DrawLine(hit.point, hit.point + new Vector2(normal.x, normal.y) * 5, Color.cyan);
         }
 
 
