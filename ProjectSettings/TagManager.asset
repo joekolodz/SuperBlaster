@@ -20,6 +20,7 @@ TagManager:
   - PowerUp
   - Title
   - WallCloseTrigger
+  - MainMenuPanel
   layers:
   - Default
   - TransparentFX
@@ -54,9 +55,9 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Background
+    uniqueID: 2534283691
+    locked: 0
   - name: Default
     uniqueID: 0
-    locked: 0
-  - name: 
-    uniqueID: 2534283691
     locked: 0

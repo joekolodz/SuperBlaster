@@ -5,7 +5,9 @@ using UnityEngine.UI;
 public class MenuControl : MonoBehaviour
 {
     public GameObject levelMenuPanel;
+    public GameObject leaderBoardPanel;
     public GameObject levelButton;
+    public GameObject leaderBoardScoreText;
     public bool isPaused = false;
 
     [SerializeField]
@@ -124,6 +126,25 @@ public class MenuControl : MonoBehaviour
             levelMenuPanel.SetActive(true);
         }
     }
+
+    public void ShowLeaderBoard()
+    {
+        var scoreListPanel = leaderBoardPanel.transform.Find("Image_Mask/Image_NameAndScore");
+
+        //build a text control for each score
+        var leaderBoardListCount = 10;
+        for (var i = 1; i < leaderBoardListCount; i++)
+        {
+            var button = (GameObject)Instantiate(leaderBoardScoreText, scoreListPanel, false);
+            button.transform.Find("RankText").GetComponent<Text>().text = $"{i}.";
+            button.transform.Find("NameText").GetComponent<Text>().text = $"JOE";
+            button.transform.Find("ScoreText").GetComponent<Text>().text = $"{i * 142}";
+
+        }
+
+        leaderBoardPanel.SetActive(true);
+    }
+
 
     public void Restart()
     {

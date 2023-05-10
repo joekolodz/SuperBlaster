@@ -61,49 +61,49 @@
     <Compile Include="Assets\Scripts\MusicManager.cs" />
     <Compile Include="Assets\Scripts\LevelBehavior23.cs" />
     <Compile Include="Assets\Scripts\LaunchRocket.cs" />
-    <Compile Include="Assets\Scripts\PlasmaFire.cs" />
-    <Compile Include="Assets\Scripts\PowerDownDestroy.cs" />
-    <Compile Include="Assets\Scripts\PowerUpDestroy.cs" />
     <Compile Include="Assets\Scripts\LaserFire.cs" />
     <Compile Include="Assets\Scripts\BadGuyMovement.cs" />
-    <Compile Include="Assets\Scripts\GoodGuy.cs" />
-    <Compile Include="Assets\Scripts\PowerUp.cs" />
-    <Compile Include="Assets\Scripts\MenuControl.cs" />
     <Compile Include="Assets\Scripts\ObjectHit.cs" />
-    <Compile Include="Assets\Scripts\SoundEffectsManager.cs" />
-    <Compile Include="Assets\Scripts\NextWaypoint.cs" />
-    <Compile Include="Assets\Scripts\ShieldState.cs" />
     <Compile Include="Assets\Scripts\ReflectiveWall.cs" />
-    <Compile Include="Assets\Scripts\RocketFire.cs" />
-    <Compile Include="Assets\Scripts\RocketDestroy.cs" />
     <Compile Include="Assets\Scripts\Navigation.cs" />
-    <Compile Include="Assets\Scripts\LevelBehavior24.cs" />
-    <Compile Include="Assets\Scripts\StateManager.cs" />
     <Compile Include="Assets\Scripts\EventAggregator.cs" />
     <Compile Include="Assets\Scripts\RocketSpawn.cs" />
-    <Compile Include="Assets\Scripts\GeometricFunctions.cs" />
     <Compile Include="Assets\Scripts\GoodGuyManager.cs" />
-    <Compile Include="Assets\Scripts\PowerDown.cs" />
-    <Compile Include="Assets\Scripts\PlasmaSpawn.cs" />
-    <Compile Include="Assets\Scripts\PowerUpHit.cs" />
-    <Compile Include="Assets\Scripts\ScoreBucket.cs" />
     <Compile Include="Assets\Scripts\GameObjectExt.cs" />
-    <Compile Include="Assets\Scripts\CameraShake.cs" />
     <Compile Include="Assets\Scripts\LevelBehavior30.cs" />
     <Compile Include="Assets\Scripts\LaserCollider.cs" />
-    <Compile Include="Assets\Scripts\SimpleLog.cs" />
     <Compile Include="Assets\Scripts\LaserDestroy.cs" />
-    <Compile Include="Assets\Scripts\BaseDestroy.cs" />
-    <Compile Include="Assets\Scripts\ObjectDestroy.cs" />
-    <Compile Include="Assets\Scripts\LevelButtonLaunchScene.cs" />
-    <Compile Include="Assets\Scripts\PlasmaDestroy.cs" />
-    <Compile Include="Assets\Scripts\Explosions.cs" />
     <Compile Include="Assets\Auto Letterbox\ForceCameraRatio.cs" />
     <Compile Include="Assets\Scripts\LevelConfiguration.cs" />
     <Compile Include="Assets\Scripts\LevelBehavior31.cs" />
     <Compile Include="Assets\Scripts\BackgroundMusicKeepAlive.cs" />
     <Compile Include="Assets\Scripts\WaitForTime.cs" />
     <Compile Include="Assets\Scripts\WallCloseTrigger.cs" />
+    <Compile Include="Assets\Scripts\PlasmaFire.cs" />
+    <Compile Include="Assets\Scripts\PowerDownDestroy.cs" />
+    <Compile Include="Assets\Scripts\PowerUpDestroy.cs" />
+    <Compile Include="Assets\Scripts\GoodGuy.cs" />
+    <Compile Include="Assets\Scripts\PowerUp.cs" />
+    <Compile Include="Assets\Scripts\MenuControl.cs" />
+    <Compile Include="Assets\Scripts\SoundEffectsManager.cs" />
+    <Compile Include="Assets\Scripts\NextWaypoint.cs" />
+    <Compile Include="Assets\Scripts\ShieldState.cs" />
+    <Compile Include="Assets\Scripts\RocketFire.cs" />
+    <Compile Include="Assets\Scripts\RocketDestroy.cs" />
+    <Compile Include="Assets\Scripts\LevelBehavior24.cs" />
+    <Compile Include="Assets\Scripts\StateManager.cs" />
+    <Compile Include="Assets\Scripts\GeometricFunctions.cs" />
+    <Compile Include="Assets\Scripts\PowerDown.cs" />
+    <Compile Include="Assets\Scripts\PlasmaSpawn.cs" />
+    <Compile Include="Assets\Scripts\PowerUpHit.cs" />
+    <Compile Include="Assets\Scripts\ScoreBucket.cs" />
+    <Compile Include="Assets\Scripts\CameraShake.cs" />
+    <Compile Include="Assets\Scripts\SimpleLog.cs" />
+    <Compile Include="Assets\Scripts\BaseDestroy.cs" />
+    <Compile Include="Assets\Scripts\ObjectDestroy.cs" />
+    <Compile Include="Assets\Scripts\LevelButtonLaunchScene.cs" />
+    <Compile Include="Assets\Scripts\PlasmaDestroy.cs" />
+    <Compile Include="Assets\Scripts\Explosions.cs" />
     <Compile Include="Assets\Scripts\gizmos.cs" />
     <Compile Include="Assets\Scripts\TitleSwap.cs" />
     <Compile Include="Assets\Scripts\ObjectPooler.cs" />
@@ -756,8 +756,17 @@
     <Reference Include="System.Xml.Serialization">
       <HintPath>D:\Program Files\Unity Hub\Editor\2022.2.15f1\Editor\Data\NetStandard\compat\2.1.0\shims\netfx\System.Xml.Serialization.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.RenderPipelines.ShaderGraph.ShaderGraphLibrary">
+      <HintPath>Library\ScriptAssemblies\Unity.RenderPipelines.ShaderGraph.ShaderGraphLibrary.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.Services.Analytics.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.Services.Analytics.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.RenderPipelines.Core.Runtime">
+      <HintPath>Library\ScriptAssemblies\Unity.RenderPipelines.Core.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.RenderPipelines.Universal.Runtime">
+      <HintPath>Library\ScriptAssemblies\Unity.RenderPipelines.Universal.Runtime.dll</HintPath>
     </Reference>
     <Reference Include="Unity.AI.Navigation">
       <HintPath>Library\ScriptAssemblies\Unity.AI.Navigation.dll</HintPath>
@@ -770,6 +779,12 @@
     </Reference>
     <Reference Include="Unity.Analytics.DataPrivacy">
       <HintPath>Library\ScriptAssemblies\Unity.Analytics.DataPrivacy.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Burst.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.Burst.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Burst">
+      <HintPath>Library\ScriptAssemblies\Unity.Burst.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.Timeline.Editor.dll</HintPath>
@@ -798,11 +813,26 @@
     <Reference Include="Unity.Rider.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.Rider.Editor.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.ShaderGraph.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.ShaderGraph.Editor.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEditor.XR.LegacyInputHelpers">
       <HintPath>Library\ScriptAssemblies\UnityEditor.XR.LegacyInputHelpers.dll</HintPath>
     </Reference>
     <Reference Include="Unity.2D.Sprite.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.2D.Sprite.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.RenderPipelines.Core.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.RenderPipelines.Core.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Mathematics.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.Mathematics.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.RenderPipeline.Universal.ShaderLibrary">
+      <HintPath>Library\ScriptAssemblies\Unity.RenderPipeline.Universal.ShaderLibrary.dll</HintPath>
+    </Reference>
+    <Reference Include="lootlocker.lootlockersdk.runtime">
+      <HintPath>Library\ScriptAssemblies\lootlocker.lootlockersdk.runtime.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Timeline">
       <HintPath>Library\ScriptAssemblies\Unity.Timeline.dll</HintPath>
@@ -813,8 +843,17 @@
     <Reference Include="Unity.Services.Analytics">
       <HintPath>Library\ScriptAssemblies\Unity.Services.Analytics.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.RenderPipelines.Core.ShaderLibrary">
+      <HintPath>Library\ScriptAssemblies\Unity.RenderPipelines.Core.ShaderLibrary.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.AI.Navigation.Updater">
       <HintPath>Library\ScriptAssemblies\Unity.AI.Navigation.Updater.dll</HintPath>
+    </Reference>
+    <Reference Include="PPv2URPConverters">
+      <HintPath>Library\ScriptAssemblies\PPv2URPConverters.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Mathematics">
+      <HintPath>Library\ScriptAssemblies\Unity.Mathematics.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro">
       <HintPath>Library\ScriptAssemblies\Unity.TextMeshPro.dll</HintPath>
@@ -825,8 +864,14 @@
     <Reference Include="Unity.Services.Core.Analytics">
       <HintPath>Library\ScriptAssemblies\Unity.Services.Core.Analytics.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.RenderPipelines.Universal.Shaders">
+      <HintPath>Library\ScriptAssemblies\Unity.RenderPipelines.Universal.Shaders.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.AI.Navigation.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.AI.Navigation.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Searcher.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.Searcher.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.VSCode.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.VSCode.Editor.dll</HintPath>
@@ -836,6 +881,9 @@
     </Reference>
     <Reference Include="Unity.2D.Tilemap.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.2D.Tilemap.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.RenderPipelines.Universal.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.RenderPipelines.Universal.Editor.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
