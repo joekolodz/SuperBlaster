@@ -69,6 +69,7 @@
     <Compile Include="Assets\Scripts\EventAggregator.cs" />
     <Compile Include="Assets\Scripts\RocketSpawn.cs" />
     <Compile Include="Assets\Scripts\GoodGuyManager.cs" />
+    <Compile Include="Assets\Scripts\LeaderboardManager.cs" />
     <Compile Include="Assets\Scripts\GameObjectExt.cs" />
     <Compile Include="Assets\Scripts\LevelBehavior30.cs" />
     <Compile Include="Assets\Scripts\LaserCollider.cs" />

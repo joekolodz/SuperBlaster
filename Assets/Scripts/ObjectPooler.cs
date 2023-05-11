@@ -46,7 +46,7 @@ public class ObjectPooler : MonoBehaviour
 
 
     // Explicit static constructor to tell C# compiler
-    // not to mark type as beforefieldinit
+    // not to mark type as beforefieldinit. this enforces that the class is initialized only when the first static member is accessed
     static ObjectPooler()
     {
 

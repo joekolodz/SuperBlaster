@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using Assets.Scripts;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -36,8 +38,10 @@ public class MenuControl : MonoBehaviour
         //StartCoroutine(WaitForTime.Wait(1.0f, ShowGameOverMenu));
     }
 
-    private void ShowGameOverMenu()
+    private async void ShowGameOverMenu()
     {
+        await LeaderboardManager.AsyncSubmitScore(ScoreBucket.Score);
+
         Time.timeScale = 0.08f;
 
         var fireControl = GameObject.Find("FireControl");
@@ -148,7 +152,9 @@ public class MenuControl : MonoBehaviour
 
     public void Restart()
     {
+        StateManager.isWaitingForNextLevelToStart = true;
         ObjectPooler.Instance.Reset();
+        ScoreBucket.RestoreCheckPoint();
         SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex);
     }
 
@@ -176,9 +182,9 @@ public class MenuControl : MonoBehaviour
             fireControl.GetComponent<FireControl>().StopAllBadGuyMovement();
         }
 
+        StateManager.isWaitingForNextLevelToStart = true;
         PowerUpManager.Instance.ResetPowerUp();
         ObjectPooler.Instance.Reset();
-        ScoreBucket.SaveHighScore();
         SceneManager.LoadSceneAsync(0);
     }
 }

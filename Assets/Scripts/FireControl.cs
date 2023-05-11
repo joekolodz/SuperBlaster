@@ -25,10 +25,10 @@ public class FireControl : MonoBehaviour
         isAllDestroyed = true;
         StateManager.isWaitingForNextLevelToStart = false;
 
-        PlaceScoreText();
-
+        ScoreBucket.CheckPoint(); 
         ScoreBucket.LoadHighScore();
-        UpdateScore();
+        
+        PlaceScoreText();
 
         foreach (var guy in _goodGuys)
         {
@@ -106,7 +106,7 @@ public class FireControl : MonoBehaviour
 
     }
 
-    private void DetectBadGuyDeathState()
+    private async void DetectBadGuyDeathState()
     {
         foreach (var t in _badGuys)
         {
@@ -137,6 +137,9 @@ public class FireControl : MonoBehaviour
         StopAllBadGuyMovement();
         PowerUpManager.Instance.ResetPowerUp();
         ScoreBucket.SaveHighScore();
+
+        UpdateLeaderboard();
+
         Instantiate(_getReadyText, GameObject.Find("Canvas").transform, false);
         yield return new WaitForSeconds(4);
 
@@ -147,6 +150,11 @@ public class FireControl : MonoBehaviour
             //increase difficulty?
         }
         SceneManager.LoadSceneAsync(sceneIndex);
+    }
+
+    private async void UpdateLeaderboard()
+    {
+        await LeaderboardManager.AsyncSubmitScore(ScoreBucket.Score);
     }
 
     public void StopAllBadGuyMovement()

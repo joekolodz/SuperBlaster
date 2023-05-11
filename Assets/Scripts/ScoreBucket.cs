@@ -2,8 +2,16 @@
 
 public static class ScoreBucket
 {
-    public static int Score = 0;
-    public static int HighScore = 0;
+    public static int Score { get; private set; }
+    public static int HighScore { get; private set; }
+
+    private static int _lastScore = 0;
+
+    public static void ResetScore()
+    {
+        Score = 0;
+        _lastScore = 0;
+    }
 
     public static void AddScore(int score)
     {
@@ -19,6 +27,16 @@ public static class ScoreBucket
             Score = 0;
         }
         UpdateHighScore();
+    }
+
+    public static void CheckPoint()
+    {
+        _lastScore = Score;
+    }
+
+    public static void RestoreCheckPoint()
+    {
+        Score = _lastScore;
     }
 
     private static void UpdateHighScore()
