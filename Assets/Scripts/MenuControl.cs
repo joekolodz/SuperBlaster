@@ -1,5 +1,7 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using Assets.Scripts;
+using LootLocker.Requests;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -131,24 +133,36 @@ public class MenuControl : MonoBehaviour
         }
     }
 
-    public void ShowLeaderBoard()
+    private readonly List<GameObject> _leaderboardPlayerList = new List<GameObject>();
+    public async void ShowLeaderBoard()
     {
         var scoreListPanel = leaderBoardPanel.transform.Find("Image_Mask/Image_NameAndScore");
+        
+        // load the board!
+        var t = LeaderboardManager.AsyncGetLeaderboard();
+        await t;
 
-        //build a text control for each score
-        var leaderBoardListCount = 10;
-        for (var i = 1; i < leaderBoardListCount; i++)
+        var board = t.Result;
+        Debug.Log($"LeaderBoardManager: {board.Length}");
+
+        foreach (var player in board)
         {
             var button = (GameObject)Instantiate(leaderBoardScoreText, scoreListPanel, false);
-            button.transform.Find("RankText").GetComponent<Text>().text = $"{i}.";
-            button.transform.Find("NameText").GetComponent<Text>().text = $"JOE";
-            button.transform.Find("ScoreText").GetComponent<Text>().text = $"{i * 142}";
-
+            button.transform.Find("RankText").GetComponent<Text>().text = $"{player.rank}.";
+            button.transform.Find("NameText").GetComponent<Text>().text = $"{player.player.name}";
+            button.transform.Find("ScoreText").GetComponent<Text>().text = $"{player.score}";
+            _leaderboardPlayerList.Add(button);
         }
 
         leaderBoardPanel.SetActive(true);
     }
 
+    public void HideLeaderBoard()
+    {
+        leaderBoardPanel.SetActive(false);
+        _leaderboardPlayerList.ForEach(Destroy);
+        _leaderboardPlayerList.Clear();
+    }
 
     public void Restart()
     {

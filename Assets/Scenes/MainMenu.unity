@@ -31939,7 +31939,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 307551697}
         m_TargetAssemblyTypeName: MenuControl, Assembly-CSharp
-        m_MethodName: Home
+        m_MethodName: HideLeaderBoard
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

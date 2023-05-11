@@ -1,6 +1,9 @@
 ﻿using LootLocker.Requests;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
+using UnityEngine.XR;
 
 namespace Assets.Scripts
 {
@@ -34,7 +37,11 @@ namespace Assets.Scripts
 
         private static bool HandleLoginResponse(LootLockerGuestSessionResponse response)
         {
-            if (!response.success) return false;
+            if (!response.success)
+            {
+                Debug.Log($"LeaderBoardManager - Failed to login as guest. Error:{response.Error}");
+                return false;
+            }
 
             PlayerPrefs.SetString("PlayerID", response.player_id.ToString());
             return true;
@@ -54,7 +61,7 @@ namespace Assets.Scripts
             {
                 if (!response.success)
                 {
-                    Debug.Log($"Failed to submit score: {response.Error}");
+                    Debug.Log($"LeaderBoardManager - Failed to submit score. Error:{response.Error}");
                 }
                 done = true;
             });
@@ -65,5 +72,37 @@ namespace Assets.Scripts
             }
             Debug.Log($"LeaderBoardManager - Submit Score = {score}, isLoggedIn={isLoggedIn}, Done:{done}");
         }
+
+        public static async Task<LootLockerLeaderboardMember[]> AsyncGetLeaderboard()
+        {
+            if (!isLoggedIn)
+            {
+                await AsyncLootLockerLogin();
+            }
+
+            var done = false;
+            LootLockerLeaderboardMember[] board = null;
+            LootLockerSDKManager.GetScoreList(leaderboardKey, 100, 0, (response) =>
+            {
+                if (response.success)
+                {
+                    board = response.items;
+                }
+                else
+                {
+                    Debug.Log($"LeaderBoardManager - Failed to fetch leader board. Error:{response.Error}");
+                }
+                done = true;
+            });
+            
+            while (!done)
+            {
+                await Task.Yield();
+            }
+            
+            Debug.Log($"LeaderBoardManager - Fetch board, isLoggedIn={isLoggedIn}, Done:{done}");
+            return board;
+        }
+
     }
 }
