@@ -104,5 +104,29 @@ namespace Assets.Scripts
             return board;
         }
 
+        public static async Task AsyncChangePlayerName(string name)
+        {
+            if (!isLoggedIn)
+            {
+                await AsyncLootLockerLogin();
+            }
+
+            var done = false;
+            LootLockerSDKManager.SetPlayerName(name, (response) => {
+                if (!response.success)
+                {
+                    Debug.Log($"LeaderBoardManager - Failed to change user name. Error:{response.Error}");
+                }
+                done = true;
+            });
+
+            while (!done)
+            {
+                await Task.Yield();
+            }
+
+            Debug.Log($"LeaderBoardManager - User name changed: {name}");
+        }
+
     }
 }

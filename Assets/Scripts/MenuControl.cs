@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Assets.Scripts;
 using LootLocker.Requests;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -16,9 +17,19 @@ public class MenuControl : MonoBehaviour
 
     [SerializeField]
     private GameObject mainMenuPanel;
+    [SerializeField]
+    private TMP_InputField playerNameInputField;
+
+    private int currentSceneIndex = 0;
+
 
     private void Awake()
     {
+        currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        if (currentSceneIndex == 0)
+        {
+            GetPlayerName();
+        }
         ObjectPooler.Instance.PopulatePools();
         Explosions.Instance.Initialize();
         SoundEffectsManager.Instance.Initialize();
@@ -61,6 +72,8 @@ public class MenuControl : MonoBehaviour
 
     private void Update()
     {
+        if (currentSceneIndex == 0) return;
+        
         if (Input.GetKey(KeyCode.S))
         {
             StartNewGame();
@@ -155,6 +168,20 @@ public class MenuControl : MonoBehaviour
         }
 
         leaderBoardPanel.SetActive(true);
+    }
+
+    public void GetPlayerName()
+    {
+        var s = PlayerPrefs.GetString("PlayerName");
+        playerNameInputField.text = s;
+    }
+
+    public async void ChangePlayerName()
+    {
+        var s = playerNameInputField.text;
+        PlayerPrefs.SetString("PlayerName", s);
+        PlayerPrefs.Save();
+        await LeaderboardManager.AsyncChangePlayerName(s);
     }
 
     public void HideLeaderBoard()
