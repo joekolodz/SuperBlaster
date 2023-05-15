@@ -24,7 +24,6 @@ public class ObjectPooler : MonoBehaviour
     private GameObject RocketPool;
     private int RocketPoolSize = 30;
     private GameObject RocketPrefab;
-    private List<GameObject> _rocketPool;
 
     private Queue<GameObject> _rocketQueue;
 
@@ -76,7 +75,6 @@ public class ObjectPooler : MonoBehaviour
         BadGuyArrowheadPrefab = (GameObject)Resources.Load("prefabs/Bad Guy Template (Arrowhead)");
         BadGuyArrowheadPool = new GameObject("Bad Guy - Arrowhead Pool");
 
-        _rocketPool = new List<GameObject>();
         _rocketQueue = new Queue<GameObject>();
         _plasmaPool = new List<GameObject>();
         _laserPool = new List<GameObject>();
@@ -104,7 +102,6 @@ public class ObjectPooler : MonoBehaviour
             var r = Instantiate(RocketPrefab);
             r.SetActive(false);
             r.transform.SetParent(RocketPool.transform, true);
-            //_rocketPool.Add(r);
             _rocketQueue.Enqueue(r);
         }
 
@@ -173,42 +170,50 @@ public class ObjectPooler : MonoBehaviour
 
     public void Reset()
     {
-        foreach (var o in _badGuyArrowheadPool)
+        var allBadGuys = FindObjectsOfType<BadGuyMovement>();
+
+        foreach (var o in allBadGuys)
         {
-            ReturnBadGuyArrowhead(o);
-            var bgm = o.GetComponent<BadGuyMovement>();
-            bgm.Reset();
+            ResetBadGuyArrowhead(o.gameObject);
+            if (!_badGuyArrowheadPool.Contains(o.gameObject))
+            {
+                _badGuyArrowheadPool.Add(o.gameObject);
+            }
         }
 
         var allRockets = FindObjectsOfType<RocketFire>();
         foreach (var rocket in allRockets)
         {
-            ReturnRocket(rocket.gameObject);
+            ResetRocket(rocket.gameObject);
+            if (!_rocketQueue.Contains(rocket.gameObject))
+            {
+                _rocketQueue.Enqueue(rocket.gameObject);
+            }
         }
 
         var allPlasmaBlasts = FindObjectsOfType<PlasmaFire>();
         foreach (var blast in allPlasmaBlasts)
         {
-            ReturnPlasma(blast.gameObject);
+            ResetPlasma(blast.gameObject);
+            if (!_plasmaPool.Contains(blast.gameObject))
+            {
+                _plasmaPool.Add(blast.gameObject);
+            }
         }
 
         var allLaserBlasts = FindObjectsOfType<LaserFire>();
         foreach (var blast in allLaserBlasts)
         {
-            ReturnLaser(blast.gameObject);
+            ResetLaser(blast.gameObject);
+            if (!_laserPool.Contains(blast.gameObject))
+            {
+                _laserPool.Add(blast.gameObject);
+            }
         }
     }
 
     public GameObject GetRocket()
     {
-        //if (_rocketPool.Count == 0) return null;
-
-        //var index = _rocketPool.Count - 1;
-        //var r = _rocketPool[index];
-        //_rocketPool.RemoveAt(index);
-        //return r;
-
-
         if (_rocketQueue.Count == 0) return null;
 
         var index = _rocketQueue.Count - 1;
@@ -217,6 +222,12 @@ public class ObjectPooler : MonoBehaviour
     }
 
     public void ReturnRocket(GameObject rocket)
+    {
+        ResetRocket(rocket);
+        _rocketQueue.Enqueue(rocket);
+    }
+
+    private void ResetRocket(GameObject rocket)
     {
         rocket.SetActive(false);
         rocket.GetComponent<RocketFire>().StopRocket();
@@ -227,9 +238,6 @@ public class ObjectPooler : MonoBehaviour
         rocket.transform.position = Vector3.zero;
 
         gameObject.GetComponentInChildren<TrailRenderer>()?.Clear();
-
-        //_rocketPool.Add(rocket);
-        _rocketQueue.Enqueue(rocket);
     }
 
     public GameObject GetPlasma()
@@ -246,6 +254,12 @@ public class ObjectPooler : MonoBehaviour
 
     public void ReturnPlasma(GameObject plasma)
     {
+        ResetPlasma(plasma);
+        _plasmaPool.Add(plasma);
+    }
+
+    private void ResetPlasma(GameObject plasma)
+    {
         plasma.SetActive(false);
         var rb = plasma.GetComponent<Rigidbody2D>();
         rb.velocity = Vector2.zero;
@@ -254,7 +268,6 @@ public class ObjectPooler : MonoBehaviour
 
         plasma.transform.position = Vector3.zero;
         plasma.transform.rotation = Quaternion.identity;
-        _plasmaPool.Add(plasma);
     }
 
     public GameObject GetLaser()
@@ -269,9 +282,14 @@ public class ObjectPooler : MonoBehaviour
 
     public void ReturnLaser(GameObject laser)
     {
+        ResetLaser(laser);
+        _laserPool.Add(laser);
+    }
+
+    private static void ResetLaser(GameObject laser)
+    {
         laser.SetActive(false);
         laser.transform.position = Vector3.zero;
-        _laserPool.Add(laser);
     }
 
     public GameObject GetExplosionLarge()
@@ -324,8 +342,15 @@ public class ObjectPooler : MonoBehaviour
 
     public void ReturnBadGuyArrowhead(GameObject o)
     {
-        var bgm = o.GetComponent<BadGuyMovement>();
+        ResetBadGuyArrowhead(o);
+        _badGuyArrowheadPool.Add(o);
+    }
 
+    private static void ResetBadGuyArrowhead(GameObject o)
+    {
+        var bgm = o.GetComponent<BadGuyMovement>();
+        bgm.Reset();
+        
         var badGuy = bgm.badGuy;
         badGuy.transform.position = new Vector3(100, 100, 0);
 
@@ -343,6 +368,5 @@ public class ObjectPooler : MonoBehaviour
         rb.angularVelocity = 0f;
 
         o.SetActive(false);
-        _badGuyArrowheadPool.Add(o);
     }
 }

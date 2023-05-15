@@ -106,7 +106,7 @@ public class FireControl : MonoBehaviour
 
     }
 
-    private async void DetectBadGuyDeathState()
+    private void DetectBadGuyDeathState()
     {
         foreach (var t in _badGuys)
         {

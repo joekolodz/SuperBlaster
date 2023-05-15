@@ -83,10 +83,11 @@ public class EventAggregator
     public static event EventHandler ShieldDestroyed;
     public static event EventHandler BaseDestroyed;
     public static event EventHandler<WallCloseTriggeredEventArgs> WallCloseTriggered;
+    public static event EventHandler AbortLevel;
 
     public static void PublishPowerUpExpired()
     {
-        PowerUpExpired?.Invoke(null, new EventArgs());
+        PowerUpExpired?.Invoke(null, EventArgs.Empty);
     }
 
     public static void PublishPowerUpTriggered(PowerUpTriggeredEventArgs e)
@@ -96,7 +97,7 @@ public class EventAggregator
 
     public static void PublishPowerDownExpired()
     {
-        PowerUpExpired?.Invoke(null, new EventArgs());
+        PowerUpExpired?.Invoke(null, EventArgs.Empty);
     }
 
     public static void PublishPowerDownTriggered(PowerDownTriggeredEventArgs e)
@@ -116,32 +117,37 @@ public class EventAggregator
 
     public static void PublishLevelCompleted()
     {
-        LevelCompleted?.Invoke(null, new EventArgs());
+        LevelCompleted?.Invoke(null, EventArgs.Empty);
     }
 
     public static void PublishPlasmaBlastHit()
     {
-        PlasmaBlastHit?.Invoke(null, new EventArgs());
+        PlasmaBlastHit?.Invoke(null, EventArgs.Empty);
     }
 
     public static void PublishPlasmaBlastFired()
     {
-        PlasmaBlastFired?.Invoke(null, new EventArgs());
+        PlasmaBlastFired?.Invoke(null, EventArgs.Empty);
     }
 
     public static void PublishShieldDestroyed()
     {
-        ShieldDestroyed?.Invoke(null, new EventArgs());
+        ShieldDestroyed?.Invoke(null, EventArgs.Empty);
     }
 
     public static void PublishBaseDestroyed()
     {
-        BaseDestroyed?.Invoke(null, new EventArgs());
+        BaseDestroyed?.Invoke(null, EventArgs.Empty);
     }
 
     public static void PublishWallCloseTriggered(WallCloseTriggeredEventArgs e)
     {
         WallCloseTriggered?.Invoke(null, e);
+    }
+
+    public static void PublishAbortLevel()
+    {
+        AbortLevel?.Invoke(null, EventArgs.Empty);
     }
 
 }

@@ -46,10 +46,20 @@ public class LevelBehavior24 : MonoBehaviour
 
         StartCoroutine(WaitForTime.Wait(DoorDelayOpenTime, StartWallAnimation));
 
-        ObjectPooler.Instance.PopulateBadGuyArrowheadPool(BadGuysPerWave);
+        var poolLimit = BadGuysPerWave >= 50 ? 50 : BadGuysPerWave;
+        ObjectPooler.Instance.PopulateBadGuyArrowheadPool(poolLimit);
 
         EventAggregator.BadGuyDied += EventAggregator_BadGuyDied;
         EventAggregator.WallCloseTriggered += EventAggregator_WallCloseTriggered;
+        EventAggregator.AbortLevel += EventAggregator_AbortLevel;
+    }
+
+    private void EventAggregator_AbortLevel(object sender, System.EventArgs e)
+    {
+        _waveDelayTime = float.MaxValue;
+        EventAggregator.BadGuyDied -= EventAggregator_BadGuyDied;
+        EventAggregator.WallCloseTriggered -= EventAggregator_WallCloseTriggered;
+        ObjectPooler.Instance.Reset();
     }
 
     private void EventAggregator_WallCloseTriggered(object sender, WallCloseTriggeredEventArgs e)

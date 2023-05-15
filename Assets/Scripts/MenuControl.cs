@@ -21,6 +21,7 @@ public class MenuControl : MonoBehaviour
     private TMP_InputField playerNameInputField;
 
     private int currentSceneIndex = 0;
+    private GameObject quickMenuPanel;
 
 
     private void Awake()
@@ -67,13 +68,15 @@ public class MenuControl : MonoBehaviour
         if (mainMenuPanel)
         {
             mainMenuPanel.SetActive(true);
+            quickMenuPanel = GameObject.Find("QuickMenu");
+            quickMenuPanel.SetActive(false);
         }
     }
 
     private void Update()
     {
         if (currentSceneIndex == 0) return;
-        
+
         if (Input.GetKey(KeyCode.S))
         {
             StartNewGame();
@@ -122,7 +125,7 @@ public class MenuControl : MonoBehaviour
 
     public void StartNewGame()
     {
-        SceneManager.LoadSceneAsync(1);
+        StartLevel(1);
     }
 
     public void ChooseLevel()
@@ -150,7 +153,7 @@ public class MenuControl : MonoBehaviour
     public async void ShowLeaderBoard()
     {
         var scoreListPanel = leaderBoardPanel.transform.Find("Image_Mask/Image_NameAndScore");
-        
+
         // load the board!
         var t = LeaderboardManager.AsyncGetLeaderboard();
         await t;
@@ -193,10 +196,8 @@ public class MenuControl : MonoBehaviour
 
     public void Restart()
     {
-        StateManager.isWaitingForNextLevelToStart = true;
-        ObjectPooler.Instance.Reset();
         ScoreBucket.RestoreCheckPoint();
-        SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex);
+        StartLevel(SceneManager.GetActiveScene().buildIndex);
     }
 
     public void Pause()
@@ -217,15 +218,22 @@ public class MenuControl : MonoBehaviour
 
     public void Home()
     {
+        EventAggregator.PublishAbortLevel();
+
         var fireControl = GameObject.Find("FireControl");
         if (fireControl)
         {
             fireControl.GetComponent<FireControl>().StopAllBadGuyMovement();
         }
 
+        StartLevel(0);
+    }
+
+    private void StartLevel(int sceneIndex)
+    {
         StateManager.isWaitingForNextLevelToStart = true;
-        PowerUpManager.Instance.ResetPowerUp();
         ObjectPooler.Instance.Reset();
-        SceneManager.LoadSceneAsync(0);
+        PowerUpManager.Instance.ResetPowerUp();
+        SceneManager.LoadSceneAsync(sceneIndex);
     }
 }

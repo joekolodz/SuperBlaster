@@ -3257,7 +3257,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: QUIT
+  m_Text: HOME
 --- !u!222 &775957218
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3431,9 +3431,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelMenuPanel: {fileID: 0}
+  leaderBoardPanel: {fileID: 0}
   levelButton: {fileID: 0}
+  leaderBoardScoreText: {fileID: 0}
   isPaused: 0
   mainMenuPanel: {fileID: 0}
+  playerNameInputField: {fileID: 0}
 --- !u!1001 &981088948
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4427,7 +4430,7 @@ GameObject:
   - component: {fileID: 1421365026}
   - component: {fileID: 1421365025}
   m_Layer: 5
-  m_Name: Quit
+  m_Name: Home
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4499,8 +4502,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 974521705}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: Quit
+        m_TargetAssemblyTypeName: MenuControl, Assembly-CSharp
+        m_MethodName: Home
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
