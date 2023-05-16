@@ -152,6 +152,9 @@ public class MenuControl : MonoBehaviour
     private readonly List<GameObject> _leaderboardPlayerList = new List<GameObject>();
     public async void ShowLeaderBoard()
     {
+        if (leaderBoardPanel.activeInHierarchy) return;
+        leaderBoardPanel.SetActive(true);
+
         var scoreListPanel = leaderBoardPanel.transform.Find("Image_Mask/Image_NameAndScore");
 
         // load the board!
@@ -170,7 +173,6 @@ public class MenuControl : MonoBehaviour
             _leaderboardPlayerList.Add(button);
         }
 
-        leaderBoardPanel.SetActive(true);
     }
 
     public void GetPlayerName()
