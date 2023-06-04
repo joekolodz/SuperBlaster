@@ -21,11 +21,15 @@ public class ObjectPooler : MonoBehaviour
     private GameObject ExplosionSmallPrefab;
     private List<GameObject> _explosionSmallPool;
 
+    private GameObject DebrisPool;
+    private int DebrisPoolSize = 30;
+    private GameObject DebrisPrefab;
+    private Queue<GameObject> _debrisPool;
+
     private GameObject RocketPool;
     private int RocketPoolSize = 30;
     private GameObject RocketPrefab;
-
-    private Queue<GameObject> _rocketQueue;
+    private Queue<GameObject> _rocketPool;
 
 
     private GameObject PlasmaPool;
@@ -72,14 +76,18 @@ public class ObjectPooler : MonoBehaviour
         ExplosionSmallPrefab = (GameObject)Resources.Load("prefabs/Explosion Small");
         ExplosionSmallPool = new GameObject("Explosion-Small Pool");
 
+        DebrisPrefab = (GameObject)Resources.Load("prefabs/PS Debris");
+        DebrisPool = new GameObject("Debris Pool");
+
         BadGuyArrowheadPrefab = (GameObject)Resources.Load("prefabs/Bad Guy Template (Arrowhead)");
         BadGuyArrowheadPool = new GameObject("Bad Guy - Arrowhead Pool");
 
-        _rocketQueue = new Queue<GameObject>();
+        _rocketPool = new Queue<GameObject>();
         _plasmaPool = new List<GameObject>();
         _laserPool = new List<GameObject>();
         _explosionLargePool = new List<GameObject>();
         _explosionSmallPool = new List<GameObject>();
+        _debrisPool = new Queue<GameObject>();
         _badGuyArrowheadPool = new List<GameObject>();
 
         RocketPool.transform.SetParent(gameObject.transform, true);
@@ -87,6 +95,7 @@ public class ObjectPooler : MonoBehaviour
         LaserPool.transform.SetParent(gameObject.transform, true);
         ExplosionLargePool.transform.SetParent(gameObject.transform, true);
         ExplosionSmallPool.transform.SetParent(gameObject.transform, true);
+        DebrisPool.transform.SetParent(gameObject.transform, true);
         BadGuyArrowheadPool.transform.SetParent(gameObject.transform, true);
 
         PopulatePools();
@@ -102,7 +111,7 @@ public class ObjectPooler : MonoBehaviour
             var r = Instantiate(RocketPrefab);
             r.SetActive(false);
             r.transform.SetParent(RocketPool.transform, true);
-            _rocketQueue.Enqueue(r);
+            _rocketPool.Enqueue(r);
         }
 
         for (var i = 0; i < PlasmaPoolSize; i++)
@@ -138,6 +147,23 @@ public class ObjectPooler : MonoBehaviour
             _explosionSmallPool.Add(r);
         }
 
+
+        for (var i = 0; i < ExplosionSmallPoolSize; i++)
+        {
+            var r = Instantiate(ExplosionSmallPrefab);
+            r.SetActive(false);
+            r.transform.SetParent(ExplosionSmallPool.transform, true);
+            _explosionSmallPool.Add(r);
+        }
+
+        for (var i = 0; i < DebrisPoolSize; i++)
+        {
+            var r = Instantiate(DebrisPrefab);
+            r.SetActive(false);
+            r.transform.SetParent(DebrisPool.transform, true);
+            _debrisPool.Enqueue(r);
+        }
+
         IsPoolPopulated = true;
     }
 
@@ -170,14 +196,16 @@ public class ObjectPooler : MonoBehaviour
 
     public void Reset()
     {
-        var allBadGuys = FindObjectsOfType<BadGuyMovement>();
-
-        foreach (var o in allBadGuys)
+        if (_badGuyArrowheadPool.Count > 0)
         {
-            ResetBadGuyArrowhead(o.gameObject);
-            if (!_badGuyArrowheadPool.Contains(o.gameObject))
+            var allBadGuys = FindObjectsOfType<BadGuyMovement>();
+            foreach (var o in allBadGuys)
             {
-                _badGuyArrowheadPool.Add(o.gameObject);
+                ResetBadGuyArrowhead(o.gameObject);
+                if (!_badGuyArrowheadPool.Contains(o.gameObject))
+                {
+                    _badGuyArrowheadPool.Add(o.gameObject);
+                }
             }
         }
 
@@ -185,9 +213,9 @@ public class ObjectPooler : MonoBehaviour
         foreach (var rocket in allRockets)
         {
             ResetRocket(rocket.gameObject);
-            if (!_rocketQueue.Contains(rocket.gameObject))
+            if (!_rocketPool.Contains(rocket.gameObject))
             {
-                _rocketQueue.Enqueue(rocket.gameObject);
+                _rocketPool.Enqueue(rocket.gameObject);
             }
         }
 
@@ -214,17 +242,17 @@ public class ObjectPooler : MonoBehaviour
 
     public GameObject GetRocket()
     {
-        if (_rocketQueue.Count == 0) return null;
+        if (_rocketPool.Count == 0) return null;
 
-        var index = _rocketQueue.Count - 1;
-        var r = _rocketQueue.Dequeue();
+        var index = _rocketPool.Count - 1;
+        var r = _rocketPool.Dequeue();
         return r;
     }
 
     public void ReturnRocket(GameObject rocket)
     {
         ResetRocket(rocket);
-        _rocketQueue.Enqueue(rocket);
+        _rocketPool.Enqueue(rocket);
     }
 
     private void ResetRocket(GameObject rocket)
@@ -325,6 +353,20 @@ public class ObjectPooler : MonoBehaviour
         _explosionSmallPool.Add(explosion);
     }
 
+    public GameObject GetDebris()
+    {
+        if (_debrisPool.Count == 0) return null;
+        var r = _debrisPool.Dequeue();
+        return r;
+    }
+
+    public void ReturnDebris(GameObject debris)
+    {
+        debris.SetActive(false);
+        debris.transform.position = Vector3.zero;
+        _debrisPool.Enqueue(debris);
+    }
+
     public GameObject GetBadGuyArrowhead()
     {
         if (_badGuyArrowheadPool.Count == 0) return null;
@@ -350,7 +392,7 @@ public class ObjectPooler : MonoBehaviour
     {
         var bgm = o.GetComponent<BadGuyMovement>();
         bgm.Reset();
-        
+
         var badGuy = bgm.badGuy;
         badGuy.transform.position = new Vector3(100, 100, 0);
 

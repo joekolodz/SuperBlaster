@@ -1,7 +1,5 @@
-﻿using System.Collections;
+﻿using Assets.Scripts;
 using System.Collections.Generic;
-using Assets.Scripts;
-using LootLocker.Requests;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -157,11 +155,10 @@ public class MenuControl : MonoBehaviour
 
         var scoreListPanel = leaderBoardPanel.transform.Find("Image_Mask/Image_NameAndScore");
 
-        // load the board!
-        var t = LeaderboardManager.AsyncGetLeaderboard();
-        await t;
+        var leaderBoardTask = LeaderboardManager.AsyncGetLeaderboard();
+        await leaderBoardTask;
 
-        var board = t.Result;
+        var board = leaderBoardTask.Result;
         Debug.Log($"LeaderBoardManager: {board.Length}");
 
         foreach (var player in board)
@@ -172,7 +169,6 @@ public class MenuControl : MonoBehaviour
             button.transform.Find("ScoreText").GetComponent<Text>().text = $"{player.score}";
             _leaderboardPlayerList.Add(button);
         }
-
     }
 
     public void GetPlayerName()

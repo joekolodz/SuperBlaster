@@ -31,6 +31,7 @@ public class Explosions : MonoBehaviour
     {
         if (_isInitialized) return;
         EventAggregator.ObjectDestroyed += EventAggregator_ObjectDestroyed;
+        EventAggregator.ShowDebris += EventAggregator_ShowDebris;
         _isInitialized = true;
     }
 
@@ -84,4 +85,14 @@ public class Explosions : MonoBehaviour
         }
     }
 
+    private void EventAggregator_ShowDebris(object sender, ShowDebrisEventArgs e)
+    {
+        var debris = ObjectPooler.Instance.GetDebris();
+        if (debris is null) return;
+        debris.transform.position = e.Transform.position;
+        debris.SetActive(true);
+        debris.GetComponentInChildren<ParticleSystem>().Play();
+
+        StartCoroutine(WaitForTime.Wait(2.0f, () => { ObjectPooler.Instance.ReturnDebris(debris); }));
+    }
 }

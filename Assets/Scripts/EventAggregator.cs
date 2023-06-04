@@ -34,6 +34,17 @@ public class BadGuyDiedEventArgs : EventArgs
     }
 }
 
+public class ShowDebrisEventArgs : EventArgs
+{
+    public Transform Transform;
+
+    public ShowDebrisEventArgs(Transform transform)
+    {
+        Transform = transform;
+    }
+}
+
+
 public class ObjectDestroyedEventArgs : EventArgs
 {
     public Transform Transform;
@@ -76,6 +87,7 @@ public class EventAggregator
     public static event EventHandler PowerDownExpired;
     public static event EventHandler<PowerDownTriggeredEventArgs> PowerDownTriggered;
     public static event EventHandler<ObjectDestroyedEventArgs> ObjectDestroyed;
+    public static event EventHandler<ShowDebrisEventArgs> ShowDebris;
     public static event EventHandler<BadGuyDiedEventArgs> BadGuyDied;
     public static event EventHandler LevelCompleted;
     public static event EventHandler PlasmaBlastHit;
@@ -108,6 +120,11 @@ public class EventAggregator
     public static void PublishObjectDestroyed(ObjectDestroyedEventArgs e)
     {
         ObjectDestroyed?.Invoke(null, e);
+    }
+
+    public static void PublishShowDebris(ShowDebrisEventArgs e)
+    {
+        ShowDebris?.Invoke(null, e);
     }
 
     public static void PublishBadGuyDied(BadGuyDiedEventArgs e)
