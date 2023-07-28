@@ -23,4 +23,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Level 6.unity
     guid: 8b3fc4bb7398c114687888db2de2d81f
+  - enabled: 1
+    path: Assets/Scenes/Level 7 - Intro bad guys.unity
+    guid: e895054888caeb04ab16c908ab32f85a
   m_configObjects: {}
