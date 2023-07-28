@@ -5,6 +5,7 @@ public class BadGuyMovement : MonoBehaviour
 {
     public Transform badGuy;
     public int moveSpeed = 5;
+
     public bool isDestroyed = false;
     public bool IsNextWaypointRandom = false;
     public int Id = 0;

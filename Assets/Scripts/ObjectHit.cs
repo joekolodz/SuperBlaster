@@ -20,7 +20,7 @@ public class ObjectHit : MonoBehaviour
     /// The thing that destroyed this object
     /// </summary>
     public GameObject hitTriggerObject;
-    public float delayDestroy = 0f;//0.8f;
+    public float delayDestroy = 0.8f;
 
     public AudioSource soundYeah;
 

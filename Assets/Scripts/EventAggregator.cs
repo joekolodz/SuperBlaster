@@ -12,16 +12,6 @@ public class PowerUpTriggeredEventArgs : EventArgs
     }
 }
 
-public class PowerDownTriggeredEventArgs : EventArgs
-{
-    public PowerDownManager.PowerDownNames PowerDownName;
-
-    public PowerDownTriggeredEventArgs(PowerDownManager.PowerDownNames powerDownName)
-    {
-        PowerDownName = powerDownName;
-    }
-}
-
 public class BadGuyDiedEventArgs : EventArgs
 {
     public GameObject BadGuy;
@@ -84,8 +74,6 @@ public class EventAggregator
 {
     public static event EventHandler PowerUpExpired;
     public static event EventHandler<PowerUpTriggeredEventArgs> PowerUpTriggered;
-    public static event EventHandler PowerDownExpired;
-    public static event EventHandler<PowerDownTriggeredEventArgs> PowerDownTriggered;
     public static event EventHandler<ObjectDestroyedEventArgs> ObjectDestroyed;
     public static event EventHandler<ShowDebrisEventArgs> ShowDebris;
     public static event EventHandler<BadGuyDiedEventArgs> BadGuyDied;
@@ -96,6 +84,7 @@ public class EventAggregator
     public static event EventHandler BaseDestroyed;
     public static event EventHandler<WallCloseTriggeredEventArgs> WallCloseTriggered;
     public static event EventHandler AbortLevel;
+    public static event EventHandler RadarShieldDestroyed;
 
     public static void PublishPowerUpExpired()
     {
@@ -105,16 +94,6 @@ public class EventAggregator
     public static void PublishPowerUpTriggered(PowerUpTriggeredEventArgs e)
     {
         PowerUpTriggered?.Invoke(null, e);
-    }
-
-    public static void PublishPowerDownExpired()
-    {
-        PowerUpExpired?.Invoke(null, EventArgs.Empty);
-    }
-
-    public static void PublishPowerDownTriggered(PowerDownTriggeredEventArgs e)
-    {
-        PowerDownTriggered?.Invoke(null, e);
     }
 
     public static void PublishObjectDestroyed(ObjectDestroyedEventArgs e)
@@ -165,6 +144,11 @@ public class EventAggregator
     public static void PublishAbortLevel()
     {
         AbortLevel?.Invoke(null, EventArgs.Empty);
+    }
+
+    public static void PublishRadarShieldDestroyed()
+    {
+        RadarShieldDestroyed?.Invoke(null, EventArgs.Empty);
     }
 
 }

@@ -1,30 +1,21 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using Assets.Scripts;
 using UnityEngine;
 
 /// <summary>
 /// Disconnect explosions from rockets/plasma. If rockets are returned to the pool (made inactive) before the explosion finishes and is returned to the pool, then the explosion will not be returned to the pool and cleaned up
 /// </summary>
-public class Explosions : MonoBehaviour
+public class Explosions : BaseSingleton<Explosions>
 {
-    public static readonly Explosions Instance = (new GameObject("ExplosionsSingletonContainer")).AddComponent<Explosions>();
-
     private static bool _isInitialized = false;
 
     // Explicit static constructor to tell C# compiler
-    // not to mark type as beforefieldinit
+    // not to mark type as beforefieldinit. this enforces that the class is initialized only when the first static member is accessed
     static Explosions()
     {
-
     }
+    //private constructor is called before static constructor
     private Explosions()
     {
-
-    }
-
-    public void Awake()
-    {
-        DontDestroyOnLoad(gameObject);
     }
 
     public void Initialize()
@@ -60,7 +51,11 @@ public class Explosions : MonoBehaviour
             var psScaleBefore = ps.transform.localScale;
             ps.transform.localScale *= e.ExplosionScale;
             explosion.SetActive(true);
-            StartCoroutine(WaitForTime.Wait(1.0f, () => { ObjectPooler.Instance.ReturnExplosionSmall(explosion); ps.transform.localScale = psScaleBefore; }));
+            StartCoroutine(WaitForTime.Wait(1.0f, () =>
+            {
+                var ex1 = explosion;
+                ObjectPooler.Instance.ReturnExplosionSmall(ex1); ps.transform.localScale = psScaleBefore;
+            }));
         }
     }
 
@@ -81,7 +76,11 @@ public class Explosions : MonoBehaviour
             }
 
             explosion.SetActive(true);
-            StartCoroutine(WaitForTime.Wait(2.0f, () => { ObjectPooler.Instance.ReturnExplosionLarge(explosion); ps.transform.localScale = psScaleBefore; }));
+            StartCoroutine(WaitForTime.Wait(2.0f, () =>
+            {
+                var ex1 = explosion;
+                ObjectPooler.Instance.ReturnExplosionLarge(ex1); ps.transform.localScale = psScaleBefore;
+            }));
         }
     }
 

@@ -1,5 +1,6 @@
 ﻿using Assets.Scripts;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class RocketFire : MonoBehaviour
 {
@@ -48,9 +49,12 @@ public class RocketFire : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("FirePoint"))
         {
-            if (audioSource.isPlaying) return;
-            audioSource.volume = 0.1f;
-            audioSource.Play();
+            if (audioSource.isPlaying)
+            {
+                return;
+            }
+            //audioSource.Play();
+            AudioSource.PlayClipAtPoint(audioSource.clip, new Vector3(0, 0, 0), audioSource.volume);
         }
     }
 }

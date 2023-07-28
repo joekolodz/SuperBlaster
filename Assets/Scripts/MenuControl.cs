@@ -1,5 +1,6 @@
 ﻿using Assets.Scripts;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -29,8 +30,9 @@ public class MenuControl : MonoBehaviour
         {
             GetPlayerName();
         }
-        ObjectPooler.Instance.PopulatePools();
+        ObjectPooler.Instance.Initialize();
         Explosions.Instance.Initialize();
+        Siren.Instance.Initialize();
         SoundEffectsManager.Instance.Initialize();
         EventAggregator.BaseDestroyed += EventAggregator_BaseDestroyed;
         mainMenuPanel = Resources.FindObjectsOfTypeAll<VerticalLayoutGroup>()[0].gameObject;
@@ -52,6 +54,7 @@ public class MenuControl : MonoBehaviour
 
     private async void ShowGameOverMenu()
     {
+        //TODO LeaderboardManager
         await LeaderboardManager.AsyncSubmitScore(ScoreBucket.Score);
 
         Time.timeScale = 0.08f;
@@ -101,10 +104,13 @@ public class MenuControl : MonoBehaviour
         {
             Time.timeScale = 0.20f;
         }
-        else
+
+        if(Input.GetKeyUp(KeyCode.Space))
         {
             Time.timeScale = 1f;
         }
+
+        
 
         if (Input.GetKeyDown(KeyCode.D))
         {
@@ -150,6 +156,9 @@ public class MenuControl : MonoBehaviour
     private readonly List<GameObject> _leaderboardPlayerList = new List<GameObject>();
     public async void ShowLeaderBoard()
     {
+        //TODO LeaderboardManager
+        //return;
+
         if (leaderBoardPanel.activeInHierarchy) return;
         leaderBoardPanel.SetActive(true);
 

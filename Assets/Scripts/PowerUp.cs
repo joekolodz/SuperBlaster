@@ -14,6 +14,7 @@ public class PowerUpManager : MonoBehaviour
         TripleBlaster,
         MultiBlaster,
         LaserBlaster,
+        BulletTime,
         SuperBlaster
     }
 
@@ -32,6 +33,7 @@ public class PowerUpManager : MonoBehaviour
     private bool isTripleBlaster = false;
     private bool isLaserBlaster = false;
     private bool isSpeedBlaster = false;
+    private bool isBulletTime = false;
 
     private float timePowerUpExpires = 0.0f;
 
@@ -68,6 +70,9 @@ public class PowerUpManager : MonoBehaviour
             case PowerUpNames.TripleBlaster:
                 PowerUpTripleBlasterForEntireLevel();
                 break;
+            case PowerUpNames.BulletTime:
+                PowerUpBulletTimeForEntireLevel();
+                break;
             case PowerUpNames.LaserBlaster:
                 PowerUpLaserBlasterForEntireLevel();
                 break;
@@ -98,7 +103,7 @@ public class PowerUpManager : MonoBehaviour
                 break;
             case var i when i >= 80.0f && i < 90.0f:
                 //EnableLaserBlaster();//laser blaster not ready
-                EnableSuperBlaster();
+                EnableisBulletTime();
                 break;
             case var i when i >= 90.0f:
                 EnableSuperBlaster();
@@ -155,6 +160,27 @@ public class PowerUpManager : MonoBehaviour
         damageIncrease = 10;
         isLaserBlaster = true;
         PowerUpType = PowerUpNames.LaserBlaster;
+    }
+
+    private void EnableisBulletTime()
+    {
+        IsPowerUp = false;
+
+        //if (!IsPowerUp)
+        //{
+        //    IsPowerUp = true;
+        //    //EventAggregator.PublishPowerUpTriggered(new PowerUpTriggeredEventArgs(PowerUpNames.BulletTime));
+        //}
+        //isBulletTime = true;
+        //PowerUpType = PowerUpNames.BulletTime;
+
+        Time.timeScale = 0.20f;
+
+        StartCoroutine(WaitForTime.Wait(1.0f, () =>
+        {
+            Time.timeScale = 1f;
+        }));
+
     }
 
     private void EnableSuperBlaster()
@@ -275,6 +301,10 @@ public class PowerUpManager : MonoBehaviour
     public void PowerUpLaserBlasterForEntireLevel()
     {
         EnableLaserBlaster();
+    }
+    public void PowerUpBulletTimeForEntireLevel()
+    {
+        EnableisBulletTime();
     }
 
     public void PowerUpSuperBlasterForEntireLevel()

@@ -282,7 +282,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   explosion: {fileID: 2023863978673575173, guid: 0dcc338c8a37e3a4087c71b24953c227,
     type: 3}
-  hitTriggerObject: {fileID: 1301070703825744, guid: fdb8c7e04a28c0041929e7a274a73d04,
+  hitTriggerObject: {fileID: 1083717731028169036, guid: fdb8c7e04a28c0041929e7a274a73d04,
     type: 3}
   delayDestroy: 0
   soundOnDestroy: {fileID: 4474523600598679551}

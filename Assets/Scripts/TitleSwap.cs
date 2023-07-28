@@ -48,6 +48,8 @@ public class TitleSwap : MonoBehaviour
             case PowerUpManager.PowerUpNames.SuperBlaster:
                 titleName = TitleNames.SuperBlaster;
                 break;
+            default:
+                return;
         }
         SetTitle(titleName);
     }

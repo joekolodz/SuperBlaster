@@ -26,11 +26,13 @@ public class MusicManager : MonoBehaviour
             Instance = this;
             SceneManager.activeSceneChanged += SceneManager_activeSceneChanged;
             DontDestroyOnLoad(gameObject);
+            SceneManager_activeSceneChanged(SceneManager.GetActiveScene(), SceneManager.GetActiveScene());
         }
     }
 
     private void SceneManager_activeSceneChanged(Scene current, Scene next)
     {
+        Debug.Log("SceneManager_activeSceneChanged");
         if (!string.IsNullOrWhiteSpace(next.name))
         {
             if (next.buildIndex == 0)

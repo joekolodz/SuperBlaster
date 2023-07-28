@@ -16,8 +16,6 @@ namespace Assets.Scripts
         [SerializeField]
         private Vector3 origin = new Vector3(0.0f, 0.0f, 0.0f);
 
-
-        [SerializeField] private float angle = 0.0f;
         #endregion
 
         public void OnDrawGizmos()

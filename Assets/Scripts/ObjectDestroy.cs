@@ -56,7 +56,7 @@ public class ObjectDestroy : MonoBehaviour
 
         if (IsPooledObject) return;
 
-        delayDestroy = 0;//i dont think this is needed anymore and anyway it causes a delay with ShieldState/CameraShake
+        //delayDestroy = 0.0f;//i dont think this is needed anymore and anyway it causes a delay with ShieldState/CameraShake
         Destroy(gameObject, delayDestroy);
     }
 }

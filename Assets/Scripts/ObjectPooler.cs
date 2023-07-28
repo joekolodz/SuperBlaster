@@ -2,14 +2,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Net.Sockets;
+using Assets.Scripts;
 using UnityEngine;
 
-public class ObjectPooler : MonoBehaviour
+public class ObjectPooler : BaseSingleton<ObjectPooler>
 {
-    public static readonly ObjectPooler Instance = (new GameObject("ObjectPoolerSingletonContainer")).AddComponent<ObjectPooler>();
-
-    private bool IsPoolPopulated = false;
-    private bool IsBadGuyArrowheadPoolPopulated = false;
+    private bool _isPoolPopulated = false;
+    private bool _isBadGuyArrowheadPoolPopulated = false;
 
     private GameObject ExplosionLargePool;
     private int ExplosionLargePoolSize = 10;
@@ -30,8 +29,7 @@ public class ObjectPooler : MonoBehaviour
     private int RocketPoolSize = 30;
     private GameObject RocketPrefab;
     private Queue<GameObject> _rocketPool;
-
-
+    
     private GameObject PlasmaPool;
     private int PlasmaPoolSize = 30;
     private GameObject PlasmaPrefab;
@@ -47,20 +45,20 @@ public class ObjectPooler : MonoBehaviour
     private GameObject BadGuyArrowheadPrefab;
     private List<GameObject> _badGuyArrowheadPool;
 
-
     // Explicit static constructor to tell C# compiler
     // not to mark type as beforefieldinit. this enforces that the class is initialized only when the first static member is accessed
     static ObjectPooler()
     {
-
     }
+    //private constructor is called before static constructor
     private ObjectPooler()
     {
-
     }
 
-    private void Awake()
+    public void Initialize()
     {
+        if (_isPoolPopulated) return;
+
         RocketPrefab = (GameObject)Resources.Load("prefabs/Rocket");
         RocketPool = new GameObject("Bullet Pool");
 
@@ -99,13 +97,11 @@ public class ObjectPooler : MonoBehaviour
         BadGuyArrowheadPool.transform.SetParent(gameObject.transform, true);
 
         PopulatePools();
-        DontDestroyOnLoad(gameObject);
+        _isPoolPopulated = true;
     }
 
-    public void PopulatePools()
+    private void PopulatePools()
     {
-        if (IsPoolPopulated) return;
-
         for (var i = 0; i < RocketPoolSize; i++)
         {
             var r = Instantiate(RocketPrefab);
@@ -163,13 +159,11 @@ public class ObjectPooler : MonoBehaviour
             r.transform.SetParent(DebrisPool.transform, true);
             _debrisPool.Enqueue(r);
         }
-
-        IsPoolPopulated = true;
     }
 
     public void PopulateBadGuyArrowheadPool(int poolSize)
     {
-        if (IsBadGuyArrowheadPoolPopulated)
+        if (_isBadGuyArrowheadPoolPopulated)
         {
             foreach (var o in _badGuyArrowheadPool)
             {
@@ -191,7 +185,7 @@ public class ObjectPooler : MonoBehaviour
             r.GetComponent<BadGuyMovement>().Id = i + 1;
             _badGuyArrowheadPool.Add(r);
         }
-        IsBadGuyArrowheadPoolPopulated = true;
+        _isBadGuyArrowheadPoolPopulated = true;
     }
 
     public void Reset()

@@ -16,13 +16,12 @@ public class FireControl : MonoBehaviour
     private Text highScoreText;
 
     private GoodGuyManager _currentlySelectedGuy;
-    private bool isAllDestroyed = false;
 
     public void Awake()
     {
+        Screen.fullScreenMode = FullScreenMode.FullScreenWindow;
         Time.timeScale = 1.0f;
 
-        isAllDestroyed = true;
         StateManager.isWaitingForNextLevelToStart = false;
 
         ScoreBucket.CheckPoint(); 
@@ -125,7 +124,7 @@ public class FireControl : MonoBehaviour
 
         if (!StateManager.isWaitingForNextLevelToStart)
         {
-            StartCoroutine(StartNextLevel());
+            EventAggregator.PublishLevelCompleted();
         }
     }
 
@@ -154,6 +153,7 @@ public class FireControl : MonoBehaviour
 
     private async void UpdateLeaderboard()
     {
+        //TODO LeaderboardManager
         await LeaderboardManager.AsyncSubmitScore(ScoreBucket.Score);
     }
 
