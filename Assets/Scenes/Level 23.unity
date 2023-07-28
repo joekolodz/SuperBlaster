@@ -1671,7 +1671,7 @@ MonoBehaviour:
   - {fileID: 561269970}
   - {fileID: 1676611561}
   DoorDelayOpenTime: 1
-  BadGuysPerWave: 200
+  BadGuysPerWave: 100
   HowManyWaves: 3
   SpawnInterval: 0.2
   WaveDelay: 1.25
