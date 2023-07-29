@@ -1,6 +1,5 @@
 ﻿using Assets.Scripts;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -109,7 +108,6 @@ public class MenuControl : MonoBehaviour
         {
             Time.timeScale = 1f;
         }
-
         
 
         if (Input.GetKeyDown(KeyCode.D))
