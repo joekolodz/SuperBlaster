@@ -52,6 +52,7 @@ sysinfo.txt
 *.opendb
 *.VC.db
 *.log
+*.bak
 
 # Unity3D generated meta files
 *.pidb.meta
@@ -111,5 +112,6 @@ Icon?
 #-- my own
 /builds/
 /Publish/
+
 
 build.bat
