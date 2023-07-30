@@ -6,6 +6,6 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Level 22 - Intro wave.unity
-    guid: 0bac4faf6d30f2542a875865214b844c
+    path: Assets/Scenes/Level 23.unity
+    guid: c9b758da92c7b224c8151363155bfa5b
   m_configObjects: {}
