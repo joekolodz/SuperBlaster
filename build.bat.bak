@@ -1,0 +1,5 @@
+@echo git commit -m %1
+@rem git add .
+@rem git commit -m "%1"
+@rem git push
+@rem git status
