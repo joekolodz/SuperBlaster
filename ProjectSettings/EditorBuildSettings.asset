@@ -44,7 +44,4 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Level 13.unity
     guid: 6ea8024c55fb30c4a9f27ad6854c67ee
-  - enabled: 1
-    path: Assets/Scenes/Level 14 - Intro powerup.unity
-    guid: a62bded2a8e4c5c4f917efd2cfc407b7
   m_configObjects: {}
