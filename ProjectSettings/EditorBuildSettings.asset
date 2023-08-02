@@ -113,4 +113,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Level 37.unity
     guid: a1de9bc9d9432fc46bb62366b68dc96f
+  - enabled: 1
+    path: Assets/Scenes/Level 38 - Intro bounce wall.unity
+    guid: 80a207a8c1cd1bb44a87dbce8103ae2e
   m_configObjects: {}
