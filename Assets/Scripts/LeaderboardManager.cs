@@ -1,4 +1,5 @@
-﻿using LootLocker.Requests;
+﻿using System;
+using LootLocker.Requests;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
@@ -11,6 +12,8 @@ namespace Assets.Scripts
     {
         public static bool isLoggedIn = false;
         private static string leaderboardKey = "allTimeHighScore";
+        private static DateTime lastBoardFetchTime = DateTime.MinValue;
+        private static LootLockerLeaderboardMember[] boardCache = null;
 
         // Explicit static constructor to tell C# compiler
         // not to mark type as beforefieldinit. this enforces that the class is initialized only when the first static member is accessed
@@ -75,18 +78,25 @@ namespace Assets.Scripts
 
         public static async Task<LootLockerLeaderboardMember[]> AsyncGetLeaderboard()
         {
+            if (DateTime.Now < lastBoardFetchTime.AddSeconds(30))
+            {
+                Debug.Log("LeaderBoardManager - Fetch board from cache");
+                return boardCache;
+            }
+
             if (!isLoggedIn)
             {
                 await AsyncLootLockerLogin();
             }
 
             var done = false;
-            LootLockerLeaderboardMember[] board = null;
+            
             LootLockerSDKManager.GetScoreList(leaderboardKey, 100, 0, (response) =>
             {
                 if (response.success)
                 {
-                    board = response.items;
+                    lastBoardFetchTime = DateTime.Now;
+                    boardCache = response.items;
                 }
                 else
                 {
@@ -101,7 +111,7 @@ namespace Assets.Scripts
             }
             
             Debug.Log($"LeaderBoardManager - Fetch board, isLoggedIn={isLoggedIn}, Done:{done}");
-            return board;
+            return boardCache;
         }
 
         public static async Task AsyncChangePlayerName(string name)

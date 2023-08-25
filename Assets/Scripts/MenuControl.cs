@@ -29,10 +29,10 @@ public class MenuControl : MonoBehaviour
         {
             GetPlayerName();
         }
-        ObjectPooler.Instance.Initialize();
-        Explosions.Instance.Initialize();
-        Siren.Instance.Initialize();
         SoundEffectsManager.Instance.Initialize();
+        Explosions.Instance.Initialize();
+        ObjectPooler.Instance.Initialize();
+        Siren.Instance.Initialize();
         EventAggregator.BaseDestroyed += EventAggregator_BaseDestroyed;
         mainMenuPanel = Resources.FindObjectsOfTypeAll<VerticalLayoutGroup>()[0].gameObject;
         var camera = GameObject.FindGameObjectWithTag("MainCamera");
@@ -161,11 +161,14 @@ public class MenuControl : MonoBehaviour
         leaderBoardPanel.SetActive(true);
 
         var scoreListPanel = leaderBoardPanel.transform.Find("Image_Mask/Image_NameAndScore");
+        var pleaseWaitText = leaderBoardPanel.transform.Find("PleaseWait").gameObject;
 
-        var leaderBoardTask = LeaderboardManager.AsyncGetLeaderboard();
-        await leaderBoardTask;
+        pleaseWaitText.SetActive(true);
+        
+        var board = await LeaderboardManager.AsyncGetLeaderboard();
 
-        var board = leaderBoardTask.Result;
+        pleaseWaitText.SetActive(false);
+        
         Debug.Log($"LeaderBoardManager: {board.Length}");
 
         foreach (var player in board)

@@ -53,8 +53,7 @@ public class RocketFire : MonoBehaviour
             {
                 return;
             }
-            //audioSource.Play();
-            AudioSource.PlayClipAtPoint(audioSource.clip, new Vector3(0, 0, 0), audioSource.volume);
+            audioSource.Play();
         }
     }
 }

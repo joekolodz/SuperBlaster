@@ -3452,7 +3452,7 @@ PrefabInstance:
     - target: {fileID: 13917568950939567, guid: 6f11a6cd6be401a4ab92943feeb5d738,
         type: 3}
       propertyPath: health
-      value: 12
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 13917568950939567, guid: 6f11a6cd6be401a4ab92943feeb5d738,
         type: 3}
@@ -3482,7 +3482,7 @@ PrefabInstance:
     - target: {fileID: 134783371370122517, guid: 6f11a6cd6be401a4ab92943feeb5d738,
         type: 3}
       propertyPath: health
-      value: 10
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 134783371370122517, guid: 6f11a6cd6be401a4ab92943feeb5d738,
         type: 3}
@@ -6319,7 +6319,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4915001273235934, guid: 0a3aac80912a76f4c918cbbe3e184f20, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.07
+      value: 0.035
       objectReference: {fileID: 0}
     - target: {fileID: 4915001273235934, guid: 0a3aac80912a76f4c918cbbe3e184f20, type: 3}
       propertyPath: m_LocalPosition.y
@@ -6603,13 +6603,13 @@ MonoBehaviour:
   - {fileID: 194424551}
   DoorDelayOpenTime: 1
   BadGuysPerWave: 10
-  HowManyWaves: 6
+  HowManyWaves: 4
   SpawnInterval: 0.2
   WaveDelay: 1.25
   RoundsPerBurst: 4
   DelayBetweenRounds: 0.5
   DelayBetweenShots: 0.5
-  Accuracy: 0.45
+  Accuracy: 0.4
   MoveSpeed: 100
   Health: 200
 --- !u!4 &2024171747

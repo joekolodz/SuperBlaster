@@ -6,8 +6,6 @@ using UnityEngine;
 /// </summary>
 public class Explosions : BaseSingleton<Explosions>
 {
-    private static bool _isInitialized = false;
-
     // Explicit static constructor to tell C# compiler
     // not to mark type as beforefieldinit. this enforces that the class is initialized only when the first static member is accessed
     static Explosions()
@@ -20,10 +18,8 @@ public class Explosions : BaseSingleton<Explosions>
 
     public void Initialize()
     {
-        if (_isInitialized) return;
         EventAggregator.ObjectDestroyed += EventAggregator_ObjectDestroyed;
         EventAggregator.ShowDebris += EventAggregator_ShowDebris;
-        _isInitialized = true;
     }
 
     private void EventAggregator_ObjectDestroyed(object sender, ObjectDestroyedEventArgs e)
@@ -51,11 +47,11 @@ public class Explosions : BaseSingleton<Explosions>
             var psScaleBefore = ps.transform.localScale;
             ps.transform.localScale *= e.ExplosionScale;
             explosion.SetActive(true);
-            StartCoroutine(WaitForTime.Wait(1.0f, () =>
-            {
-                var ex1 = explosion;
-                ObjectPooler.Instance.ReturnExplosionSmall(ex1); ps.transform.localScale = psScaleBefore;
-            }));
+            //StartCoroutine(WaitForTime.Wait(1.0f, () =>
+            //{
+            //    var ex1 = explosion;
+            //    ObjectPooler.Instance.ReturnExplosionSmall(ex1); ps.transform.localScale = psScaleBefore;
+            //}));
         }
     }
 
@@ -76,11 +72,11 @@ public class Explosions : BaseSingleton<Explosions>
             }
 
             explosion.SetActive(true);
-            StartCoroutine(WaitForTime.Wait(2.0f, () =>
-            {
-                var ex1 = explosion;
-                ObjectPooler.Instance.ReturnExplosionLarge(ex1); ps.transform.localScale = psScaleBefore;
-            }));
+            //StartCoroutine(WaitForTime.Wait(2.0f, () =>
+            //{
+            //    var ex1 = explosion;
+            //    ObjectPooler.Instance.ReturnExplosionLarge(ex1); ps.transform.localScale = psScaleBefore;
+            //}));
         }
     }
 

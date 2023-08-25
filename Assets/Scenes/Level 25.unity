@@ -3503,7 +3503,7 @@ MonoBehaviour:
   DelayBetweenShots: 0.5
   Accuracy: 0.45
   MoveSpeed: 60
-  Health: 130
+  Health: 25
 --- !u!4 &1003350229
 Transform:
   m_ObjectHideFlags: 0
