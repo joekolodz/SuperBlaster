@@ -49,7 +49,7 @@ public class RocketFire : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("FirePoint"))
         {
-            if (audioSource.isPlaying)
+            if (audioSource.isPlaying || !audioSource.isActiveAndEnabled)
             {
                 return;
             }

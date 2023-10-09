@@ -21,7 +21,6 @@ public class MenuControl : MonoBehaviour
     private int currentSceneIndex = 0;
     private GameObject quickMenuPanel;
 
-
     private void Awake()
     {
         currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
@@ -30,7 +29,6 @@ public class MenuControl : MonoBehaviour
             GetPlayerName();
         }
         SoundEffectsManager.Instance.Initialize();
-        Explosions.Instance.Initialize();
         ObjectPooler.Instance.Initialize();
         Siren.Instance.Initialize();
         EventAggregator.BaseDestroyed += EventAggregator_BaseDestroyed;

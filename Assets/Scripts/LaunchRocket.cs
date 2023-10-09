@@ -1,40 +1,20 @@
 ﻿using UnityEngine;
 
-public class LaunchRocket : MonoBehaviour
+public static class LaunchRocket
 {
-    public static readonly LaunchRocket Instance = (new GameObject("LaunchRocketSingletonContainer")).AddComponent<LaunchRocket>();
-
     private const float DEFAULT_ROCKET_FORCE = 3000.0f;
 
-    // Explicit static constructor to tell C# compiler
-    // not to mark type as beforefieldinit
-    static LaunchRocket()
+    public static GameObject Launch(RocketSpawn rocketSpawn)
     {
+        return Launch(rocketSpawn, rocketSpawn.spawnPoint.position, 1.0f);
     }
 
-    private LaunchRocket()
+    public static GameObject Launch(RocketSpawn rocketSpawn, float forceMultiplier)
     {
+        return Launch(rocketSpawn, rocketSpawn.spawnPoint.position, forceMultiplier);
     }
 
-    public GameObject Launch(RocketSpawn rocketSpawn)
-    {
-        var r = Launch(rocketSpawn, rocketSpawn.spawnPoint.position, 1.0f);
-        return r;
-    }
-
-    public GameObject Launch(RocketSpawn rocketSpawn, float forceMultiplier)
-    {
-        var r = Launch(rocketSpawn, rocketSpawn.spawnPoint.position, forceMultiplier);
-        return r;
-    }
-
-    public GameObject Launch(RocketSpawn rocketSpawn, Vector3 newPosition)
-    {
-        var r = Launch(rocketSpawn, newPosition, 1.0f);
-        return r;
-    }
-
-    public GameObject Launch(RocketSpawn rocketSpawn, Vector3 newPosition, float forceMultiplier)
+    public static GameObject Launch(RocketSpawn rocketSpawn, Vector3 newPosition, float forceMultiplier)
     {
         var r = ObjectPooler.Instance.GetRocket();
         if (r)

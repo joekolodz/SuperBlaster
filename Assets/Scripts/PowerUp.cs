@@ -201,23 +201,23 @@ public class PowerUpManager : MonoBehaviour
 
     private void HandleSpeedBlaster(RocketSpawn rocketSpawn)
     {
-        LaunchRocket.Instance.Launch(rocketSpawn, rocketForceMultiplier);
+        LaunchRocket.Launch(rocketSpawn, rocketForceMultiplier);
     }
 
     private void HandleTripleBlaster(RocketSpawn rocketSpawn)
     {
         //1st rocket is in normal position
-        var rocketInstance1 = LaunchRocket.Instance.Launch(rocketSpawn, rocketForceMultiplier);
+        var rocketInstance1 = LaunchRocket.Launch(rocketSpawn, rocketForceMultiplier);
 
         if (!rocketInstance1) return;
 
         ////2nd rocket on top
         var newPosition = rocketInstance1.transform.TransformPoint(0, 0.8f, 0);
-        LaunchRocket.Instance.Launch(rocketSpawn, newPosition, rocketForceMultiplier);
+        LaunchRocket.Launch(rocketSpawn, newPosition, rocketForceMultiplier);
 
         ////3rd rocket under
         newPosition = rocketInstance1.transform.TransformPoint(0, -0.8f, 0);
-        LaunchRocket.Instance.Launch(rocketSpawn, newPosition, rocketForceMultiplier);
+        LaunchRocket.Launch(rocketSpawn, newPosition, rocketForceMultiplier);
     }
 
     private void HandleMultiBlaster()
@@ -234,7 +234,7 @@ public class PowerUpManager : MonoBehaviour
             }
             else
             {
-                LaunchRocket.Instance.Launch(rocketSpawn, rocketForceMultiplier);
+                LaunchRocket.Launch(rocketSpawn, rocketForceMultiplier);
             }
         }
     }

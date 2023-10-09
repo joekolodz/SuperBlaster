@@ -1,93 +1,75 @@
-﻿using Assets.Scripts;
-using UnityEngine;
+﻿using UnityEngine;
 
-/// <summary>
-/// Disconnect explosions from rockets/plasma. If rockets are returned to the pool (made inactive) before the explosion finishes and is returned to the pool, then the explosion will not be returned to the pool and cleaned up
-/// </summary>
-public class Explosions : BaseSingleton<Explosions>
+public class Explosions : MonoBehaviour
 {
-    // Explicit static constructor to tell C# compiler
-    // not to mark type as beforefieldinit. this enforces that the class is initialized only when the first static member is accessed
-    static Explosions()
-    {
-    }
-    //private constructor is called before static constructor
-    private Explosions()
-    {
-    }
+    private GameObject _explosionSmallPrefab;
+    private GameObject _explosionLargePrefab;
+    private GameObject _debrisPrefab;
 
-    public void Initialize()
+    public void Awake()
     {
+        _explosionSmallPrefab = (GameObject)Resources.Load("prefabs/Explosion Small");
+        _explosionLargePrefab = (GameObject)Resources.Load("prefabs/Explosion Large");
+        _debrisPrefab = (GameObject)Resources.Load("prefabs/PS Debris");
+
         EventAggregator.ObjectDestroyed += EventAggregator_ObjectDestroyed;
         EventAggregator.ShowDebris += EventAggregator_ShowDebris;
     }
 
     private void EventAggregator_ObjectDestroyed(object sender, ObjectDestroyedEventArgs e)
     {
-        GameObject explosion;
         if (e.IsSmallExplosion)
         {
-            explosion = ObjectPooler.Instance.GetExplosionSmall();
-            SmallExplosion(e, explosion);
+            SmallExplosion(e);
         }
         else
         {
-            explosion = ObjectPooler.Instance.GetExplosionLarge();
-            LargeExplosions(e, explosion);
+            LargeExplosions(e);
         }
     }
 
-    private void SmallExplosion(ObjectDestroyedEventArgs e, GameObject explosion)
+    private void SmallExplosion(ObjectDestroyedEventArgs e)
     {
-        if (explosion)
-        {
-            explosion.transform.position = e.Transform.position;
-            explosion.transform.rotation = Quaternion.identity;
-            var ps = explosion.GetComponentInChildren<ParticleSystem>();
-            var psScaleBefore = ps.transform.localScale;
-            ps.transform.localScale *= e.ExplosionScale;
-            explosion.SetActive(true);
-            //StartCoroutine(WaitForTime.Wait(1.0f, () =>
-            //{
-            //    var ex1 = explosion;
-            //    ObjectPooler.Instance.ReturnExplosionSmall(ex1); ps.transform.localScale = psScaleBefore;
-            //}));
-        }
+        var explosion = Instantiate(_explosionSmallPrefab);
+
+        explosion.transform.SetPositionAndRotation(e.Transform.position, Quaternion.identity);
+        var ps = explosion.GetComponentInChildren<ParticleSystem>();
+        var psScaleBefore = ps.transform.localScale;
+        ps.transform.localScale *= e.ExplosionScale;
+        explosion.SetActive(true);
+
+        Destroy(explosion, 0.5f);
     }
 
-    private void LargeExplosions(ObjectDestroyedEventArgs e, GameObject explosion)
+    private void LargeExplosions(ObjectDestroyedEventArgs e)
     {
-        if (explosion)
+        var explosion = Instantiate(_explosionLargePrefab);
+
+        explosion.transform.SetPositionAndRotation(e.Transform.position, Quaternion.identity);
+        var ps = explosion.GetComponentInChildren<ParticleSystem>();
+        var psScaleBefore = ps.transform.localScale;
+        ps.transform.localScale *= e.ExplosionScale;
+
+        for (var n = 0; n < explosion.transform.childCount; n++)
         {
-            explosion.transform.position = e.Transform.position;
-            explosion.transform.rotation = Quaternion.identity;
-            var ps = explosion.GetComponentInChildren<ParticleSystem>();
-            var psScaleBefore = ps.transform.localScale;
-            ps.transform.localScale *= e.ExplosionScale;
-
-            for (var n = 0; n < explosion.transform.childCount; n++)
-            {
-                var childPS = explosion.transform.GetChild(n);
-                childPS.localScale *= e.ExplosionScale;
-            }
-
-            explosion.SetActive(true);
-            //StartCoroutine(WaitForTime.Wait(2.0f, () =>
-            //{
-            //    var ex1 = explosion;
-            //    ObjectPooler.Instance.ReturnExplosionLarge(ex1); ps.transform.localScale = psScaleBefore;
-            //}));
+            var childPS = explosion.transform.GetChild(n);
+            childPS.localScale *= e.ExplosionScale;
         }
+
+        explosion.SetActive(true);
+        
+        Destroy(explosion, 1.0f);
     }
 
     private void EventAggregator_ShowDebris(object sender, ShowDebrisEventArgs e)
     {
-        var debris = ObjectPooler.Instance.GetDebris();
-        if (debris is null) return;
+        var debris = Instantiate(_debrisPrefab);
+
+        if (debris == null) return;
         debris.transform.position = e.Transform.position;
         debris.SetActive(true);
         debris.GetComponentInChildren<ParticleSystem>().Play();
 
-        StartCoroutine(WaitForTime.Wait(2.0f, () => { ObjectPooler.Instance.ReturnDebris(debris); }));
+        Destroy(debris, 1.0f);
     }
 }

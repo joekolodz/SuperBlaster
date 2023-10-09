@@ -26,12 +26,12 @@ public class ObjectPooler : BaseSingleton<ObjectPooler>
     private Queue<GameObject> _debrisPool;
 
     private GameObject RocketPool;
-    private int RocketPoolSize = 30;
+    private int RocketPoolSize = 60;
     private GameObject RocketPrefab;
     private Queue<GameObject> _rocketPool;
     
     private GameObject PlasmaPool;
-    private int PlasmaPoolSize = 30;
+    private int PlasmaPoolSize = 60;
     private GameObject PlasmaPrefab;
     private List<GameObject> _plasmaPool;
 
@@ -134,15 +134,6 @@ public class ObjectPooler : BaseSingleton<ObjectPooler>
             r.transform.SetParent(ExplosionLargePool.transform, true);
             _explosionLargePool.Add(r);
         }
-
-        for (var i = 0; i < ExplosionSmallPoolSize; i++)
-        {
-            var r = Instantiate(ExplosionSmallPrefab);
-            r.SetActive(false);
-            r.transform.SetParent(ExplosionSmallPool.transform, true);
-            _explosionSmallPool.Add(r);
-        }
-
 
         for (var i = 0; i < ExplosionSmallPoolSize; i++)
         {

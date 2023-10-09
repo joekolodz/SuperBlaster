@@ -9,6 +9,7 @@ public class FireControl : MonoBehaviour
     public Transform[] _goodGuys;
     public Transform[] _badGuys;
     public GameObject _getReadyText;
+    public Explosions _explosions;
 
     private int rocketCost = 1;
 
@@ -16,6 +17,7 @@ public class FireControl : MonoBehaviour
     private Text highScoreText;
 
     private GoodGuyManager _currentlySelectedGuy;
+
 
     public void Awake()
     {
@@ -41,6 +43,7 @@ public class FireControl : MonoBehaviour
         EventAggregator.BadGuyDied += EventAggregator_BadGuyDied;
         EventAggregator.LevelCompleted += EventAggregator_LevelCompleted;
         EventAggregator.PowerUpTriggered += EventAggregator_PowerUpTriggered;
+        _explosions = gameObject.AddComponent<Explosions>();
     }
 
     private void OnDestroy()
@@ -198,7 +201,7 @@ public class FireControl : MonoBehaviour
             }
             else
             {
-                LaunchRocket.Instance.Launch(rocketSpawn);
+                LaunchRocket.Launch(rocketSpawn);
             }
 
             BuyRocket(rocketCost);

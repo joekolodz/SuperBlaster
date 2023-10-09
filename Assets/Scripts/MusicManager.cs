@@ -57,27 +57,32 @@ public class MusicManager : MonoBehaviour
 
     public void Play()
     {
+        if (activeMusic == null) return;
         activeMusic.volume = 0.1f;
-        activeMusic?.Play();
+        activeMusic.Play();
     }
 
     public void Play(int sceneIndex)
     {
-        activeMusic?.Play();
+        if (activeMusic == null) return;
+        activeMusic.Play();
     }
 
     public void Stop()
     {
-        activeMusic?.Stop();
+        if (activeMusic == null) return;
+        activeMusic.Stop();
     }
 
     public void Pause()
     {
-        activeMusic?.Pause();
+        if (activeMusic == null) return;
+        activeMusic.Pause();
     }
 
     public void UnPause()
     {
-        activeMusic?.UnPause();
+        if (activeMusic == null) return;
+        activeMusic.UnPause();
     }
 }
