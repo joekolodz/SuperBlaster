@@ -1671,14 +1671,14 @@ MonoBehaviour:
   - {fileID: 561269970}
   - {fileID: 1676611561}
   DoorDelayOpenTime: 1
-  BadGuysPerWave: 100
+  BadGuysPerWave: 90
   HowManyWaves: 3
   SpawnInterval: 0.2
   WaveDelay: 1.25
   RoundsPerBurst: 2
   DelayBetweenRounds: 1
-  DelayBetweenShots: 1
-  Accuracy: 0.35
+  DelayBetweenShots: 1.25
+  Accuracy: 0.3
   MoveSpeed: 30
   Health: 1
 --- !u!4 &439487146
@@ -3862,6 +3862,7 @@ MonoBehaviour:
   - {fileID: 0}
   _getReadyText: {fileID: 1160273391276358, guid: 41eab13e2dd79b748b5f5ac049cb3123,
     type: 3}
+  _explosions: {fileID: 0}
 --- !u!4 &1188429240
 Transform:
   m_ObjectHideFlags: 0
@@ -5339,7 +5340,7 @@ MonoBehaviour:
   listenForWindowChanges: 1
   createCameraForLetterBoxRendering: 1
   findCamerasAutomatically: 1
-  letterBoxCameraColor: {r: 0.0145137515, g: 0, b: 0.18867922, a: 1}
+  letterBoxCameraColor: {r: 0, g: 0, b: 0, a: 1}
   cameras: []
   letterBoxCamera: {fileID: 0}
 --- !u!4 &1703595490

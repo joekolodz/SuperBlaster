@@ -724,7 +724,7 @@ MonoBehaviour:
   listenForWindowChanges: 1
   createCameraForLetterBoxRendering: 1
   findCamerasAutomatically: 1
-  letterBoxCameraColor: {r: 0.0145137515, g: 0, b: 0.18867922, a: 1}
+  letterBoxCameraColor: {r: 0, g: 0, b: 0, a: 1}
   cameras: []
   letterBoxCamera: {fileID: 0}
 --- !u!4 &89876315
@@ -3679,6 +3679,7 @@ MonoBehaviour:
   - {fileID: 1787440106}
   _getReadyText: {fileID: 1160273391276358, guid: 41eab13e2dd79b748b5f5ac049cb3123,
     type: 3}
+  _explosions: {fileID: 0}
 --- !u!1 &1484441714
 GameObject:
   m_ObjectHideFlags: 0

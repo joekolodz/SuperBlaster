@@ -191,11 +191,11 @@ public class PowerUpManager : MonoBehaviour
             EventAggregator.PublishPowerUpTriggered(new PowerUpTriggeredEventArgs(PowerUpNames.SuperBlaster));
         }
         isSuperBlaster = true;
-        PowerUpType = PowerUpNames.SuperBlaster;
         EnableSpeedBlaster();
         EnableTripleBlaster();
         EnableMultiBlaster();
         EnableLaserBlaster();
+        PowerUpType = PowerUpNames.SuperBlaster;
         damageIncrease = 2;//balance power back out
     }
 
