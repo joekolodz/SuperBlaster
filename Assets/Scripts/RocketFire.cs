@@ -54,24 +54,17 @@ public class RocketFire : MonoBehaviour
                 return;
             }
 
-            Debug.Log("RocketFire - OnTriggerEnter2D - After Audio Check");
-
             switch (PowerUpManager.Instance.PowerUpType)
             {
                 case PowerUpManager.PowerUpNames.TripleBlaster:
                 case PowerUpManager.PowerUpNames.MultiBlaster:
-                    Debug.Log("RocketFire - OnTriggerEnter2D - Change Audio for Triple and Multi");
                     audioSource.volume = 0.02f;
                     break;
                 case PowerUpManager.PowerUpNames.SuperBlaster:
-                    Debug.Log("RocketFire - OnTriggerEnter2D - Change Audio for Super");
                     audioSource.volume = 0.01f;
                     break;
             }
-
-            Debug.Log("RocketFire - OnTriggerEnter2D - Before Play Audio");
             audioSource.Play();
-
         }
     }
 }

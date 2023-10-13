@@ -24,12 +24,13 @@ public class PlasmaSpawn : MonoBehaviour
 
     private void Update()
     {
-
-        if (StateManager.isWaitingForNextLevelToStart) return;
+        if (StateManager.isWaitingForNextLevelToStart ||
+            StateManager.isPaused ||
+            TutorialStateManager.isPaused) return;
 
         if (isFiring) return;
 
-        if (GameObject.Find("MenuControl").GetComponent<MenuControl>().isPaused) return;
+        if (StateManager.isPaused) return;
 
         if (spawnPoint == null) return;
 

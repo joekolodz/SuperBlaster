@@ -32,7 +32,6 @@ public class MusicManager : MonoBehaviour
 
     private void SceneManager_activeSceneChanged(Scene current, Scene next)
     {
-        Debug.Log("SceneManager_activeSceneChanged");
         if (!string.IsNullOrWhiteSpace(next.name))
         {
             if (next.buildIndex == 0)

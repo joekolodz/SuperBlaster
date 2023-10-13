@@ -11,7 +11,6 @@ public class MenuControl : MonoBehaviour
     public GameObject leaderBoardPanel;
     public GameObject levelButton;
     public GameObject leaderBoardScoreText;
-    public bool isPaused = false;
 
     [SerializeField]
     private GameObject mainMenuPanel;
@@ -95,7 +94,7 @@ public class MenuControl : MonoBehaviour
             Pause();
         }
 
-        if (isPaused) return;
+        if (StateManager.isPaused) return;
 
         if (Input.GetKey(KeyCode.Space))
         {
@@ -208,9 +207,9 @@ public class MenuControl : MonoBehaviour
 
     public void Pause()
     {
-        isPaused = !isPaused;
+        StateManager.isPaused = !StateManager.isPaused;
 
-        if (isPaused)
+        if (StateManager.isPaused)
         {
             Time.timeScale = 0.0f;
             MusicManager.Instance.Pause();
@@ -240,6 +239,8 @@ public class MenuControl : MonoBehaviour
         StateManager.isWaitingForNextLevelToStart = true;
         ObjectPooler.Instance.Reset();
         PowerUpManager.Instance.ResetPowerUp();
+        Time.timeScale = 1.0f;
+        MusicManager.Instance.UnPause();
         SceneManager.LoadSceneAsync(sceneIndex);
     }
 }

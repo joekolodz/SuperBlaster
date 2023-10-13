@@ -1,6 +1,5 @@
-﻿using UnityEngine;
-using System;
-using UnityEngine.Events;
+﻿using System;
+using UnityEngine;
 
 public class PowerUpTriggeredEventArgs : EventArgs
 {

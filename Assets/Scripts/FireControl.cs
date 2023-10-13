@@ -16,13 +16,12 @@ public class FireControl : MonoBehaviour
     private Text scoreText;
     private Text highScoreText;
 
-    private GoodGuyManager _currentlySelectedGuy;
+    protected GoodGuyManager _currentlySelectedGuy;
 
 
     public void Awake()
     {
         Screen.fullScreenMode = FullScreenMode.FullScreenWindow;
-        Time.timeScale = 1.0f;
 
         StateManager.isWaitingForNextLevelToStart = false;
 
@@ -84,7 +83,7 @@ public class FireControl : MonoBehaviour
 
     public void Update()
     {
-        if (GameObject.Find("MenuControl").GetComponent<MenuControl>().isPaused) return;
+        if (StateManager.isPaused) return;
 
         bool isFiring = Input.GetButtonDown("Fire1");
 
@@ -185,7 +184,7 @@ public class FireControl : MonoBehaviour
         return null;
     }
 
-    void FireARocket(GoodGuyManager guyFiring, Vector3 mousePos)
+    protected virtual void FireARocket(GoodGuyManager guyFiring, Vector3 mousePos)
     {
         if (StateManager.isWaitingForNextLevelToStart) return;
 
@@ -216,7 +215,7 @@ public class FireControl : MonoBehaviour
         }
     }
 
-    public void SelectGuy(GoodGuyManager guy)
+    protected virtual void SelectGuy(GoodGuyManager guy)
     {
         UnselectAllGuys();
         guy.Select();
