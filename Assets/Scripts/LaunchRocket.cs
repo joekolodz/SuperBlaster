@@ -16,7 +16,6 @@ public static class LaunchRocket
 
     public static GameObject Launch(RocketSpawn rocketSpawn, Vector3 newPosition, float forceMultiplier)
     {
-        //var x = rocketSpawn.rocket;
         var r = ObjectPooler.Instance.GetRocket();
         if (r)
         {

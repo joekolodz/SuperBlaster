@@ -51,10 +51,7 @@ public class PowerUpManager : MonoBehaviour
 
     private void Awake()
     {
-        //DontDestroyOnLoad(gameObject);
-        //ResetPowerUp();
         SceneManager.sceneLoaded += SceneManager_sceneLoaded;
-        //LaserBlastPrefab = (GameObject)Resources.Load("prefabs/Laser Blast");
     }
 
     private void OnDestroy()
