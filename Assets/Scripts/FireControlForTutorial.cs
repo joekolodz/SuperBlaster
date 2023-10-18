@@ -4,7 +4,7 @@ namespace Assets.Scripts
 {
     public class FireControlForTutorial : FireControl
     {
-        public void Awake()
+        protected override void Awake()
         {
             base.Awake();
             UnselectAllGuys();

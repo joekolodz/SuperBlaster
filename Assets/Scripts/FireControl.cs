@@ -19,7 +19,7 @@ public class FireControl : MonoBehaviour
     protected GoodGuyManager _currentlySelectedGuy;
 
 
-    public void Awake()
+    protected virtual void Awake()
     {
         Screen.fullScreenMode = FullScreenMode.FullScreenWindow;
 

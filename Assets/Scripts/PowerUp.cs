@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -33,11 +32,8 @@ public class PowerUpManager : MonoBehaviour
     private bool isTripleBlaster = false;
     private bool isLaserBlaster = false;
     private bool isSpeedBlaster = false;
-    private bool isBulletTime = false;
 
     private float timePowerUpExpires = 0.0f;
-
-    private GameObject LaserBlastPrefab = null;
 
     // Explicit static constructor to tell C# compiler
     // not to mark type as beforefieldinit
