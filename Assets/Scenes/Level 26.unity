@@ -6549,7 +6549,6 @@ MonoBehaviour:
   leaderBoardPanel: {fileID: 0}
   levelButton: {fileID: 0}
   leaderBoardScoreText: {fileID: 0}
-  isPaused: 0
   mainMenuPanel: {fileID: 0}
   playerNameInputField: {fileID: 0}
 --- !u!4 &2016542683
@@ -6604,7 +6603,7 @@ MonoBehaviour:
   - {fileID: 194424551}
   DoorDelayOpenTime: 1
   BadGuysPerWave: 10
-  HowManyWaves: 4
+  HowManyWaves: 3
   SpawnInterval: 0.2
   WaveDelay: 1.25
   RoundsPerBurst: 4

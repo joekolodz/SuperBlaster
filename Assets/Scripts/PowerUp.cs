@@ -51,10 +51,15 @@ public class PowerUpManager : MonoBehaviour
 
     private void Awake()
     {
-        DontDestroyOnLoad(gameObject);
-        ResetPowerUp();
+        //DontDestroyOnLoad(gameObject);
+        //ResetPowerUp();
         SceneManager.sceneLoaded += SceneManager_sceneLoaded;
-        LaserBlastPrefab = (GameObject)Resources.Load("prefabs/Laser Blast");
+        //LaserBlastPrefab = (GameObject)Resources.Load("prefabs/Laser Blast");
+    }
+
+    private void OnDestroy()
+    {
+        SceneManager.sceneLoaded -= SceneManager_sceneLoaded;
     }
 
     public void ForcePowerUp(PowerUpManager.PowerUpNames forcePowerUp)
@@ -176,11 +181,25 @@ public class PowerUpManager : MonoBehaviour
 
         Time.timeScale = 0.20f;
 
-        StartCoroutine(WaitForTime.Wait(1.0f, () =>
-        {
-            Time.timeScale = 1f;
-        }));
+        StartCoroutine(ReturnAfterTimeOut());
 
+        //StartCoroutine(WaitForTime.Wait(1.0f, () =>
+        //{
+        //    Time.timeScale = 1f;
+        //}));
+
+    }
+
+    private float Timeout = 2.0f;
+    private IEnumerator ReturnAfterTimeOut()
+    {
+        var elapsed = 0.0f;
+        while (elapsed < Timeout)
+        {
+            elapsed += Time.unscaledDeltaTime;
+            yield return null;
+        }
+        Time.timeScale = 1f;
     }
 
     private void EnableSuperBlaster()

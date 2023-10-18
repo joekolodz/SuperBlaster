@@ -44,24 +44,29 @@ public class MenuControl : MonoBehaviour
     private void EventAggregator_BaseDestroyed(object sender, System.EventArgs e)
     {
         StateManager.isWaitingForNextLevelToStart = true;
-        ShowGameOverMenu();
-        //StartCoroutine(WaitForTime.Wait(1.0f, ShowGameOverMenu));
+        
+        GameOverCleanup();
+        
+        Time.timeScale = 0.2f;
+        var explosionPool = FindObjectOfType<ExplosionPool>();
+        explosionPool.LargeExplosions(Vector3.zero, 3.0f);
+
+        StartCoroutine(WaitForTime.WaitUnscaled(2.0f, ShowGameOverMenu));
     }
 
-    private async void ShowGameOverMenu()
+    private async void GameOverCleanup()
     {
-        //TODO LeaderboardManager
         await LeaderboardManager.AsyncSubmitScore(ScoreBucket.Score);
-
-        Time.timeScale = 0.08f;
 
         var fireControl = GameObject.Find("FireControl");
         if (fireControl)
         {
             fireControl.GetComponent<FireControl>().StopAllBadGuyMovement();
         }
+    }
 
-        //call UI script to replay
+    private void ShowGameOverMenu()
+    {
         if (mainMenuPanel)
         {
             mainMenuPanel.SetActive(true);
@@ -151,9 +156,6 @@ public class MenuControl : MonoBehaviour
     private readonly List<GameObject> _leaderboardPlayerList = new List<GameObject>();
     public async void ShowLeaderBoard()
     {
-        //TODO LeaderboardManager
-        //return;
-
         if (leaderBoardPanel.activeInHierarchy) return;
         leaderBoardPanel.SetActive(true);
 

@@ -1211,7 +1211,7 @@ PrefabInstance:
     - target: {fileID: 6745084425134473990, guid: 6f11a6cd6be401a4ab92943feeb5d738,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 12.94
+      value: -0.1
       objectReference: {fileID: 0}
     - target: {fileID: 6745084425134473990, guid: 6f11a6cd6be401a4ab92943feeb5d738,
         type: 3}
@@ -4954,7 +4954,6 @@ MonoBehaviour:
   leaderBoardPanel: {fileID: 0}
   levelButton: {fileID: 0}
   leaderBoardScoreText: {fileID: 0}
-  isPaused: 0
   mainMenuPanel: {fileID: 0}
   playerNameInputField: {fileID: 0}
 --- !u!4 &1377225520

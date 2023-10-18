@@ -4785,7 +4785,6 @@ MonoBehaviour:
   leaderBoardPanel: {fileID: 0}
   levelButton: {fileID: 0}
   leaderBoardScoreText: {fileID: 0}
-  isPaused: 0
   mainMenuPanel: {fileID: 0}
   playerNameInputField: {fileID: 0}
 --- !u!4 &1296358465
@@ -6044,7 +6043,7 @@ PrefabInstance:
     - target: {fileID: 134783371370122517, guid: 6f11a6cd6be401a4ab92943feeb5d738,
         type: 3}
       propertyPath: health
-      value: 0
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 134783371370122517, guid: 6f11a6cd6be401a4ab92943feeb5d738,
         type: 3}

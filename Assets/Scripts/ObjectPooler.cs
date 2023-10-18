@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections;
+﻿using Assets.Scripts;
 using System.Collections.Generic;
-using System.Net.Sockets;
-using Assets.Scripts;
 using UnityEngine;
 
 public class ObjectPooler : BaseSingleton<ObjectPooler>
@@ -12,22 +9,25 @@ public class ObjectPooler : BaseSingleton<ObjectPooler>
 
     private GameObject ExplosionLargePool;
     private int ExplosionLargePoolSize = 10;
+    private int ExplosionLargeAlive = 0;
     private GameObject ExplosionLargePrefab;
-    private List<GameObject> _explosionLargePool;
+    private Queue<GameObject> _explosionLargePool;
 
     private GameObject ExplosionSmallPool;
     private int ExplosionSmallPoolSize = 50;
+    private int ExplosionSmallAlive = 0;
     private GameObject ExplosionSmallPrefab;
-    private List<GameObject> _explosionSmallPool;
+    private Queue<GameObject> _explosionSmallPool;
 
     private GameObject DebrisPool;
-    private int DebrisPoolSize = 30;
+    private int DebrisPoolSize = 12;
+    private int DebrisAlive = 0;
     private GameObject DebrisPrefab;
     private Queue<GameObject> _debrisPool;
 
     private GameObject RocketPool;
     private int RocketPoolSize = 60;
-    private GameObject RocketPrefab;
+    [SerializeField]private GameObject RocketPrefab;
     private Queue<GameObject> _rocketPool;
     
     private GameObject PlasmaPool;
@@ -83,8 +83,8 @@ public class ObjectPooler : BaseSingleton<ObjectPooler>
         _rocketPool = new Queue<GameObject>();
         _plasmaPool = new List<GameObject>();
         _laserPool = new List<GameObject>();
-        _explosionLargePool = new List<GameObject>();
-        _explosionSmallPool = new List<GameObject>();
+        _explosionLargePool = new Queue<GameObject>();
+        _explosionSmallPool = new Queue<GameObject>();
         _debrisPool = new Queue<GameObject>();
         _badGuyArrowheadPool = new List<GameObject>();
 
@@ -127,29 +127,51 @@ public class ObjectPooler : BaseSingleton<ObjectPooler>
             _laserPool.Add(r);
         }
 
-        for (var i = 0; i < ExplosionLargePoolSize; i++)
+        for (var i = 0; i < (ExplosionLargePoolSize / 2); i++)
         {
-            var r = Instantiate(ExplosionLargePrefab);
-            r.SetActive(false);
-            r.transform.SetParent(ExplosionLargePool.transform, true);
-            _explosionLargePool.Add(r);
+            var r = CreateExplosionLarge();
+            _explosionLargePool.Enqueue(r);
         }
 
-        for (var i = 0; i < ExplosionSmallPoolSize; i++)
+        for (var i = 0; i < (ExplosionSmallPoolSize / 2); i++)
         {
-            var r = Instantiate(ExplosionSmallPrefab);
-            r.SetActive(false);
-            r.transform.SetParent(ExplosionSmallPool.transform, true);
-            _explosionSmallPool.Add(r);
+            var r = CreateExplosionSmall();
+            _explosionSmallPool.Enqueue(r);
         }
 
         for (var i = 0; i < DebrisPoolSize; i++)
         {
-            var r = Instantiate(DebrisPrefab);
-            r.SetActive(false);
-            r.transform.SetParent(DebrisPool.transform, true);
+            var r = CreateDebris();
             _debrisPool.Enqueue(r);
         }
+    }
+
+    private GameObject CreateExplosionSmall()
+    {
+        var r = Instantiate(ExplosionSmallPrefab);
+        r.SetActive(false);
+        r.transform.SetParent(ExplosionSmallPool.transform, true);
+        ExplosionSmallAlive += 1;
+        return r;
+    }
+
+    private GameObject CreateExplosionLarge()
+    {
+        var r = Instantiate(ExplosionLargePrefab);
+        r.SetActive(false);
+        r.transform.SetParent(ExplosionLargePool.transform, true);
+        ExplosionLargeAlive += 1;
+        return r;
+    }
+
+    private GameObject CreateDebris()
+    {
+        var r = Instantiate(DebrisPrefab);
+        r.SetActive(false);
+        r.transform.SetParent(DebrisPool.transform, true);
+        _debrisPool.Enqueue(r);
+        DebrisAlive += 1;
+        return r;
     }
 
     public void PopulateBadGuyArrowheadPool(int poolSize)
@@ -158,7 +180,6 @@ public class ObjectPooler : BaseSingleton<ObjectPooler>
         {
             foreach (var o in _badGuyArrowheadPool)
             {
-                //WHAT? ReturnBadGuyArrowhead(o);
                 var bgm = o.GetComponent<BadGuyMovement>();
                 bgm.Reset();
             }
@@ -307,49 +328,55 @@ public class ObjectPooler : BaseSingleton<ObjectPooler>
 
     public GameObject GetExplosionLarge()
     {
-        if (_explosionLargePool.Count == 0) return null;
-
-        var index = _explosionLargePool.Count - 1;
-        var r = _explosionLargePool[index];
-        _explosionLargePool.RemoveAt(index);
-        return r;
+        if (_explosionLargePool.Count != 0) return _explosionLargePool.Dequeue();
+        return ExplosionLargeAlive >= ExplosionLargePoolSize ? null : CreateExplosionLarge();
     }
 
     public void ReturnExplosionLarge(GameObject explosion)
     {
         explosion.SetActive(false);
-        explosion.transform.position = Vector3.zero;
-        _explosionLargePool.Add(explosion);
+        _explosionLargePool.Enqueue(explosion);
     }
 
     public GameObject GetExplosionSmall()
     {
-        if (_explosionSmallPool.Count == 0) return null;
-        var index = _explosionSmallPool.Count - 1;
-        var r = _explosionSmallPool[index];
-        _explosionSmallPool.RemoveAt(index);
-        return r;
+        if (_explosionSmallPool.Count != 0) return _explosionSmallPool.Dequeue();
+        return ExplosionSmallAlive >= ExplosionSmallPoolSize ? null : CreateExplosionSmall();
     }
 
     public void ReturnExplosionSmall(GameObject explosion)
     {
         explosion.SetActive(false);
-        explosion.transform.position = Vector3.zero;
-        _explosionSmallPool.Add(explosion);
+        _explosionSmallPool.Enqueue(explosion);
     }
 
     public GameObject GetDebris()
     {
-        if (_debrisPool.Count == 0) return null;
-        var r = _debrisPool.Dequeue();
-        return r;
+        if (_debrisPool.Count != 0) return _debrisPool.Dequeue();
+        return DebrisAlive >= DebrisPoolSize ? null : CreateDebris();
     }
 
     public void ReturnDebris(GameObject debris)
     {
         debris.SetActive(false);
-        debris.transform.position = Vector3.zero;
         _debrisPool.Enqueue(debris);
+    }
+
+    public void ReturnExplosionToPool(GameObject item)
+    {
+        item.SetActive(false);
+        if (item.name.StartsWith("Explosion Small"))
+        {
+            _explosionSmallPool.Enqueue(item);
+        }
+        else if (item.name.StartsWith("Explosion Large"))
+        {
+            _explosionLargePool.Enqueue(item);
+        }
+        else if (item.name.StartsWith("PS Debris"))
+        {
+            _debrisPool.Enqueue(item);
+        }
     }
 
     public GameObject GetBadGuyArrowhead()

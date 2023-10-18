@@ -1,19 +1,18 @@
 ﻿using UnityEngine;
+using UnityEngine.UIElements;
 
-public class Explosions : MonoBehaviour
+public class ExplosionPool : MonoBehaviour
 {
-    private GameObject _explosionSmallPrefab;
-    private GameObject _explosionLargePrefab;
-    private GameObject _debrisPrefab;
-
     public void Awake()
     {
-        _explosionSmallPrefab = (GameObject)Resources.Load("prefabs/Explosion Small");
-        _explosionLargePrefab = (GameObject)Resources.Load("prefabs/Explosion Large");
-        _debrisPrefab = (GameObject)Resources.Load("prefabs/PS Debris");
-
         EventAggregator.ObjectDestroyed += EventAggregator_ObjectDestroyed;
         EventAggregator.ShowDebris += EventAggregator_ShowDebris;
+    }
+
+    private void OnDestroy()
+    {
+        EventAggregator.ObjectDestroyed -= EventAggregator_ObjectDestroyed;
+        EventAggregator.ShowDebris -= EventAggregator_ShowDebris;
     }
 
     private void EventAggregator_ObjectDestroyed(object sender, ObjectDestroyedEventArgs e)
@@ -24,52 +23,47 @@ public class Explosions : MonoBehaviour
         }
         else
         {
-            LargeExplosions(e);
+            LargeExplosions(e.Transform.position, e.ExplosionScale);
         }
     }
 
     private void SmallExplosion(ObjectDestroyedEventArgs e)
     {
-        var explosion = Instantiate(_explosionSmallPrefab);
+        var explosion = ObjectPooler.Instance.GetExplosionSmall();
+        if (explosion == null) return;
 
         explosion.transform.SetPositionAndRotation(e.Transform.position, Quaternion.identity);
         var ps = explosion.GetComponentInChildren<ParticleSystem>();
         var psScaleBefore = ps.transform.localScale;
         ps.transform.localScale *= e.ExplosionScale;
         explosion.SetActive(true);
-
-        Destroy(explosion, 0.5f);
     }
 
-    private void LargeExplosions(ObjectDestroyedEventArgs e)
+    public void LargeExplosions(Vector3 position, float scale)
     {
-        var explosion = Instantiate(_explosionLargePrefab);
+        var explosion = ObjectPooler.Instance.GetExplosionLarge();
+        if (explosion == null) return;
 
-        explosion.transform.SetPositionAndRotation(e.Transform.position, Quaternion.identity);
+        explosion.transform.SetPositionAndRotation(position, Quaternion.identity);
         var ps = explosion.GetComponentInChildren<ParticleSystem>();
         var psScaleBefore = ps.transform.localScale;
-        ps.transform.localScale *= e.ExplosionScale;
+        ps.transform.localScale *= scale;
 
         for (var n = 0; n < explosion.transform.childCount; n++)
         {
             var childPS = explosion.transform.GetChild(n);
-            childPS.localScale *= e.ExplosionScale;
+            childPS.localScale *= scale;
         }
-
         explosion.SetActive(true);
-        
-        Destroy(explosion, 1.0f);
     }
 
     private void EventAggregator_ShowDebris(object sender, ShowDebrisEventArgs e)
     {
-        var debris = Instantiate(_debrisPrefab);
-
+        var debris = ObjectPooler.Instance.GetDebris();
         if (debris == null) return;
+
         debris.transform.position = e.Transform.position;
         debris.SetActive(true);
         debris.GetComponentInChildren<ParticleSystem>().Play();
-
-        Destroy(debris, 1.0f);
     }
 }

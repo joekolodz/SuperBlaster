@@ -41,7 +41,7 @@ public class CameraShake : MonoBehaviour
         {
             var shakePosition = _initialPosition + Random.insideUnitSphere * _shakeMagnitude;
             _transform.position = new Vector3(shakePosition.x, shakePosition.y, _initialPosition.z);
-            _shakeDuration -= Time.deltaTime * _dampingSpeed;
+            _shakeDuration -= Time.unscaledDeltaTime * _dampingSpeed;
         }
         else
         {

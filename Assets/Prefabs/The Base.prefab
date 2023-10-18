@@ -367,7 +367,7 @@ MonoBehaviour:
   health: 20
   healthWhenFlamesStart: 10
   healthWhenSmokeStarts: 15
-  hitTriggerObject: {fileID: 1313798887493962, guid: c5dedb66d13f11248a5f8479942376ed,
+  hitTriggerObject: {fileID: 4751739521660341221, guid: c5dedb66d13f11248a5f8479942376ed,
     type: 3}
   delayDestroy: 2
   soundYeah: {fileID: 0}
@@ -776,7 +776,7 @@ MonoBehaviour:
   health: 20
   healthWhenFlamesStart: 10
   healthWhenSmokeStarts: 15
-  hitTriggerObject: {fileID: 1313798887493962, guid: c5dedb66d13f11248a5f8479942376ed,
+  hitTriggerObject: {fileID: 4751739521660341221, guid: c5dedb66d13f11248a5f8479942376ed,
     type: 3}
   delayDestroy: 1.8
   soundYeah: {fileID: 0}

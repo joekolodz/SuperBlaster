@@ -52,6 +52,8 @@ namespace Assets.Scripts
 
         public static async Task AsyncSubmitScore(int score)
         {
+            if (score <= 0) return;
+
             if (!isLoggedIn)
             {
                 await AsyncLootLockerLogin();

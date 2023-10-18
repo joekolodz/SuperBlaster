@@ -675,7 +675,7 @@ PrefabInstance:
     - target: {fileID: 139217047331765887, guid: 6f11a6cd6be401a4ab92943feeb5d738,
         type: 3}
       propertyPath: health
-      value: 20
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 139217047331765887, guid: 6f11a6cd6be401a4ab92943feeb5d738,
         type: 3}
@@ -695,7 +695,7 @@ PrefabInstance:
     - target: {fileID: 642897701674143729, guid: 6f11a6cd6be401a4ab92943feeb5d738,
         type: 3}
       propertyPath: health
-      value: 20
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 642897701674143729, guid: 6f11a6cd6be401a4ab92943feeb5d738,
         type: 3}
@@ -750,7 +750,7 @@ PrefabInstance:
     - target: {fileID: 1702164717675051388, guid: 6f11a6cd6be401a4ab92943feeb5d738,
         type: 3}
       propertyPath: health
-      value: 20
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 1702164717675051388, guid: 6f11a6cd6be401a4ab92943feeb5d738,
         type: 3}
@@ -785,7 +785,7 @@ PrefabInstance:
     - target: {fileID: 6170346442824983045, guid: 6f11a6cd6be401a4ab92943feeb5d738,
         type: 3}
       propertyPath: health
-      value: 20
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 6170346442824983045, guid: 6f11a6cd6be401a4ab92943feeb5d738,
         type: 3}
@@ -855,7 +855,7 @@ PrefabInstance:
     - target: {fileID: 7419055241489818339, guid: 6f11a6cd6be401a4ab92943feeb5d738,
         type: 3}
       propertyPath: health
-      value: 20
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 7419055241489818339, guid: 6f11a6cd6be401a4ab92943feeb5d738,
         type: 3}
@@ -900,7 +900,7 @@ PrefabInstance:
     - target: {fileID: 7714596891978659021, guid: 6f11a6cd6be401a4ab92943feeb5d738,
         type: 3}
       propertyPath: health
-      value: 20
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 7714596891978659021, guid: 6f11a6cd6be401a4ab92943feeb5d738,
         type: 3}
@@ -935,7 +935,7 @@ PrefabInstance:
     - target: {fileID: 8351246452004878563, guid: 6f11a6cd6be401a4ab92943feeb5d738,
         type: 3}
       propertyPath: health
-      value: 20
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 8351246452004878563, guid: 6f11a6cd6be401a4ab92943feeb5d738,
         type: 3}
@@ -950,7 +950,7 @@ PrefabInstance:
     - target: {fileID: 9133093224365977118, guid: 6f11a6cd6be401a4ab92943feeb5d738,
         type: 3}
       propertyPath: health
-      value: 20
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 9133093224365977118, guid: 6f11a6cd6be401a4ab92943feeb5d738,
         type: 3}
@@ -2742,7 +2742,6 @@ MonoBehaviour:
   leaderBoardPanel: {fileID: 0}
   levelButton: {fileID: 0}
   leaderBoardScoreText: {fileID: 0}
-  isPaused: 0
   mainMenuPanel: {fileID: 0}
   playerNameInputField: {fileID: 0}
 --- !u!4 &794156585

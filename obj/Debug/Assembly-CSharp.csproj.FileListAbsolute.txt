@@ -1028,3 +1028,8 @@ D:\Games\Unity Games\SuperBlaster\obj\Debug\Assembly-CSharp.csproj.CoreCompileIn
 D:\Games\Unity Games\SuperBlaster\obj\Debug\Assembly-CSharp.csproj.CopyComplete
 D:\Games\Unity Games\SuperBlaster\obj\Debug\Assembly-CSharp.dll
 D:\Games\Unity Games\SuperBlaster\obj\Debug\Assembly-CSharp.pdb
+D:\Games\Unity Games\SuperBlaster\Temp\Bin\Debug\System.CodeDom.dll
+D:\Games\Unity Games\SuperBlaster\Temp\Bin\Debug\Unity.Plastic.Newtonsoft.Json.dll
+D:\Games\Unity Games\SuperBlaster\Temp\Bin\Debug\unityplastic.dll
+D:\Games\Unity Games\SuperBlaster\Temp\Bin\Debug\nunit.framework.dll
+D:\Games\Unity Games\SuperBlaster\Temp\Bin\Debug\Unity.Plastic.Antlr3.Runtime.dll

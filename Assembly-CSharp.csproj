@@ -62,6 +62,7 @@
     <Compile Include="Assets\Scripts\BaseSingleton.cs" />
     <Compile Include="Assets\Scripts\LevelBehavior23.cs" />
     <Compile Include="Assets\Scripts\LaunchRocket.cs" />
+    <Compile Include="Assets\Scripts\Explosion.cs" />
     <Compile Include="Assets\Scripts\Siren.cs" />
     <Compile Include="Assets\Scripts\LaserFire.cs" />
     <Compile Include="Assets\Scripts\BadGuyMovement.cs" />
@@ -96,6 +97,7 @@
     <Compile Include="Assets\Scripts\ShieldState.cs" />
     <Compile Include="Assets\Scripts\RocketFire.cs" />
     <Compile Include="Assets\Scripts\RocketDestroy.cs" />
+    <Compile Include="Assets\Scripts\ExplosionPool.cs" />
     <Compile Include="Assets\Scripts\LevelBehavior24.cs" />
     <Compile Include="Assets\Scripts\StateManager.cs" />
     <Compile Include="Assets\Scripts\TutorialControl.cs" />
@@ -111,7 +113,6 @@
     <Compile Include="Assets\Scripts\RadarShieldDestroy.cs" />
     <Compile Include="Assets\Scripts\LevelButtonLaunchScene.cs" />
     <Compile Include="Assets\Scripts\PlasmaDestroy.cs" />
-    <Compile Include="Assets\Scripts\Explosions.cs" />
     <Compile Include="Assets\Scripts\gizmos.cs" />
     <Compile Include="Assets\Scripts\TitleSwap.cs" />
     <Compile Include="Assets\Scripts\ObjectPooler.cs" />
