@@ -11,7 +11,7 @@ namespace Assets.Scripts
             {
                 if (_instance != null) return _instance;
                 _instance = new GameObject().AddComponent<T>();
-                _instance.name = _instance.GetType().Name;
+                _instance.name = $"*** Singleton: {_instance.GetType().Name} ***";
                 DontDestroyOnLoad(_instance.gameObject);
                 return _instance;
             }

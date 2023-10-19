@@ -2,10 +2,8 @@
 
 namespace Assets.Scripts
 {
-    internal class Siren : MonoBehaviour
+    internal class Siren : BaseSingleton<Siren>
     {
-        public static readonly Siren Instance = (new GameObject("SirenContainer")).AddComponent<Siren>();
-
         private bool _isInitialized = false;
 
         private AudioSource _siren1;
@@ -21,11 +19,6 @@ namespace Assets.Scripts
         private Siren()
         {
 
-        }
-
-        public void Awake()
-        {
-            DontDestroyOnLoad(gameObject);
         }
 
         public void Initialize()
