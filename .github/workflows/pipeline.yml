@@ -101,7 +101,7 @@ jobs:
         
 
     - name: Upload build output
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       #if: github.event.action == 'published' || contains(github.event.inputs.workflow_mode, matrix.targetPlatform) || (contains(github.event.inputs.workflow_mode, 'Steam') && matrix.targetPlatform == 'StandaloneLinux64')
       with:
         name: SuperBlaster.aab
@@ -172,7 +172,7 @@ jobs:
 
     - name: Upload build output
       if: always()
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: SuperBlaster Windows 64bit
         path: build
