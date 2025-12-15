@@ -1,3 +1,10 @@
+#
+# Main pipeline build. Run this one, not Main or android unless you just want that output
+#
+# Taken mostly from: https://game.ci/docs/github/builder
+# Unity docker versions: https://game.ci/docs/docker/versions/
+#
+
 name: Build - All Platforms
 
 on: 
