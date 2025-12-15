@@ -71,7 +71,7 @@ jobs:
         UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
       with:
         targetPlatform: ${{ matrix.targetPlatform }}
-        unityVersion: '2022.2.15f1'
+        unityVersion: '6000.3.0f1'
         androidAppBundle: true
         androidKeystoreName: superblaster.keystore
         androidKeystoreBase64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
