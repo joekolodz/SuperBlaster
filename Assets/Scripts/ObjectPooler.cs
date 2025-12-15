@@ -267,7 +267,7 @@ public class ObjectPooler : BaseSingleton<ObjectPooler>
         rocket.GetComponent<RocketFire>().StopRocket();
 
         var rb = rocket.GetComponent<Rigidbody2D>();
-        rb.velocity = Vector2.zero;
+        rb.linearVelocity = Vector2.zero;
         rb.angularVelocity = 0f;
         rocket.transform.position = Vector3.zero;
 
@@ -296,7 +296,7 @@ public class ObjectPooler : BaseSingleton<ObjectPooler>
     {
         plasma.SetActive(false);
         var rb = plasma.GetComponent<Rigidbody2D>();
-        rb.velocity = Vector2.zero;
+        rb.linearVelocity = Vector2.zero;
         rb.angularVelocity = 0f;
         rb.AddForce(-transform.right * 3000);
 
@@ -418,7 +418,7 @@ public class ObjectPooler : BaseSingleton<ObjectPooler>
         if (collider != null) collider.enabled = true;
 
         var rb = badGuy.GetComponent<Rigidbody2D>();
-        rb.velocity = Vector2.zero;
+        rb.linearVelocity = Vector2.zero;
         rb.angularVelocity = 0f;
 
         o.SetActive(false);

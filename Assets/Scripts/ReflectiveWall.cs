@@ -113,7 +113,7 @@ namespace Assets.Scripts
             //Debug.DrawRay(hit.point, reflection * 5, Color.green);
             //Debug.DrawLine(hit.point, hit.point + new Vector2(hit.normal.x, hit.normal.y) * 2, Color.cyan);
 
-            collidingObject.attachedRigidbody.velocity = Vector2.zero;
+            collidingObject.attachedRigidbody.linearVelocity = Vector2.zero;
             collidingObject.transform.position = hit.point;
             var reflectionRocket = reflection + new Vector3(hit.point.x, hit.point.y);//get a vector pointing from the hit point to the reflection point
             var targetRotation = GeometricFunctions.RotateToFace(hit.point, reflectionRocket);
