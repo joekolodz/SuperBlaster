@@ -89,7 +89,7 @@ jobs:
       with:
         targetPlatform: ${{ matrix.targetPlatform }}
 #        buildName: SuperBlaster.aab
-        unityVersion: '6000.3.1f1'
+#        unityVersion: '6000.3.1f1' #not required, default is 'auto' which pulls from project settings
         androidAppBundle: true
         #androidExportType: androidAppBundle
         androidKeystoreName: superblaster.keystore
