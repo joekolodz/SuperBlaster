@@ -53,6 +53,8 @@ jobs:
         sudo rm -rf /opt/ghc
         sudo rm -rf "/usr/local/share/boost"
         sudo rm -rf "$AGENT_TOOLSDIRECTORY"
+        sudo apt clean
+        docker rmi $(docker images -a -q)
         df -h
               
               
@@ -83,15 +85,7 @@ jobs:
         key: Library-build-${{ matrix.targetPlatform }}-${{ hashFiles('Assets/**', 'Packages/**', 'ProjectSettings/**') }}
         restore-keys: |
           Library-build-${{ matrix.targetPlatform }}-
-          Library-build-
-
-    - name: Free Disk Space
-      run: |
-        sudo swapoff -a
-        sudo rm -f /swapfile
-        sudo apt clean
-        docker rmi $(docker images -q)
-        df -h          
+          Library-build-      
 
     - name: Build Unity Project
       id: build
