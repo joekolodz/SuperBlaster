@@ -84,7 +84,14 @@ jobs:
         restore-keys: |
           Library-build-${{ matrix.targetPlatform }}-
           Library-build-
-          
+
+    - name: Free Disk Space
+      run: |
+        sudo swapoff -a
+        sudo rm -f /swapfile
+        sudo apt clean
+        docker rmi $(docker images -q)
+        df -h          
 
     - name: Build Unity Project
       id: build
@@ -164,6 +171,14 @@ jobs:
         restore-keys: |
           Library-build-${{ matrix.targetPlatform }}-
           Library-build-
+
+    - name: Free Disk Space
+      run: |
+        sudo swapoff -a
+        sudo rm -f /swapfile
+        sudo apt clean
+        docker rmi $(docker images -q)
+        df -h          
 
 
     - name: Unity build standalone windows 64 
