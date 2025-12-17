@@ -1,3 +1,10 @@
+#
+# Main pipeline build. Run this one, not Main or android unless you just want that output
+#
+# Taken mostly from: https://game.ci/docs/github/builder
+# Unity docker versions: https://game.ci/docs/docker/versions/
+#
+
 name: Build - All Platforms
 
 on: 
@@ -46,11 +53,12 @@ jobs:
         sudo rm -rf /opt/ghc
         sudo rm -rf "/usr/local/share/boost"
         sudo rm -rf "$AGENT_TOOLSDIRECTORY"
+        sudo apt clean
         df -h
               
               
     - name: Checkout
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with:
         fetch-depth: 0
 
@@ -76,8 +84,7 @@ jobs:
         key: Library-build-${{ matrix.targetPlatform }}-${{ hashFiles('Assets/**', 'Packages/**', 'ProjectSettings/**') }}
         restore-keys: |
           Library-build-${{ matrix.targetPlatform }}-
-          Library-build-
-          
+          Library-build-      
 
     - name: Build Unity Project
       id: build
@@ -89,8 +96,8 @@ jobs:
       with:
         targetPlatform: ${{ matrix.targetPlatform }}
 #        buildName: SuperBlaster.aab
-        unityVersion: '6000.3.1f1'
-        androidAppBundle: true
+        unityVersion: '6000.3.1f1' #not required, default is 'auto' which pulls from project settings
+#        androidAppBundle: true #doesn't seem to work
         #androidExportType: androidAppBundle
         androidKeystoreName: superblaster.keystore
         androidKeystoreBase64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
@@ -129,7 +136,7 @@ jobs:
 
     steps:    
     - name: Checkout
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with:
         fetch-depth: 0
 
@@ -158,6 +165,13 @@ jobs:
           Library-build-${{ matrix.targetPlatform }}-
           Library-build-
 
+    - name: Free Disk Space
+      run: |
+        sudo swapoff -a
+        sudo rm -f /swapfile
+        sudo apt clean
+        df -h          
+
 
     - name: Unity build standalone windows 64 
       uses: game-ci/unity-builder@v4
@@ -167,6 +181,7 @@ jobs:
         UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
       with:
         targetPlatform: ${{ matrix.targetPlatform }}
+        unityVersion: '6000.3.1f1'
         buildName: SuperBlaster-windowsx64
 
     - name: Upload build output
